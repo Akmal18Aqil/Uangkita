@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FinanceKu - Personal Finance & Task Manager</title>
+    <meta name="description" content="Aplikasi pencatat keuangan dan tugas pribadi dengan antarmuka modern.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Setup -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1F2833">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135679.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/pages.css">
+</head>
+<body>
+    <!-- Background Elements for Glassmorphism -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <div class="app-container">
+        <!-- Sidebar (Desktop only) -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <!-- App Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <h1 class="app-title" id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn" id="btn-notifications" aria-label="Notifications">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    </button>
+                    <div class="user-avatar" id="user-avatar">A</div>
+                </div>
+            </header>
+
+            <!-- Page Content (Injected by Router) -->
+            <div id="app-root" class="page-container">
+                <!-- Content will be rendered here -->
+            </div>
+        </main>
+
+        <!-- Bottom Navigation (Mobile only) -->
+        <nav class="bottom-nav" id="bottom-nav"></nav>
+        
+        <!-- Floating Action Button -->
+        <div id="fab-container"></div>
+
+        <!-- Modals / Bottom Sheets Container -->
+        <div id="modal-container"></div>
+        
+        <!-- Toasts Container -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- JavaScript (Type Module for ES6 imports) -->
+    <script type="module" src="./js/app.js"></script>
+
+    <!-- PWA & Notifications Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // Request notification permission if not granted
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnNotif = document.getElementById('btn-notifications');
+            if (btnNotif && 'Notification' in window) {
+                btnNotif.addEventListener('click', () => {
+                    if (Notification.permission !== 'granted') {
+                        Notification.requestPermission().then(permission => {
+                            if (permission === 'granted') {
+                                alert('Notifikasi diaktifkan!');
+                            }
+                        });
+                    } else {
+                        alert('Izin notifikasi sudah diberikan sebelumnya.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
