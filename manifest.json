@@ -19,5 +19,36 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tugas Terdekat",
+      "short_name": "Tugas",
+      "description": "Lihat tugas-tugas terdekat yang harus diselesaikan",
+      "url": "/?shortcut=tasks",
+      "icons": [
+        {
+          "src": "https://cdn-icons-png.flaticon.com/512/3135/3135679.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "name": "Tugas Terdekat",
+      "short_name": "Tugas Widget",
+      "description": "Menampilkan daftar tugas terdekat di beranda HP Anda.",
+      "tag": "tasks-widget",
+      "ms_ac_filepath": "/widget-tasks.json",
+      "icons": [
+        {
+          "src": "https://cdn-icons-png.flaticon.com/512/3135/3135679.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }

@@ -42,11 +42,32 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event - Serve from Cache or Network
+// Fetch Event - Serve from Cache (Cache First Strategy for fast loading)
 self.addEventListener('fetch', (event) => {
+  // Hanya menerapkan cache-first pada GET request
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(event.request).then((cachedResponse) => {
+      // Return cached response if found (Cache First)
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      
+      // If not in cache, fetch from network
+      return fetch(event.request).then((networkResponse) => {
+        // Cache the newly fetched response for future fast loading
+        return caches.open(CACHE_NAME).then((cache) => {
+          // Jangan cache jika request ke API eksternal atau tidak valid
+          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        });
+      }).catch(() => {
+        // Fallback jika offline dan tidak ada di cache (bisa diarahkan ke custom offline page)
+        console.log('Offline dan resource tidak ada di cache:', event.request.url);
+      });
     })
   );
 });
@@ -75,4 +96,24 @@ self.addEventListener('notificationclick', (event) => {
   event.waitUntil(
     clients.openWindow('/')
   );
+});
+
+// PWA Widget Events
+self.addEventListener('widgetinstall', (event) => {
+  console.log('Widget installed:', event.widget.name);
+});
+
+self.addEventListener('widgetresume', (event) => {
+  console.log('Widget resumed:', event.widget.name);
+});
+
+self.addEventListener('widgetclick', (event) => {
+  console.log('Widget clicked', event);
+  event.waitUntil(
+    clients.openWindow('/?from_widget=true')
+  );
+});
+
+self.addEventListener('widgetuninstall', (event) => {
+  console.log('Widget uninstalled:', event.widget.name);
 });

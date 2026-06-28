@@ -1,0 +1,24 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Tugas Terdekat",
+      "weight": "bolder",
+      "size": "medium"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Buka aplikasi untuk melihat daftar tugas yang harus segera diselesaikan.",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "Buka Aplikasi",
+      "verb": "openApp"
+    }
+  ]
+}
