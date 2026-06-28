@@ -43,6 +43,28 @@ export const store = {
     set(key, value) {
         this.state[key] = value;
         localStorage.setItem(`financeku_${key}`, JSON.stringify(value));
+        
+        // Update Flutter Widget if Tasks change
+        if (key === 'tasks' && window.HomeWidgetBridge) {
+            try {
+                const pendingTasks = value.filter(t => t.Status !== 'Done')
+                    .sort((a, b) => new Date(a.Deadline) - new Date(b.Deadline))
+                    .slice(0, 5);
+                
+                let title = 'Tugas Terdekat';
+                let desc = pendingTasks.length > 0 
+                    ? pendingTasks.map((t, i) => `${i+1}. ${t.Judul} (${t.Prioritas})`).join('\\n')
+                    : 'Tidak ada tugas yang mendesak.';
+                    
+                window.HomeWidgetBridge.postMessage(JSON.stringify({
+                    title: title,
+                    desc: desc
+                }));
+            } catch(e) {
+                console.error('Failed to update flutter widget', e);
+            }
+        }
+        
         this.notify();
     },
     
