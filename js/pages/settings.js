@@ -32,6 +32,21 @@ export function render() {
         </div>
         
         <div class="glass-card mb-md">
+            <h3 class="mb-md">Widget & Layar Utama</h3>
+            <div class="form-group">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">Tambahkan aplikasi & widget ke Beranda HP Anda untuk akses cepat ke Tugas Terdekat.</p>
+                <button class="btn btn-primary" id="btn-add-widget" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    Tambah ke Beranda (Widget)
+                </button>
+            </div>
+        </div>
+        
+        <div class="glass-card mb-md">
             <h3 class="mb-md">Integrasi Apps Script</h3>
             <div class="form-group">
                 <label class="form-label">Web App URL (API Endpoint)</label>
@@ -95,6 +110,33 @@ export function render() {
                 btnNotif.textContent = 'Browser tidak mendukung';
                 btnNotif.disabled = true;
             }
+        }
+        
+        // Logika Tombol Add to Home Screen / Widget
+        const btnAddWidget = container.querySelector('#btn-add-widget');
+        if (btnAddWidget) {
+            btnAddWidget.addEventListener('click', async () => {
+                const promptEvent = window.deferredPrompt;
+                if (!promptEvent) {
+                    // Beri instruksi manual jika tidak bisa auto prompt (misal di Safari iOS atau sudah diinstall)
+                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                    if (isIOS) {
+                        showToast('Untuk iOS: Ketuk ikon "Share" lalu "Add to Home Screen".', 'info');
+                    } else {
+                        showToast('Aplikasi sudah di-install, atau coba melalui menu opsi browser (Add to Home Screen).', 'info');
+                    }
+                    return;
+                }
+                // Show the install prompt
+                promptEvent.prompt();
+                // Wait for the user to respond to the prompt
+                const { outcome } = await promptEvent.userChoice;
+                if (outcome === 'accepted') {
+                    showToast('Berhasil menambahkan Widget ke Beranda!', 'success');
+                }
+                // We've used the prompt, and can't use it again, throw it away
+                window.deferredPrompt = null;
+            });
         }
         
         const btnSave = container.querySelector('#btn-save-settings');
