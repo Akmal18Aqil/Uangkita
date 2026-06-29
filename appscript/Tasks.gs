@@ -73,6 +73,12 @@ function updateTask(payload) {
             const rowIdx = i + 1;
             let eventId = data[i][7];
             
+            const existingTitle = data[i][1];
+            const existingDesc = data[i][2];
+            
+            const taskTitle = payload.judul !== undefined ? payload.judul : existingTitle;
+            const taskDesc = payload.deskripsi !== undefined ? payload.deskripsi : existingDesc;
+            
             if (payload.syncCalendar && payload.deadline) {
                 try {
                     const calendar = CalendarApp.getDefaultCalendar();
@@ -80,11 +86,11 @@ function updateTask(payload) {
                     if (eventId) {
                         const event = calendar.getEventById(eventId);
                         if (event) {
-                            event.setTitle(payload.judul);
-                            event.setDescription(payload.deskripsi || '');
+                            event.setTitle(taskTitle);
+                            event.setDescription(taskDesc || '');
                             event.setTime(date, new Date(date.getTime() + 60*60*1000));
                         } else {
-                            const newEvent = calendar.createEvent(payload.judul, date, new Date(date.getTime() + 60*60*1000));
+                            const newEvent = calendar.createEvent(taskTitle, date, new Date(date.getTime() + 60*60*1000));
                             newEvent.addPopupReminder(2880);
                             newEvent.addPopupReminder(1440);
                             newEvent.addPopupReminder(720);
@@ -92,7 +98,7 @@ function updateTask(payload) {
                             eventId = newEvent.getId();
                         }
                     } else {
-                        const newEvent = calendar.createEvent(payload.judul, date, new Date(date.getTime() + 60*60*1000));
+                        const newEvent = calendar.createEvent(taskTitle, date, new Date(date.getTime() + 60*60*1000));
                         newEvent.addPopupReminder(2880);
                         newEvent.addPopupReminder(1440);
                         newEvent.addPopupReminder(720);
@@ -104,7 +110,19 @@ function updateTask(payload) {
                 try {
                     const calendar = CalendarApp.getDefaultCalendar();
                     const event = calendar.getEventById(eventId);
-                    if (event) event.setTitle('✅ ' + payload.judul);
+                    if (event) {
+                        const cleanTitle = taskTitle.startsWith('✅ ') ? taskTitle.slice(2) : taskTitle;
+                        event.setTitle('✅ ' + cleanTitle);
+                    }
+                } catch(e) {}
+            } else if (eventId && payload.status && payload.status !== 'Done') {
+                try {
+                    const calendar = CalendarApp.getDefaultCalendar();
+                    const event = calendar.getEventById(eventId);
+                    if (event) {
+                        const cleanTitle = taskTitle.startsWith('✅ ') ? taskTitle.slice(2) : taskTitle;
+                        event.setTitle(cleanTitle);
+                    }
                 } catch(e) {}
             }
             
