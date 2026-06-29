@@ -190,7 +190,30 @@ export function render() {
 
 function renderKanban(container) {
     const board = container.querySelector('#kanban-board');
-    const tasks = store.get('tasks') || [];
+    let tasks = store.get('tasks') || [];
+    
+    // Tandai selesai otomatis untuk tugas yang sudah lewat tenggat waktunya
+    const now = new Date();
+    let hasOverdueUpdates = false;
+    
+    const updatedTasks = tasks.map(t => {
+        if (t.Status !== 'Done' && t.Deadline) {
+            const d = new Date(t.Deadline);
+            if (d < now) {
+                hasOverdueUpdates = true;
+                api.fetch('updateTask', { id: t.ID, status: 'Done' }).catch(err => {
+                    console.error('Failed to auto-update overdue task status in API', err);
+                });
+                return { ...t, Status: 'Done' };
+            }
+        }
+        return t;
+    });
+
+    if (hasOverdueUpdates) {
+        tasks = updatedTasks;
+        store.set('tasks', updatedTasks);
+    }
     
     const columns = [
         { id: 'Todo', label: 'To Do', color: 'var(--text-primary)' },

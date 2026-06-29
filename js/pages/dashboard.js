@@ -286,7 +286,7 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
          topCatContainer.innerHTML = `<h4 class="mb-sm" style="font-size: 14px; color: var(--text-secondary);">Top Pengeluaran</h4><div class="text-center text-muted" style="font-size: 12px;">Tidak ada pengeluaran periode ini</div>`;
     }
     
-    // Recent Transactions (Show last 5 globally or from filtered? Usually globally is fine, but since we are filtering, let's show filtered ones)
+    // Recent Transactions (Show last 4 globally or from filtered? Usually globally is fine, but since we are filtering, let's show filtered ones)
     const recentTxContainer = container.querySelector('#recent-transactions');
     if (filteredTx.length === 0) {
         recentTxContainer.innerHTML = `
@@ -297,7 +297,7 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
         `;
     } else {
         // Sort filtered transactions by newest first
-        const recent = [...filteredTx].sort((a,b) => new Date(b.Tanggal) - new Date(a.Tanggal)).slice(0, 5);
+        const recent = [...filteredTx].sort((a,b) => new Date(b.Tanggal) - new Date(a.Tanggal)).slice(0, 4);
         recentTxContainer.innerHTML = recent.map(trx => {
             const isIncome = trx.Tipe === 'Pemasukan';
             const catInfo = store.get('categories').find(c => c.name === trx.Kategori) || { icon: '✨' };
@@ -317,17 +317,25 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
         }).join('');
     }
     
-    // Upcoming Tasks (Kept independent from transaction filter since tasks have their own deadlines)
+    // Upcoming Tasks (Only show today and tomorrow tasks, sorted closest first)
     const upcomingTasksContainer = container.querySelector('#upcoming-tasks');
-    const pendingTasks = tasks.filter(t => t.Status !== 'Done')
-        .sort((a, b) => new Date(a.Deadline) - new Date(b.Deadline))
-        .slice(0, 5);
+    
+    const today = new Date();
+    const tomorrowEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 23, 59, 59, 999);
+    
+    const pendingTasks = tasks.filter(t => {
+        if (t.Status === 'Done') return false;
+        if (!t.Deadline) return false;
+        const taskDate = new Date(t.Deadline);
+        return taskDate >= today && taskDate <= tomorrowEnd;
+    })
+    .sort((a, b) => new Date(a.Deadline) - new Date(b.Deadline));
         
     if (pendingTasks.length === 0) {
         upcomingTasksContainer.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">📅</div>
-                <p>Tidak ada tugas mendesak</p>
+                <p>Tidak ada tugas untuk hari ini & esok</p>
             </div>
         `;
     } else {
