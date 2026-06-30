@@ -18,10 +18,22 @@ export function formatRupiah(number) {
     }).format(number);
 }
 
+export function parseLocalDate(dateString) {
+    if (!dateString) return new Date();
+    if (typeof dateString !== 'string') return new Date(dateString);
+    if (dateString.includes('T')) {
+        return new Date(dateString);
+    }
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+        return new Date(dateString + 'T00:00:00');
+    }
+    return new Date(dateString);
+}
+
 export function formatDate(dateString) {
     if (!dateString) return '';
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('id-ID', options);
+    return parseLocalDate(dateString).toLocaleDateString('id-ID', options);
 }
 
 export function debounce(func, wait) {

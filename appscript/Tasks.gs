@@ -6,6 +6,9 @@ function getTasks() {
     
     const headers = data[0];
     const result = [];
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const rowsToDelete = [];
     
     for (let i = 1; i < data.length; i++) {
         let row = data[i];
@@ -15,7 +18,29 @@ function getTasks() {
         for (let j = 0; j < headers.length; j++) {
             obj[headers[j]] = row[j];
         }
+        
+        // Hapus otomatis tugas yang berstatus 'Done' dan sudah lewat tenggat waktunya > 2 hari (Hanya di level app/spreadsheet)
+        if (obj.Status === 'Done' && obj.Deadline) {
+            const d = new Date(obj.Deadline);
+            if (!isNaN(d.getTime())) {
+                const deadlineStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+                const diffTime = todayStart - deadlineStart;
+                const diffDays = diffTime / (1000 * 60 * 60 * 24);
+                if (diffDays > 2) {
+                    rowsToDelete.push(i + 1);
+                    continue;
+                }
+            }
+        }
+        
         result.push(obj);
+    }
+    
+    // Hapus baris dari bawah ke atas agar indeks baris tidak bergeser
+    if (rowsToDelete.length > 0) {
+        for (let k = rowsToDelete.length - 1; k >= 0; k--) {
+            sheet.deleteRow(rowsToDelete[k]);
+        }
     }
     
     return result;
@@ -140,14 +165,14 @@ function updateTask(payload) {
     throw new Error('Task not found');
 }
 
-function deleteTask(id) {
+function deleteTask(id, keepCalendar = false) {
     const sheet = getSheet('Tasks');
     const data = sheet.getDataRange().getValues();
     
     for (let i = 1; i < data.length; i++) {
         if (data[i][0] === id) {
             const eventId = data[i][7];
-            if (eventId) {
+            if (eventId && !keepCalendar) {
                 try {
                     const calendar = CalendarApp.getDefaultCalendar();
                     const event = calendar.getEventById(eventId);

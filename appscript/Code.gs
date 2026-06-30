@@ -54,7 +54,7 @@ function doPost(e) {
                 result = updateTask(payload);
                 break;
             case 'deleteTask':
-                result = deleteTask(payload.id);
+                result = deleteTask(payload.id, payload.keepCalendar);
                 break;
             default:
                 throw new Error('Action not found');

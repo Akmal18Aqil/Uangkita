@@ -1,7 +1,7 @@
 // js/pages/dashboard.js
 import { store } from '../store.js';
 import { api } from '../api.js';
-import { formatRupiah, formatDate } from '../utils.js';
+import { formatRupiah, formatDate, parseLocalDate } from '../utils.js';
 import { getListSkeleton, getCardSkeleton } from '../components/skeleton.js';
 import { createBarChart, createProgressBar } from '../components/chart.js';
 
@@ -145,14 +145,12 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
         startDate = new Date(now);
         startDate.setDate(now.getDate() - day + 1);
         startDate.setHours(0,0,0,0);
-        endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 6);
-        endDate.setHours(23,59,59,999);
+        endDate = new Date(startDate.getTime() + 6 * 24 * 60 * 60 * 1000 + 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 59 * 1000 + 999);
         periodLabel = '(Minggu ini)';
     } else if (period === 'custom' && customDates) {
-        startDate = new Date(customDates.start);
+        startDate = parseLocalDate(customDates.start);
         startDate.setHours(0,0,0,0);
-        endDate = new Date(customDates.end);
+        endDate = parseLocalDate(customDates.end);
         endDate.setHours(23,59,59,999);
         periodLabel = '(Custom)';
     }
@@ -168,7 +166,7 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     const filteredTx = [];
     
     transactions.forEach(trx => {
-        const date = new Date(trx.Tanggal);
+        const date = parseLocalDate(trx.Tanggal);
         const amount = parseFloat(trx.Jumlah) || 0;
         
         // All time balance
@@ -202,7 +200,7 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
             const days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
             const dataMap = Array(7).fill().map(() => ({ income: 0, expense: 0 }));
             filteredTx.forEach(trx => {
-                let dayIdx = new Date(trx.Tanggal).getDay() - 1;
+                let dayIdx = parseLocalDate(trx.Tanggal).getDay() - 1;
                 if (dayIdx === -1) dayIdx = 6;
                 const amt = parseFloat(trx.Jumlah) || 0;
                 if (trx.Tipe === 'Pemasukan') dataMap[dayIdx].income += amt;

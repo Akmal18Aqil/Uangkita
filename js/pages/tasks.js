@@ -210,9 +210,32 @@ function renderKanban(container) {
         return t;
     });
 
-    if (hasOverdueUpdates) {
-        tasks = updatedTasks;
-        store.set('tasks', updatedTasks);
+    let tasksModified = false;
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const finalTasks = [];
+    
+    for (let t of updatedTasks) {
+        if (t.Status === 'Done' && t.Deadline) {
+            const d = new Date(t.Deadline);
+            if (!isNaN(d.getTime())) {
+                const deadlineStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+                const diffTime = todayStart - deadlineStart;
+                const diffDays = diffTime / (1000 * 60 * 60 * 24);
+                if (diffDays > 2) {
+                    api.fetch('deleteTask', { id: t.ID, keepCalendar: true }).catch(err => {
+                        console.error('Failed to auto-delete old done task in API', err);
+                    });
+                    tasksModified = true;
+                    continue;
+                }
+            }
+        }
+        finalTasks.push(t);
+    }
+
+    if (hasOverdueUpdates || tasksModified) {
+        tasks = finalTasks;
+        store.set('tasks', finalTasks);
     }
     
     const columns = [

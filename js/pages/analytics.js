@@ -1,6 +1,6 @@
 // js/pages/analytics.js
 import { store } from '../store.js';
-import { formatRupiah } from '../utils.js';
+import { formatRupiah, parseLocalDate } from '../utils.js';
 import { createDonutChart, createBarChart, createProgressBar } from '../components/chart.js';
 
 export function render() {
@@ -28,7 +28,7 @@ export function render() {
     }
     
     transactions.forEach(trx => {
-        const date = new Date(trx.Tanggal);
+        const date = parseLocalDate(trx.Tanggal);
         if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
             const amount = parseFloat(trx.Jumlah) || 0;
             const day = date.getDate();
