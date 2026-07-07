@@ -52,6 +52,28 @@ export async function render() {
             </div>
         </div>
         
+        <div class="glass-card mb-md" id="ewallet-card" style="display: none;">
+            <h4 class="mb-sm" style="font-size: 14px; color: var(--text-secondary);">💳 Saldo E-Wallet</h4>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px;">
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: #60a5fa; margin-bottom: 4px;">🔵 Dana</div>
+                    <div class="amount" id="balance-dana" style="font-size: 15px; font-weight: bold;">Rp 0</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: #34d399; margin-bottom: 4px;">🟢 Wondr</div>
+                    <div class="amount" id="balance-wondr" style="font-size: 15px; font-weight: bold;">Rp 0</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: #fb923c; margin-bottom: 4px;">🟠 ShopeePay</div>
+                    <div class="amount" id="balance-shopeepay" style="font-size: 15px; font-weight: bold;">Rp 0</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Total E-Wallet</div>
+                    <div class="amount" id="balance-ewallet-total" style="font-size: 15px; font-weight: bold; color: var(--accent-primary);">Rp 0</div>
+                </div>
+            </div>
+        </div>
+        
         <div id="mini-chart-container"></div>
         
         <div class="glass-card" id="top-cat-dashboard">
@@ -161,6 +183,12 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     // Total balance is usually all-time, so we calculate it without filter
     let absoluteIncome = 0;
     let absoluteExpense = 0;
+    
+    let walletBalances = {
+        Dana: 0,
+        Wondr: 0,
+        ShopeePay: 0
+    };
 
     // Filter transactions for charts & stats
     const filteredTx = [];
@@ -170,8 +198,18 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
         const amount = parseFloat(trx.Jumlah) || 0;
         
         // All time balance
-        if (trx.Tipe === 'Pemasukan') absoluteIncome += amount;
-        else absoluteExpense += amount;
+        if (trx.Tipe === 'Pemasukan') {
+            absoluteIncome += amount;
+            if (trx.Dompet && walletBalances[trx.Dompet] !== undefined) {
+                walletBalances[trx.Dompet] += amount;
+            }
+        }
+        else {
+            absoluteExpense += amount;
+            if (trx.Dompet && walletBalances[trx.Dompet] !== undefined) {
+                walletBalances[trx.Dompet] -= amount;
+            }
+        }
         
         // Filtered range
         if (date >= startDate && date <= endDate) {
@@ -189,6 +227,17 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     container.querySelector('#total-expense').textContent = formatRupiah(totalExpenseFilter);
     container.querySelector('#label-income').textContent = 'Pemasukan ' + periodLabel;
     container.querySelector('#label-expense').textContent = 'Pengeluaran ' + periodLabel;
+    
+    // Update E-Wallet Balances UI
+    const ewalletCard = container.querySelector('#ewallet-card');
+    if (ewalletCard) {
+        ewalletCard.style.display = 'block';
+        container.querySelector('#balance-dana').textContent = formatRupiah(walletBalances.Dana);
+        container.querySelector('#balance-wondr').textContent = formatRupiah(walletBalances.Wondr);
+        container.querySelector('#balance-shopeepay').textContent = formatRupiah(walletBalances.ShopeePay);
+        const totalEwallet = walletBalances.Dana + walletBalances.Wondr + walletBalances.ShopeePay;
+        container.querySelector('#balance-ewallet-total').textContent = formatRupiah(totalEwallet);
+    }
     
     // Real Chart Generation
     const miniChartContainer = container.querySelector('#mini-chart-container');

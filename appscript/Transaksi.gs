@@ -27,7 +27,7 @@ function addTransaction(payload) {
     const newId = generateUUID();
     const timestamp = new Date().toISOString();
     
-    // Columns: ID, Tanggal, Tipe, Kategori, Jumlah, Catatan, Dibuat Pada
+    // Columns: ID, Tanggal, Tipe, Kategori, Jumlah, Catatan, Dompet, Dibuat Pada
     const newRow = [
         newId,
         payload.tanggal || new Date().toISOString().split('T')[0],
@@ -35,6 +35,7 @@ function addTransaction(payload) {
         payload.kategori || 'Lainnya',
         payload.jumlah || 0,
         payload.catatan || '',
+        payload.dompet || 'Dana',
         timestamp
     ];
     
@@ -56,6 +57,7 @@ function updateTransaction(payload) {
             if (payload.kategori) sheet.getRange(rowIdx, 4).setValue(payload.kategori);
             if (payload.jumlah) sheet.getRange(rowIdx, 5).setValue(payload.jumlah);
             if (payload.catatan) sheet.getRange(rowIdx, 6).setValue(payload.catatan);
+            if (payload.dompet) sheet.getRange(rowIdx, 7).setValue(payload.dompet);
             return { id: payload.id, updated: true };
         }
     }

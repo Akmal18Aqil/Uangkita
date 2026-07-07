@@ -15,7 +15,8 @@ export function openTransactionForm(editData = null) {
         Tanggal: defaultDate,
         Kategori: '',
         Jumlah: '',
-        Catatan: ''
+        Catatan: '',
+        Dompet: 'Dana'
     };
     
     const categories = store.get('categories');
@@ -55,6 +56,15 @@ export function openTransactionForm(editData = null) {
                     <!-- Injected by JS -->
                 </div>
                 <input type="hidden" id="tx-kategori" value="${formData.Kategori}">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Sumber Dana / Dompet</label>
+                <select id="tx-dompet" class="form-control" style="background: rgba(0,0,0,0.2);">
+                    <option value="Dana" ${formData.Dompet === 'Dana' ? 'selected' : ''}>Dana</option>
+                    <option value="Wondr" ${formData.Dompet === 'Wondr' ? 'selected' : ''}>Wondr</option>
+                    <option value="ShopeePay" ${formData.Dompet === 'ShopeePay' ? 'selected' : ''}>ShopeePay</option>
+                </select>
             </div>
             
             <div class="form-group">
@@ -164,7 +174,8 @@ export function openTransactionForm(editData = null) {
                 tipe: typeInput.value,
                 kategori: catInput.value,
                 jumlah: amountInput.value,
-                catatan: document.getElementById('tx-catatan').value
+                catatan: document.getElementById('tx-catatan').value,
+                dompet: document.getElementById('tx-dompet').value
             };
             
             if (!payload.jumlah || payload.jumlah <= 0) {
@@ -189,7 +200,8 @@ export function openTransactionForm(editData = null) {
                         Tipe: payload.tipe,
                         Kategori: payload.kategori,
                         Jumlah: payload.jumlah,
-                        Catatan: payload.catatan
+                        Catatan: payload.catatan,
+                        Dompet: payload.dompet
                     });
                     showToast('Transaksi berhasil diupdate');
                 } else {
@@ -201,6 +213,7 @@ export function openTransactionForm(editData = null) {
                         Kategori: payload.kategori,
                         Jumlah: payload.jumlah,
                         Catatan: payload.catatan,
+                        Dompet: payload.dompet,
                         'Dibuat Pada': new Date().toISOString()
                     });
                     showToast('Transaksi berhasil ditambahkan');
