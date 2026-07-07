@@ -16,7 +16,7 @@ export function openTransactionForm(editData = null) {
         Kategori: '',
         Jumlah: '',
         Catatan: '',
-        Dompet: 'Dana'
+        Dompet: 'Tunai' // Default diubah ke Tunai
     };
     
     const categories = store.get('categories');
@@ -61,9 +61,10 @@ export function openTransactionForm(editData = null) {
             <div class="form-group">
                 <label class="form-label">Sumber Dana / Dompet</label>
                 <select id="tx-dompet" class="form-control" style="background: rgba(0,0,0,0.2);">
-                    <option value="Dana" ${formData.Dompet === 'Dana' ? 'selected' : ''}>Dana</option>
-                    <option value="Wondr" ${formData.Dompet === 'Wondr' ? 'selected' : ''}>Wondr</option>
-                    <option value="ShopeePay" ${formData.Dompet === 'ShopeePay' ? 'selected' : ''}>ShopeePay</option>
+                    <option value="Tunai" ${formData.Dompet === 'Tunai' ? 'selected' : ''}>💵 Tunai</option>
+                    <option value="Dana" ${formData.Dompet === 'Dana' ? 'selected' : ''}>🔵 Dana</option>
+                    <option value="Wondr" ${formData.Dompet === 'Wondr' ? 'selected' : ''}>🟢 Wondr</option>
+                    <option value="ShopeePay" ${formData.Dompet === 'ShopeePay' ? 'selected' : ''}>🟠 ShopeePay</option>
                 </select>
             </div>
             

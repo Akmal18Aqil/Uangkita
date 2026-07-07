@@ -53,8 +53,12 @@ export async function render() {
         </div>
         
         <div class="glass-card mb-md" id="ewallet-card" style="display: none;">
-            <h4 class="mb-sm" style="font-size: 14px; color: var(--text-secondary);">💳 Saldo E-Wallet</h4>
+            <h4 class="mb-sm" style="font-size: 14px; color: var(--text-secondary);">💳 Saldo Dompet & E-Wallet</h4>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px;">
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: #a78bfa; margin-bottom: 4px;">💵 Tunai</div>
+                    <div class="amount" id="balance-tunai" style="font-size: 15px; font-weight: bold;">Rp 0</div>
+                </div>
                 <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
                     <div style="font-size: 11px; color: #60a5fa; margin-bottom: 4px;">🔵 Dana</div>
                     <div class="amount" id="balance-dana" style="font-size: 15px; font-weight: bold;">Rp 0</div>
@@ -67,8 +71,8 @@ export async function render() {
                     <div style="font-size: 11px; color: #fb923c; margin-bottom: 4px;">🟠 ShopeePay</div>
                     <div class="amount" id="balance-shopeepay" style="font-size: 15px; font-weight: bold;">Rp 0</div>
                 </div>
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Total E-Wallet</div>
+                <div style="grid-column: span 2; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Total Semua Dompet</div>
                     <div class="amount" id="balance-ewallet-total" style="font-size: 15px; font-weight: bold; color: var(--accent-primary);">Rp 0</div>
                 </div>
             </div>
@@ -185,6 +189,7 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     let absoluteExpense = 0;
     
     let walletBalances = {
+        Tunai: 0,
         Dana: 0,
         Wondr: 0,
         ShopeePay: 0
@@ -232,10 +237,11 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     const ewalletCard = container.querySelector('#ewallet-card');
     if (ewalletCard) {
         ewalletCard.style.display = 'block';
+        container.querySelector('#balance-tunai').textContent = formatRupiah(walletBalances.Tunai);
         container.querySelector('#balance-dana').textContent = formatRupiah(walletBalances.Dana);
         container.querySelector('#balance-wondr').textContent = formatRupiah(walletBalances.Wondr);
         container.querySelector('#balance-shopeepay').textContent = formatRupiah(walletBalances.ShopeePay);
-        const totalEwallet = walletBalances.Dana + walletBalances.Wondr + walletBalances.ShopeePay;
+        const totalEwallet = walletBalances.Tunai + walletBalances.Dana + walletBalances.Wondr + walletBalances.ShopeePay;
         container.querySelector('#balance-ewallet-total').textContent = formatRupiah(totalEwallet);
     }
     
