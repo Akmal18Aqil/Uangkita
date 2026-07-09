@@ -10,6 +10,7 @@ export const DEFAULT_CATEGORIES = [
     { id: 'cat-8', name: 'Bonus', icon: '🎁', type: 'Pemasukan' },
     { id: 'cat-9', name: 'Investasi', icon: '📈', type: 'Pemasukan' },
     { id: 'cat-11', name: 'Uang Saku', icon: '🪙', type: 'Pemasukan' },
+    { id: 'cat-12', name: 'Token AI', icon: '🤖', type: 'Pengeluaran' },
     { id: 'cat-10', name: 'Lainnya', icon: '✨', type: 'Pengeluaran' }
 ];
 
@@ -104,6 +105,17 @@ export const store = {
         if (this.state.categories && !this.state.categories.some(c => c.name === 'Uang Saku')) {
             const index = this.state.categories.findIndex(c => c.id === 'cat-10');
             const newCat = { id: 'cat-11', name: 'Uang Saku', icon: '🪙', type: 'Pemasukan' };
+            if (index > -1) {
+                this.state.categories.splice(index, 0, newCat);
+            } else {
+                this.state.categories.push(newCat);
+            }
+        }
+        
+        // Pastikan kategori "Token AI" selalu ada
+        if (this.state.categories && !this.state.categories.some(c => c.name === 'Token AI')) {
+            const index = this.state.categories.findIndex(c => c.id === 'cat-10');
+            const newCat = { id: 'cat-12', name: 'Token AI', icon: '🤖', type: 'Pengeluaran' };
             if (index > -1) {
                 this.state.categories.splice(index, 0, newCat);
             } else {
