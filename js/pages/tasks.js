@@ -188,6 +188,10 @@ export function render() {
     return container;
 }
 
+export function refresh(container) {
+    renderKanban(container);
+}
+
 function renderKanban(container) {
     const board = container.querySelector('#kanban-board');
     let tasks = store.get('tasks') || [];

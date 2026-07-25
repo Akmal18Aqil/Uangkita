@@ -11,33 +11,36 @@ let currentSearch = '';
 
 export function render() {
     const container = document.createElement('div');
-    container.className = 'animate-fade-in stagger-1';
+    container.className = 'animate-fade-in stagger-1 flex-col gap-md';
     
     container.innerHTML = `
-        <div class="glass-card mb-md">
+        <!-- Search & Category Filter Card -->
+        <div class="clean-card" style="padding: 14px;">
             <div class="form-group" style="margin-bottom: 8px;">
                 <input type="text" id="search-tx" class="form-control" placeholder="🔍 Cari catatan transaksi..." value="${currentSearch}">
             </div>
             <div class="form-group" style="margin-bottom: 0;">
                 <select id="category-filter" class="form-control" style="appearance: auto;">
                     <option value="">Semua Kategori</option>
-                    <!-- Injected later -->
+                    <!-- Injected dynamically -->
                 </select>
             </div>
         </div>
         
-        <div class="quick-amounts mb-md filter-chips">
-            <div class="chip ${currentFilter === 'Semua' ? 'bg-primary' : ''}" data-filter="Semua">Semua</div>
-            <div class="chip ${currentFilter === 'Pemasukan' ? 'bg-success' : ''}" data-filter="Pemasukan">Pemasukan</div>
-            <div class="chip ${currentFilter === 'Pengeluaran' ? 'bg-danger' : ''}" data-filter="Pengeluaran">Pengeluaran</div>
+        <!-- Segmented Type Filter -->
+        <div class="segmented-control">
+            <div class="segmented-item ${currentFilter === 'Semua' ? 'active' : ''}" data-filter="Semua">Semua</div>
+            <div class="segmented-item ${currentFilter === 'Pemasukan' ? 'active' : ''}" data-filter="Pemasukan">Pemasukan</div>
+            <div class="segmented-item ${currentFilter === 'Pengeluaran' ? 'active' : ''}" data-filter="Pengeluaran">Pengeluaran</div>
         </div>
         
+        <!-- List Container -->
         <div id="transactions-list">
             ${getListSkeleton(5)}
         </div>
     `;
     
-    // Setup Events
+    // Event listeners setup
     setTimeout(() => {
         const searchInput = container.querySelector('#search-tx');
         if (searchInput) {
@@ -47,54 +50,46 @@ export function render() {
             });
         }
         
-        container.querySelectorAll('.filter-chips .chip').forEach(chip => {
-            chip.addEventListener('click', (e) => {
-                // reset classes
-                container.querySelectorAll('.filter-chips .chip').forEach(c => {
-                    c.style.background = 'rgba(255, 255, 255, 0.05)';
-                    c.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                });
-                
-                currentFilter = e.target.dataset.filter;
-                e.target.style.background = currentFilter === 'Pemasukan' ? 'var(--success)' : 
-                                            currentFilter === 'Pengeluaran' ? 'var(--danger)' : 'var(--accent-primary)';
-                
+        container.querySelectorAll('.segmented-control .segmented-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                container.querySelectorAll('.segmented-control .segmented-item').forEach(c => c.classList.remove('active'));
+                currentFilter = e.currentTarget.dataset.filter;
+                e.currentTarget.classList.add('active');
                 renderList(container);
             });
         });
         
-        // Initial fetch check
         if (store.get('transactions').length === 0) {
             api.fetch('getTransactions').then(data => {
-                store.set('transactions', data);
+                if (data !== null && Array.isArray(data)) {
+                    store.mergeApiTransactions(data);
+                }
                 populateCategoryFilter(container);
                 renderList(container);
             }).catch(err => {
                 console.error(err);
                 populateCategoryFilter(container);
-                renderList(container); // render empty/cache
+                renderList(container);
             });
         } else {
             populateCategoryFilter(container);
             renderList(container);
         }
         
-        // Category filter change event
         const catFilter = container.querySelector('#category-filter');
         if (catFilter) {
-            catFilter.addEventListener('change', (e) => {
+            catFilter.addEventListener('change', () => {
                 renderList(container);
             });
         }
     }, 50);
     
-    // Bind global delete method to window for inline onclick handler
     window.deleteTransaction = async (id) => {
         if (!confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) return;
         try {
             await api.fetch('deleteTransaction', { id });
             store.deleteTransaction(id);
-            showToast('Transaksi dihapus');
+            showToast('Transaksi berhasil dihapus');
             renderList(container);
         } catch (error) {
             showToast('Gagal menghapus transaksi', 'error');
@@ -111,13 +106,17 @@ export function render() {
     return container;
 }
 
+export function refresh(container) {
+    populateCategoryFilter(container);
+    renderList(container);
+}
+
 function populateCategoryFilter(container) {
     const catFilter = container.querySelector('#category-filter');
     if (!catFilter) return;
     
-    const categories = store.get('categories');
+    const categories = store.get('categories') || [];
     const options = categories.map(c => `<option value="${c.name}">${c.icon} ${c.name}</option>`).join('');
-    // keep the first option
     catFilter.innerHTML = `<option value="">Semua Kategori</option>${options}`;
 }
 
@@ -125,14 +124,14 @@ function renderList(container) {
     const listContainer = container.querySelector('#transactions-list');
     let transactions = store.get('transactions') || [];
     
-    // Apply filters
     if (currentFilter !== 'Semua') {
         transactions = transactions.filter(t => t.Tipe === currentFilter);
     }
     
     if (currentSearch) {
         transactions = transactions.filter(t => 
-            (t.Catatan && t.Catatan.toLowerCase().includes(currentSearch))
+            (t.Catatan && t.Catatan.toLowerCase().includes(currentSearch)) ||
+            (t.Kategori && t.Kategori.toLowerCase().includes(currentSearch))
         );
     }
     
@@ -151,7 +150,6 @@ function renderList(container) {
         return;
     }
     
-    // Group by Date
     const grouped = {};
     transactions.forEach(trx => {
         const d = trx.Tanggal.split('T')[0];
@@ -160,7 +158,7 @@ function renderList(container) {
     });
     
     const sortedDates = Object.keys(grouped).sort((a, b) => new Date(b) - new Date(a));
-    const categories = store.get('categories');
+    const categories = store.get('categories') || [];
     
     let html = '';
     
@@ -180,13 +178,13 @@ function renderList(container) {
                     <div class="transaction-icon">${catInfo.icon}</div>
                     <div class="transaction-details">
                         <div class="transaction-title">${trx.Catatan || trx.Kategori}</div>
-                        <div class="transaction-category">${trx.Kategori}</div>
+                        <div class="transaction-category">${trx.Kategori} • ${trx.Dompet || 'Tunai'}</div>
                     </div>
                     <div style="text-align: right;">
                         <div class="transaction-amount ${isIncome ? 'income' : 'expense'}">
                             ${isIncome ? '+' : '-'}${formatRupiah(Math.abs(amount))}
                         </div>
-                        <button onclick="event.stopPropagation(); window.deleteTransaction('${trx.ID}')" class="icon-btn" style="width: 24px; height: 24px; padding: 0; display: inline-flex; margin-top: 4px;" title="Hapus">
+                        <button onclick="event.stopPropagation(); window.deleteTransaction('${trx.ID}')" class="icon-btn" style="width: 26px; height: 26px; padding: 0; display: inline-flex; margin-top: 4px; border: none; background: transparent;" title="Hapus">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#EF4444" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                         </button>
                     </div>
@@ -196,7 +194,7 @@ function renderList(container) {
         
         html += `
             <div class="transaction-group animate-fade-in">
-                <div class="transaction-date">
+                <div class="transaction-date-pill">
                     <span>${formatDate(date)}</span>
                     <span class="${dailySubtotal >= 0 ? 'text-success' : 'text-danger'}">
                         ${dailySubtotal >= 0 ? '+' : ''}${formatRupiah(dailySubtotal)}

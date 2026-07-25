@@ -6,48 +6,50 @@ import { showToast } from './toast.js';
 import { formatRupiah } from '../utils.js';
 
 export function openTransactionForm(editData = null) {
-    const isEdit = !!editData;
+    const isEdit = !!editData && !!editData.ID;
     const defaultDate = new Date().toISOString().split('T')[0];
     
-    // Parse editData if available
-    const formData = isEdit ? { ...editData } : {
-        Tipe: 'Pengeluaran',
-        Tanggal: defaultDate,
-        Kategori: '',
-        Jumlah: '',
-        Catatan: '',
-        Dompet: 'Tunai' // Default diubah ke Tunai
+    const formData = {
+        Tipe: editData?.Tipe || 'Pengeluaran',
+        Tanggal: editData?.Tanggal ? editData.Tanggal.split('T')[0] : defaultDate,
+        Kategori: editData?.Kategori || '',
+        Jumlah: editData?.Jumlah || '',
+        Catatan: editData?.Catatan || '',
+        Dompet: editData?.Dompet || 'Tunai'
     };
     
-    const categories = store.get('categories');
+    const categories = store.get('categories') || [];
     
     const formHtml = `
-        <form id="tx-form" class="animate-fade-in">
-            <div class="form-group">
-                <div class="flex bg-surface rounded-md p-1" style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 4px;">
-                    <button type="button" class="btn flex-1 tx-type-btn ${formData.Tipe === 'Pengeluaran' ? 'active-expense' : ''}" data-type="Pengeluaran" style="border-radius: 6px; padding: 8px; background: ${formData.Tipe === 'Pengeluaran' ? 'var(--danger)' : 'transparent'};">Pengeluaran</button>
-                    <button type="button" class="btn flex-1 tx-type-btn ${formData.Tipe === 'Pemasukan' ? 'active-income' : ''}" data-type="Pemasukan" style="border-radius: 6px; padding: 8px; background: ${formData.Tipe === 'Pemasukan' ? 'var(--success)' : 'transparent'};">Pemasukan</button>
+        <form id="tx-form" class="animate-fade-in flex-col gap-md">
+            <!-- Segmented Control Type Switcher -->
+            <div class="segmented-control">
+                <div class="segmented-item tx-type-btn ${formData.Tipe === 'Pengeluaran' ? 'active' : ''}" data-type="Pengeluaran">
+                    <span>↘</span> Pengeluaran
                 </div>
-                <input type="hidden" id="tx-tipe" value="${formData.Tipe}">
+                <div class="segmented-item tx-type-btn ${formData.Tipe === 'Pemasukan' ? 'active' : ''}" data-type="Pemasukan">
+                    <span>↗</span> Pemasukan
+                </div>
             </div>
+            <input type="hidden" id="tx-tipe" value="${formData.Tipe}">
             
             <div class="form-group">
-                <label class="form-label">Jumlah</label>
-                <input type="text" id="tx-jumlah-display" class="form-control" style="font-size: 24px; font-weight: bold; font-family: var(--font-mono);" placeholder="Rp 0" value="${formData.Jumlah ? formatRupiah(formData.Jumlah) : ''}">
+                <label class="form-label">Nominal (Jumlah)</label>
+                <input type="text" id="tx-jumlah-display" class="form-control amount" style="font-size: 26px; font-weight: 700; text-align: center;" placeholder="Rp 0" value="${formData.Jumlah ? formatRupiah(formData.Jumlah) : ''}">
                 <input type="hidden" id="tx-jumlah" value="${formData.Jumlah}">
             </div>
             
-            <div class="quick-amounts mb-md" id="quick-amounts">
+            <div class="quick-amounts" id="quick-amounts">
                 <div class="chip" data-val="10000">+10k</div>
                 <div class="chip" data-val="20000">+20k</div>
                 <div class="chip" data-val="50000">+50k</div>
                 <div class="chip" data-val="100000">+100k</div>
-                <div class="chip" data-val="clear" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.3);">Reset</div>
+                <div class="chip" data-val="clear" style="color: var(--danger);">Reset</div>
             </div>
             
             <div class="form-group">
-                <label class="form-label">Tanggal</label>
-                <input type="date" id="tx-tanggal" class="form-control" value="${formData.Tanggal.split('T')[0]}">
+                <label class="form-label">Tanggal Transaksi</label>
+                <input type="date" id="tx-tanggal" class="form-control" value="${formData.Tanggal}">
             </div>
             
             <div class="form-group">
@@ -60,7 +62,7 @@ export function openTransactionForm(editData = null) {
             
             <div class="form-group">
                 <label class="form-label">Sumber Dana / Dompet</label>
-                <select id="tx-dompet" class="form-control" style="background: rgba(0,0,0,0.2);">
+                <select id="tx-dompet" class="form-control">
                     <option value="Tunai" ${formData.Dompet === 'Tunai' ? 'selected' : ''}>💵 Tunai</option>
                     <option value="Dana" ${formData.Dompet === 'Dana' ? 'selected' : ''}>🔵 Dana</option>
                     <option value="Wondr" ${formData.Dompet === 'Wondr' ? 'selected' : ''}>🟢 Wondr</option>
@@ -69,11 +71,11 @@ export function openTransactionForm(editData = null) {
             </div>
             
             <div class="form-group">
-                <label class="form-label">Catatan</label>
-                <input type="text" id="tx-catatan" class="form-control" placeholder="Makan siang, bensin, dll..." value="${formData.Catatan}">
+                <label class="form-label">Catatan / Keterangan</label>
+                <input type="text" id="tx-catatan" class="form-control" placeholder="Makan siang, bensin, iPhone purchase, dll..." value="${formData.Catatan}">
             </div>
             
-            <button type="submit" class="btn btn-primary mt-md" id="tx-submit-btn">
+            <button type="submit" class="btn btn-primary mt-sm" id="tx-submit-btn">
                 ${isEdit ? 'Simpan Perubahan' : 'Tambah Transaksi'}
             </button>
         </form>
@@ -81,7 +83,6 @@ export function openTransactionForm(editData = null) {
     
     const { close } = showBottomSheet(formHtml, isEdit ? 'Edit Transaksi' : 'Transaksi Baru');
     
-    // Attach logic
     setTimeout(() => {
         const form = document.getElementById('tx-form');
         const typeBtns = document.querySelectorAll('.tx-type-btn');
@@ -98,7 +99,6 @@ export function openTransactionForm(editData = null) {
                 </div>
             `).join('');
             
-            // Re-attach cat clicks
             document.querySelectorAll('.category-item').forEach(el => {
                 el.addEventListener('click', (e) => {
                     document.querySelectorAll('.category-item').forEach(c => c.classList.remove('selected'));
@@ -110,32 +110,17 @@ export function openTransactionForm(editData = null) {
         
         renderCategories(formData.Tipe);
         
-        // Type toggler
         typeBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const type = e.target.dataset.type;
+                const type = e.currentTarget.dataset.type;
                 typeInput.value = type;
-                
-                typeBtns.forEach(b => {
-                    b.style.background = 'transparent';
-                    b.classList.remove('active-expense', 'active-income');
-                });
-                
-                if (type === 'Pengeluaran') {
-                    e.target.style.background = 'var(--danger)';
-                    e.target.classList.add('active-expense');
-                } else {
-                    e.target.style.background = 'var(--success)';
-                    e.target.classList.add('active-income');
-                }
-                
-                // Reset category if type changed
+                typeBtns.forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
                 catInput.value = '';
                 renderCategories(type);
             });
         });
         
-        // Amount Logic
         const amountDisplay = document.getElementById('tx-jumlah-display');
         const amountInput = document.getElementById('tx-jumlah');
         
@@ -155,7 +140,7 @@ export function openTransactionForm(editData = null) {
         
         document.querySelectorAll('#quick-amounts .chip').forEach(chip => {
             chip.addEventListener('click', (e) => {
-                const val = e.target.dataset.val;
+                const val = e.currentTarget.dataset.val;
                 if (val === 'clear') {
                     amountInput.value = '';
                 } else {
@@ -165,18 +150,38 @@ export function openTransactionForm(editData = null) {
             });
         });
         
-        // Form Submit
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            const dompetVal = document.getElementById('tx-dompet').value || 'Tunai';
+            const nowIso = new Date().toISOString();
             const payload = {
-                id: isEdit ? editData.ID : undefined,
+                id: isEdit ? (editData.ID || editData.id) : undefined,
+                ID: isEdit ? (editData.ID || editData.id) : undefined,
                 tanggal: document.getElementById('tx-tanggal').value,
+                Tanggal: document.getElementById('tx-tanggal').value,
                 tipe: typeInput.value,
+                Tipe: typeInput.value,
                 kategori: catInput.value,
-                jumlah: amountInput.value,
+                Kategori: catInput.value,
+                jumlah: parseInt(amountInput.value, 10) || 0,
+                Jumlah: parseInt(amountInput.value, 10) || 0,
                 catatan: document.getElementById('tx-catatan').value,
-                dompet: document.getElementById('tx-dompet').value
+                Catatan: document.getElementById('tx-catatan').value,
+                
+                // Wallet property aliases
+                dompet: dompetVal,
+                Dompet: dompetVal,
+                wallet: dompetVal,
+                Wallet: dompetVal,
+                sumberDana: dompetVal,
+                
+                // Timestamp property aliases
+                dibuatPada: nowIso,
+                'Dibuat Pada': nowIso,
+                createdAt: nowIso,
+                created_at: nowIso,
+                timestamp: nowIso
             };
             
             if (!payload.jumlah || payload.jumlah <= 0) {
@@ -204,11 +209,11 @@ export function openTransactionForm(editData = null) {
                         Catatan: payload.catatan,
                         Dompet: payload.dompet
                     });
-                    showToast('Transaksi berhasil diupdate');
+                    showToast('Transaksi berhasil diperbarui');
                 } else {
                     const result = await api.fetch('addTransaction', payload);
                     store.addTransaction({
-                        ID: result.id || Math.random().toString(), // fallback
+                        ID: result?.id || ('local-' + Date.now()),
                         Tanggal: payload.tanggal,
                         Tipe: payload.tipe,
                         Kategori: payload.kategori,
@@ -220,12 +225,8 @@ export function openTransactionForm(editData = null) {
                     showToast('Transaksi berhasil ditambahkan');
                 }
                 
-                // Try refreshing current page view
-                if (window.location.hash.includes('/transactions') || window.location.hash === '' || window.location.hash === '#/') {
-                    const evt = new HashChangeEvent("hashchange");
-                    window.dispatchEvent(evt);
-                }
-                
+                const evt = new HashChangeEvent("hashchange");
+                window.dispatchEvent(evt);
                 close();
             } catch (error) {
                 console.error(error);

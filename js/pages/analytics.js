@@ -6,22 +6,25 @@ import { createDonutChart, createBarChart, createProgressBar } from '../componen
 export function render() {
     const container = document.createElement('div');
     container.className = 'animate-fade-in stagger-1';
+    container.style.paddingBottom = '90px'; // Prevent FAB/BottomNav overlap
     
-    // Month Selector
+    refresh(container);
+    return container;
+}
+
+export function refresh(container) {
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     
     const transactions = store.get('transactions') || [];
     
-    // Process Data
     let totalIncome = 0;
     let totalExpense = 0;
     const expenseByCategory = {};
     const dailyData = {};
     
-    // Initialize days in month for bar chart
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     for(let i=1; i<=daysInMonth; i++) {
         dailyData[i] = { income: 0, expense: 0 };
@@ -45,8 +48,7 @@ export function render() {
         }
     });
     
-    // Prepare Donut Data
-    const categoryColors = ['#6366F1', '#EC4899', '#F59E0B', '#10B981', '#8B5CF6', '#EF4444', '#3B82F6', '#14B8A6'];
+    const categoryColors = ['#3B41F4', '#EC4899', '#F59E0B', '#10B981', '#8B5CF6', '#EF4444', '#06B6D4', '#64748B'];
     let donutData = Object.keys(expenseByCategory).map((cat, idx) => ({
         label: cat,
         value: expenseByCategory[cat],
@@ -54,66 +56,107 @@ export function render() {
     })).sort((a,b) => b.value - a.value);
     
     if (donutData.length === 0) {
-        donutData = [{ label: 'Belum ada data', value: 1, color: 'rgba(255,255,255,0.1)' }];
+        donutData = [{ label: 'Belum ada data', value: 1, color: 'rgba(0,0,0,0.06)' }];
     }
     
-    // Prepare Bar Data (Weekly chunks for better fit)
+    // Weekly Bar Chart Data
     const barData = [];
     let weekInc = 0, weekExp = 0;
     for(let i=1; i<=daysInMonth; i++) {
         weekInc += dailyData[i].income;
         weekExp += dailyData[i].expense;
         if (i % 7 === 0 || i === daysInMonth) {
-            barData.push({ label: `W${Math.ceil(i/7)}`, income: weekInc, expense: weekExp });
+            const weekNum = Math.ceil(i/7);
+            const isCurrentWeek = (now.getDate() >= (weekNum-1)*7 + 1) && (now.getDate() <= weekNum*7 || i === daysInMonth);
+            barData.push({
+                label: `W${weekNum}`,
+                income: weekInc,
+                value: weekInc,
+                isActive: isCurrentWeek
+            });
             weekInc = 0; weekExp = 0;
         }
     }
     
+    const netCashflow = totalIncome - totalExpense;
+    const isSurplus = netCashflow >= 0;
+
     container.innerHTML = `
-        <div class="section-header">
-            <h3 class="section-title">Analitik Keuangan</h3>
-            <div class="chip bg-primary">${monthNames[currentMonth]} ${currentYear}</div>
+        <!-- Section Header -->
+        <div class="section-header" style="margin-bottom: 16px;">
+            <h3 class="section-title" style="font-size: 18px;">Ringkasan Analitik</h3>
+            <div class="chip" style="background: var(--pill-bg); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600; font-size: 12px; padding: 4px 12px; border-radius: var(--radius-full);">
+                📅 ${monthNames[currentMonth]} ${currentYear}
+            </div>
         </div>
         
-        <div class="glass-card mb-md text-center">
-            <div class="stats-row" style="margin-bottom: var(--spacing-lg);">
-                <div class="stat-item">
-                    <div class="stat-label">Total Pemasukan</div>
-                    <div class="stat-value income amount">${formatRupiah(totalIncome)}</div>
+        <!-- Income vs Expense Metric Cards (2 Columns) -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px;">
+            <div class="clean-card" style="padding: 14px; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">Pemasukan</span>
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: #ECFDF5; color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">↗</span>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-label">Total Pengeluaran</div>
-                    <div class="stat-value expense amount">${formatRupiah(totalExpense)}</div>
-                </div>
+                <div class="amount" style="font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-heading);">${formatRupiah(totalIncome)}</div>
             </div>
             
-            <h4 class="mb-sm" style="font-size: 14px; color: var(--text-secondary);">Tren Mingguan</h4>
+            <div class="clean-card" style="padding: 14px; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">Pengeluaran</span>
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: #FEF2F2; color: #EF4444; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">↘</span>
+                </div>
+                <div class="amount" style="font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-heading);">${formatRupiah(totalExpense)}</div>
+            </div>
+        </div>
+
+        <!-- Net Cashflow Banner -->
+        <div class="clean-card mb-md" style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; background: var(--pill-bg);">
+            <span style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Net Cash Flow (${monthNames[currentMonth]}):</span>
+            <span style="font-size: 13px; font-weight: 700; color: ${isSurplus ? 'var(--success)' : 'var(--danger)'};">
+                ${isSurplus ? '+' : ''}${formatRupiah(netCashflow)} (${isSurplus ? 'Surplus' : 'Defisit'})
+            </span>
+        </div>
+        
+        <!-- Weekly Trend Card -->
+        <div class="clean-card mb-md" style="padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h4 style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Tren Pemasukan Mingguan</h4>
+                <span style="font-size: 11px; color: var(--text-muted); font-weight: 500;">Minggu 1-5</span>
+            </div>
             ${createBarChart(barData)}
         </div>
         
-        <div class="glass-card mb-md text-center">
-            <h4 class="mb-md" style="font-size: 14px; color: var(--text-secondary);">Pengeluaran per Kategori</h4>
-            ${createDonutChart(donutData)}
+        <!-- Category Distribution (Donut Chart) -->
+        <div class="clean-card mb-md" style="padding: 18px; text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                <h4 style="font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0;">Pengeluaran per Kategori</h4>
+                <span style="font-size: 11px; color: var(--text-muted); font-weight: 500;">Persentase</span>
+            </div>
+            ${createDonutChart(donutData, { centerTitle: 'Total Pengeluaran', centerValue: formatRupiah(totalExpense) })}
         </div>
         
-        <div class="glass-card mb-md">
-            <h4 class="mb-md" style="font-size: 14px; color: var(--text-secondary);">Top Kategori Pengeluaran</h4>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-                ${donutData[0].label === 'Belum ada data' ? '<div class="text-center text-muted">Belum ada data pengeluaran</div>' : 
-                  donutData.slice(0, 5).map(item => `
+        <!-- Top Expense Categories List -->
+        <div class="clean-card mb-md" style="padding: 18px;">
+            <h4 style="font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;">Rincian Kategori Terbesar</h4>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                ${donutData[0].label === 'Belum ada data' ? '<div class="text-center text-muted" style="font-size: 13px; padding: 12px 0;">Belum ada catatan pengeluaran di bulan ini.</div>' : 
+                  donutData.map(item => `
                     <div>
-                        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
-                            <span>${item.label}</span>
-                            <span class="amount">${formatRupiah(item.value)}</span>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; font-weight: 500;">
+                            <span style="display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 8px; height: 8px; border-radius: 50%; background: ${item.color}; flex-shrink: 0;"></span>
+                                ${item.label}
+                            </span>
+                            <span class="amount text-primary" style="font-weight: 700;">${formatRupiah(item.value)}</span>
                         </div>
-                        ${createProgressBar(item.value, donutData[0].value, item.color)}
+                        ${createProgressBar(item.value, totalExpense, item.color)}
                     </div>
                 `).join('')}
             </div>
         </div>
     `;
     
-    // Add tooltip events
+    // Interactive Tooltip Setup
     setTimeout(() => {
         const segments = container.querySelectorAll('.chart-segment');
         const tooltip = container.querySelector('.chart-tooltip');
@@ -122,7 +165,7 @@ export function render() {
                 seg.addEventListener('mouseenter', (e) => {
                     tooltip.style.display = 'block';
                     tooltip.textContent = `${e.target.dataset.label}: ${formatRupiah(e.target.dataset.value)}`;
-                    e.target.style.opacity = '0.7';
+                    e.target.style.opacity = '0.75';
                 });
                 seg.addEventListener('mousemove', (e) => {
                     const rect = e.target.closest('.chart-container').getBoundingClientRect();
@@ -135,7 +178,5 @@ export function render() {
                 });
             });
         }
-    }, 100);
-    
-    return container;
+    }, 50);
 }

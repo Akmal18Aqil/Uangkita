@@ -55,8 +55,11 @@ export const api = {
     mockResponse(action) {
         return new Promise(resolve => {
             setTimeout(() => {
-                if (action === 'getTransactions') resolve([]);
-                if (action === 'getTasks') resolve([]);
+                // Return null for data-fetching actions so the cache-protection
+                // check (`!== null`) in dashboard.js correctly prevents
+                // overwriting valid cached data with empty arrays.
+                if (action === 'getTransactions') resolve(null);
+                if (action === 'getTasks') resolve(null);
                 resolve({ success: true });
             }, 800);
         });

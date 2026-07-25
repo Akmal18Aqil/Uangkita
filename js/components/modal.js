@@ -7,8 +7,8 @@ export function showBottomSheet(contentHtml, title = '') {
     container.innerHTML = `
         <div class="modal-overlay" id="sheet-overlay"></div>
         <div class="bottom-sheet" id="bottom-sheet">
-            <div class="sheet-handle"></div>
-            ${title ? `<h3 style="margin-bottom: 16px;">${title}</h3>` : ''}
+            <div class="sheet-handle" id="sheet-handle" title="Geser ke bawah untuk menutup"></div>
+            ${title ? `<h3 style="margin-bottom: 16px; text-align: center; color: var(--text-primary); font-weight: 700;">${title}</h3>` : ''}
             <div class="sheet-content">
                 ${contentHtml}
             </div>
@@ -17,6 +17,7 @@ export function showBottomSheet(contentHtml, title = '') {
     
     const overlay = document.getElementById('sheet-overlay');
     const sheet = document.getElementById('bottom-sheet');
+    const handle = document.getElementById('sheet-handle');
     
     // Trigger animation next frame
     requestAnimationFrame(() => {
@@ -26,7 +27,7 @@ export function showBottomSheet(contentHtml, title = '') {
     
     const close = () => {
         overlay.classList.remove('active');
-        sheet.style.transform = ''; // Hapus inline style agar kembali ke CSS
+        sheet.style.transform = '';
         sheet.classList.remove('active');
         setTimeout(() => {
             container.innerHTML = '';
@@ -34,49 +35,71 @@ export function showBottomSheet(contentHtml, title = '') {
     };
     
     overlay.addEventListener('click', close);
+    if (handle) {
+        handle.addEventListener('click', close);
+    }
     
-    // Fitur Swipe / Geser ke Bawah untuk Menutup
+    // Smooth Drag Down to Close (Touch & Mouse Support)
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
-    
-    sheet.addEventListener('touchstart', (e) => {
-        // Hanya mulai drag jika konten sedang berada di paling atas (tidak sedang di-scroll)
-        if (sheet.scrollTop <= 0) {
-            startY = e.touches[0].clientY;
-            isDragging = true;
-            sheet.style.transition = 'none'; // Matikan animasi transisi sementara agar dragging mulus
-        }
-    }, { passive: true });
 
-    sheet.addEventListener('touchmove', (e) => {
+    const startDrag = (clientY) => {
+        if (sheet.scrollTop <= 0) {
+            startY = clientY;
+            isDragging = true;
+            sheet.style.transition = 'none';
+        }
+    };
+
+    const moveDrag = (clientY, e) => {
         if (!isDragging) return;
-        
-        const y = e.touches[0].clientY;
-        const deltaY = y - startY;
-        
-        // Jika menggeser ke bawah
+        const deltaY = clientY - startY;
         if (deltaY > 0 && sheet.scrollTop <= 0) {
-            if (e.cancelable) e.preventDefault();
+            if (e && e.cancelable) e.preventDefault();
             currentY = deltaY;
             sheet.style.transform = `translateY(${currentY}px)`;
         }
-    }, { passive: false });
+    };
 
-    sheet.addEventListener('touchend', () => {
+    const endDrag = () => {
         if (!isDragging) return;
         isDragging = false;
+        sheet.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
         
-        sheet.style.transition = ''; // Kembalikan transisi CSS asli
-        
-        // Jika digeser lebih dari 120px ke bawah, tutup sheet
-        if (currentY > 120) {
+        // If dragged down more than 80px, dismiss the modal
+        if (currentY > 80) {
             close();
         } else {
-            // Jika kurang, kembalikan ke posisi semula
             sheet.style.transform = '';
         }
         currentY = 0;
+    };
+
+    // Touch events (Mobile)
+    sheet.addEventListener('touchstart', (e) => {
+        startDrag(e.touches[0].clientY);
+    }, { passive: true });
+
+    sheet.addEventListener('touchmove', (e) => {
+        moveDrag(e.touches[0].clientY, e);
+    }, { passive: false });
+
+    sheet.addEventListener('touchend', endDrag);
+
+    // Mouse events (Desktop testing)
+    if (handle) {
+        handle.addEventListener('mousedown', (e) => {
+            startDrag(e.clientY);
+        });
+    }
+    
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging) moveDrag(e.clientY, e);
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isDragging) endDrag();
     });
     
     return { close };

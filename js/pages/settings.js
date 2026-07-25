@@ -11,7 +11,7 @@ export function render() {
     const categories = store.get('categories');
     
     container.innerHTML = `
-        <div class="glass-card mb-md">
+        <div class="clean-card mb-md">
             <h3 class="mb-md">Profil Pengguna</h3>
             <div class="form-group">
                 <label class="form-label">Nama Panggilan</label>
@@ -23,7 +23,7 @@ export function render() {
             </div>
         </div>
         
-        <div class="glass-card mb-md">
+        <div class="clean-card mb-md">
             <h3 class="mb-md">Notifikasi Perangkat</h3>
             <div class="form-group">
                 <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">Pastikan browser/HP Anda mengizinkan notifikasi agar fitur pengingat tugas (Web Push) berfungsi.</p>
@@ -31,7 +31,7 @@ export function render() {
             </div>
         </div>
         
-        <div class="glass-card mb-md">
+        <div class="clean-card mb-md">
             <h3 class="mb-md">Widget & Layar Utama</h3>
             <div class="form-group">
                 <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">Tambahkan aplikasi & widget ke Beranda HP Anda untuk akses cepat ke Tugas Terdekat.</p>
@@ -46,7 +46,7 @@ export function render() {
             </div>
         </div>
         
-        <div class="glass-card mb-md">
+        <div class="clean-card mb-md">
             <h3 class="mb-md">Integrasi Apps Script</h3>
             <div class="form-group">
                 <label class="form-label">Web App URL (API Endpoint)</label>
@@ -55,19 +55,14 @@ export function render() {
             </div>
         </div>
         
-        <div class="glass-card mb-md">
+        <div class="clean-card mb-md">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h3 style="margin: 0;">Kategori Kustom</h3>
                 <button class="btn btn-secondary" id="btn-add-cat" style="width: auto; padding: 4px 12px; font-size: 12px;">+ Kategori</button>
             </div>
             
-            <div class="category-grid" style="grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));">
-                ${categories.map(c => `
-                    <div class="category-item" style="opacity: 1; cursor: default;">
-                        <div class="category-icon-wrapper" style="width: 40px; height: 40px; font-size: 18px;">${c.icon}</div>
-                        <div class="category-name" style="font-size: 10px;">${c.name}</div>
-                    </div>
-                `).join('')}
+            <div class="category-grid" id="settings-cat-grid" style="grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));">
+                <!-- Injected via refresh -->
             </div>
         </div>
         
@@ -80,6 +75,8 @@ export function render() {
     `;
     
     setTimeout(() => {
+        refresh(container);
+        
         // Logika Tombol Cek Notifikasi
         const btnNotif = container.querySelector('#btn-check-notif');
         if (btnNotif) {
@@ -216,4 +213,17 @@ export function render() {
     }, 50);
     
     return container;
+}
+
+export function refresh(container) {
+    const grid = container.querySelector('#settings-cat-grid');
+    if (grid) {
+        const categories = store.get('categories') || [];
+        grid.innerHTML = categories.map(c => `
+            <div class="category-item" style="opacity: 1; cursor: default;">
+                <div class="category-icon-wrapper" style="width: 40px; height: 40px; font-size: 18px;">${c.icon}</div>
+                <div class="category-name" style="font-size: 10px;">${c.name}</div>
+            </div>
+        `).join('');
+    }
 }
