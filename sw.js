@@ -1,4 +1,4 @@
-const CACHE_NAME = 'financeku-v1';
+const CACHE_NAME = 'financeku-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -16,16 +16,16 @@ const ASSETS_TO_CACHE = [
 
 // Install Event - Caching Assets
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Opened cache');
+      console.log('Opened fresh cache v2');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
-  self.skipWaiting();
 });
 
-// Activate Event - Clean up old caches
+// Activate Event - Clean up ALL old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -42,32 +42,23 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event - Serve from Cache (Cache First Strategy for fast loading)
+// Fetch Event - Network First Strategy for JS/CSS so latest code is always fetched fresh!
 self.addEventListener('fetch', (event) => {
-  // Hanya menerapkan cache-first pada GET request
   if (event.request.method !== 'GET') return;
 
+  // Network First for fresh logic & data
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // Return cached response if found (Cache First)
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      
-      // If not in cache, fetch from network
-      return fetch(event.request).then((networkResponse) => {
-        // Cache the newly fetched response for future fast loading
-        return caches.open(CACHE_NAME).then((cache) => {
-          // Jangan cache jika request ke API eksternal atau tidak valid
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-            cache.put(event.request, networkResponse.clone());
-          }
-          return networkResponse;
+    fetch(event.request).then((networkResponse) => {
+      if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+        const responseClone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseClone);
         });
-      }).catch(() => {
-        // Fallback jika offline dan tidak ada di cache (bisa diarahkan ke custom offline page)
-        console.log('Offline dan resource tidak ada di cache:', event.request.url);
-      });
+      }
+      return networkResponse;
+    }).catch(() => {
+      // Fallback to cache if offline
+      return caches.match(event.request);
     })
   );
 });

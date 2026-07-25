@@ -153,8 +153,14 @@ export function openTransactionForm(editData = null) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const dompetVal = document.getElementById('tx-dompet').value || 'Tunai';
+            const rawCatatan = document.getElementById('tx-catatan').value.trim();
+            // Ensure catatan is never empty string "" so Google Apps Script array columns never shift!
+            const catatanVal = rawCatatan || '-'; 
+            
+            const dompetSelect = document.getElementById('tx-dompet');
+            const dompetVal = (dompetSelect && dompetSelect.value) ? dompetSelect.value.trim() : 'Tunai';
             const nowIso = new Date().toISOString();
+            
             const payload = {
                 id: isEdit ? (editData.ID || editData.id) : undefined,
                 ID: isEdit ? (editData.ID || editData.id) : undefined,
@@ -166,19 +172,38 @@ export function openTransactionForm(editData = null) {
                 Kategori: catInput.value,
                 jumlah: parseInt(amountInput.value, 10) || 0,
                 Jumlah: parseInt(amountInput.value, 10) || 0,
-                catatan: document.getElementById('tx-catatan').value,
-                Catatan: document.getElementById('tx-catatan').value,
+                catatan: catatanVal,
+                Catatan: catatanVal,
                 
-                // Wallet property aliases
+                // All possible Wallet / Sumber Dana Aliases for both Pengeluaran and Pemasukan
                 dompet: dompetVal,
                 Dompet: dompetVal,
+                DOMPET: dompetVal,
+                sumberDana: dompetVal,
+                sumber_dana: dompetVal,
+                SumberDana: dompetVal,
+                Sumber_Dana: dompetVal,
+                sumber: dompetVal,
+                Sumber: dompetVal,
                 wallet: dompetVal,
                 Wallet: dompetVal,
-                sumberDana: dompetVal,
+                from_wallet: dompetVal,
+                to_wallet: dompetVal,
+                akun: dompetVal,
+                Akun: dompetVal,
+                account: dompetVal,
+                Account: dompetVal,
+                debit: dompetVal,
+                kredit: dompetVal,
+                pos: dompetVal,
+                tujuan: dompetVal,
+                penerima: dompetVal,
+                pengeluaran_dari: dompetVal,
                 
-                // Timestamp property aliases
+                // All possible Timestamp Aliases
                 dibuatPada: nowIso,
                 'Dibuat Pada': nowIso,
+                dibuat_pada: nowIso,
                 createdAt: nowIso,
                 created_at: nowIso,
                 timestamp: nowIso
@@ -207,20 +232,20 @@ export function openTransactionForm(editData = null) {
                         Kategori: payload.kategori,
                         Jumlah: payload.jumlah,
                         Catatan: payload.catatan,
-                        Dompet: payload.dompet
+                        Dompet: dompetVal
                     });
                     showToast('Transaksi berhasil diperbarui');
                 } else {
                     const result = await api.fetch('addTransaction', payload);
                     store.addTransaction({
-                        ID: result?.id || ('local-' + Date.now()),
+                        ID: result?.id || result?.ID || ('local-' + Date.now()),
                         Tanggal: payload.tanggal,
                         Tipe: payload.tipe,
                         Kategori: payload.kategori,
                         Jumlah: payload.jumlah,
                         Catatan: payload.catatan,
-                        Dompet: payload.dompet,
-                        'Dibuat Pada': new Date().toISOString()
+                        Dompet: dompetVal,
+                        'Dibuat Pada': nowIso
                     });
                     showToast('Transaksi berhasil ditambahkan');
                 }

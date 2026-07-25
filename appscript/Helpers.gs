@@ -6,7 +6,7 @@ function getSheet(sheetName) {
     if (!sheet) {
         sheet = ss.insertSheet(sheetName);
         if (sheetName === 'Transaksi') {
-            sheet.appendRow(['ID', 'Tanggal', 'Tipe', 'Kategori', 'Jumlah', 'Catatan', 'Dibuat Pada']);
+            sheet.appendRow(['ID', 'Tanggal', 'Tipe', 'Kategori', 'Jumlah', 'Catatan', 'Dompet', 'Dibuat Pada']);
         } else if (sheetName === 'Tasks') {
             sheet.appendRow(['ID', 'Judul', 'Deskripsi', 'Prioritas', 'Status', 'Deadline', 'Kategori', 'CalendarEventId', 'Dibuat Pada']);
         }

@@ -27,15 +27,24 @@ function addTransaction(payload) {
     const newId = generateUUID();
     const timestamp = new Date().toISOString();
     
+    // Read dompet/wallet from any possible property name the frontend might send
+    var dompet = payload.dompet || payload.Dompet || payload.wallet || payload.Wallet 
+                 || payload.sumberDana || payload.sumber_dana || payload.SumberDana 
+                 || payload.sumber || payload.Sumber || payload.akun || payload.Akun 
+                 || payload.account || payload.Account || 'Tunai';
+    
+    // Ensure catatan is never empty to prevent column shifting
+    var catatan = payload.catatan || payload.Catatan || '-';
+    
     // Columns: ID, Tanggal, Tipe, Kategori, Jumlah, Catatan, Dompet, Dibuat Pada
-    const newRow = [
+    var newRow = [
         newId,
-        payload.tanggal || new Date().toISOString().split('T')[0],
-        payload.tipe || 'Pengeluaran',
-        payload.kategori || 'Lainnya',
-        payload.jumlah || 0,
-        payload.catatan || '',
-        payload.dompet || 'Dana',
+        payload.tanggal || payload.Tanggal || new Date().toISOString().split('T')[0],
+        payload.tipe || payload.Tipe || 'Pengeluaran',
+        payload.kategori || payload.Kategori || 'Lainnya',
+        payload.jumlah || payload.Jumlah || 0,
+        catatan,
+        dompet,
         timestamp
     ];
     
@@ -48,17 +57,25 @@ function updateTransaction(payload) {
     const sheet = getSheet('Transaksi');
     const data = sheet.getDataRange().getValues();
     
-    for (let i = 1; i < data.length; i++) {
-        if (data[i][0] === payload.id) {
-            // Update row (1-indexed for sheet ranges)
-            const rowIdx = i + 1;
-            if (payload.tanggal) sheet.getRange(rowIdx, 2).setValue(payload.tanggal);
-            if (payload.tipe) sheet.getRange(rowIdx, 3).setValue(payload.tipe);
-            if (payload.kategori) sheet.getRange(rowIdx, 4).setValue(payload.kategori);
-            if (payload.jumlah) sheet.getRange(rowIdx, 5).setValue(payload.jumlah);
-            if (payload.catatan) sheet.getRange(rowIdx, 6).setValue(payload.catatan);
-            if (payload.dompet) sheet.getRange(rowIdx, 7).setValue(payload.dompet);
-            return { id: payload.id, updated: true };
+    var id = payload.id || payload.ID;
+    
+    for (var i = 1; i < data.length; i++) {
+        if (String(data[i][0]) === String(id)) {
+            var rowIdx = i + 1;
+            var tanggal = payload.tanggal || payload.Tanggal;
+            var tipe = payload.tipe || payload.Tipe;
+            var kategori = payload.kategori || payload.Kategori;
+            var jumlah = payload.jumlah || payload.Jumlah;
+            var catatan = payload.catatan || payload.Catatan;
+            var dompet = payload.dompet || payload.Dompet || payload.wallet || payload.sumberDana || payload.sumber_dana;
+            
+            if (tanggal) sheet.getRange(rowIdx, 2).setValue(tanggal);
+            if (tipe) sheet.getRange(rowIdx, 3).setValue(tipe);
+            if (kategori) sheet.getRange(rowIdx, 4).setValue(kategori);
+            if (jumlah) sheet.getRange(rowIdx, 5).setValue(jumlah);
+            if (catatan) sheet.getRange(rowIdx, 6).setValue(catatan);
+            if (dompet) sheet.getRange(rowIdx, 7).setValue(dompet);
+            return { id: id, updated: true };
         }
     }
     
