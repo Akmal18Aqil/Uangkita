@@ -3,6 +3,8 @@ import { store } from '../store.js';
 import { api } from '../api.js';
 import { showBottomSheet } from './modal.js';
 import { showToast } from './toast.js';
+import { esc } from '../utils.js';
+import { invalidateCache } from '../router.js';
 
 export function openTaskForm(editData = null) {
     const isEdit = !!editData;
@@ -31,12 +33,12 @@ export function openTaskForm(editData = null) {
         <form id="task-form" class="animate-fade-in">
             <div class="form-group">
                 <label class="form-label">Judul Tugas</label>
-                <input type="text" id="task-judul" class="form-control" placeholder="Mengerjakan laporan..." value="${formData.Judul}" required>
+                <input type="text" id="task-judul" class="form-control" placeholder="Mengerjakan laporan..." value="${esc(formData.Judul)}" maxlength="100" required>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Deskripsi (Opsional)</label>
-                <textarea id="task-deskripsi" class="form-control" rows="3" placeholder="Detail tugas...">${formData.Deskripsi}</textarea>
+                <textarea id="task-deskripsi" class="form-control" rows="3" maxlength="500" placeholder="Detail tugas...">${esc(formData.Deskripsi)}</textarea>
             </div>
             
             <div class="form-group">
@@ -100,7 +102,7 @@ export function openTaskForm(editData = null) {
             
             const payload = {
                 id: isEdit ? editData.ID : undefined,
-                judul: document.getElementById('task-judul').value,
+                judul: document.getElementById('task-judul').value.trim(),
                 deskripsi: document.getElementById('task-deskripsi').value,
                 prioritas: document.querySelector('input[name="prioritas"]:checked').value,
                 deadline: document.getElementById('task-deadline').value,
@@ -128,25 +130,19 @@ export function openTaskForm(editData = null) {
                 } else {
                     const result = await api.fetch('addTask', payload);
                     
-                    const tasks = store.get('tasks');
-                    tasks.push({
-                        ID: result.id || Math.random().toString(),
+                    store.set('tasks', [...(store.get('tasks') || []), {
+                        ID: result?.id || `local-${Date.now()}`,
                         Judul: payload.judul,
                         Deskripsi: payload.deskripsi,
                         Prioritas: payload.prioritas,
                         Status: payload.status,
                         Deadline: payload.deadline,
-                        CalendarEventId: result.eventId
-                    });
-                    store.set('tasks', tasks);
+                        CalendarEventId: result?.eventId
+                    }]);
                     showToast('Tugas berhasil ditambahkan');
                 }
                 
-                if (window.location.hash === '#/tasks') {
-                    const evt = new HashChangeEvent("hashchange");
-                    window.dispatchEvent(evt);
-                }
-                
+                invalidateCache();
                 close();
             } catch (error) {
                 console.error(error);

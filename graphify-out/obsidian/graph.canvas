@@ -1,0 +1,4877 @@
+{
+  "nodes": [
+    {
+      "id": "g0",
+      "type": "group",
+      "label": "Frontend Components & Pages",
+      "x": 0,
+      "y": 0,
+      "width": 1980,
+      "height": 920,
+      "color": "1"
+    },
+    {
+      "id": "n_js_store_default_categories",
+      "type": "file",
+      "file": "DEFAULT_CATEGORIES.md",
+      "x": 20,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_analytics",
+      "type": "file",
+      "file": "analytics.js.md",
+      "x": 220,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_api_api",
+      "type": "file",
+      "file": "api.md",
+      "x": 420,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_api",
+      "type": "file",
+      "file": "api.js.md",
+      "x": 620,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app",
+      "type": "file",
+      "file": "app.js.md",
+      "x": 820,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_applythemeui",
+      "type": "file",
+      "file": "applyThemeUI().md",
+      "x": 1020,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_store_bydatedesc",
+      "type": "file",
+      "file": "byDateDesc().md",
+      "x": 1220,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_chart",
+      "type": "file",
+      "file": "chart.js.md",
+      "x": 1420,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_chart_createbarchart",
+      "type": "file",
+      "file": "createBarChart().md",
+      "x": 1620,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_chart_createdonutchart",
+      "type": "file",
+      "file": "createDonutChart().md",
+      "x": 20,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_chart_createprogressbar",
+      "type": "file",
+      "file": "createProgressBar().md",
+      "x": 220,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_chart_createreferencebarchart",
+      "type": "file",
+      "file": "createReferenceBarChart().md",
+      "x": 420,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_dashboard",
+      "type": "file",
+      "file": "dashboard.js.md",
+      "x": 620,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_debounce",
+      "type": "file",
+      "file": "debounce().md",
+      "x": 820,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_fab",
+      "type": "file",
+      "file": "fab.js.md",
+      "x": 1020,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_formatdate",
+      "type": "file",
+      "file": "formatDate().md",
+      "x": 1220,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_formatrupiah",
+      "type": "file",
+      "file": "formatRupiah().md",
+      "x": 1420,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_generateuuid",
+      "type": "file",
+      "file": "generateUUID().md",
+      "x": 1620,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_skeleton_getcardskeleton",
+      "type": "file",
+      "file": "getCardSkeleton().md",
+      "x": 20,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_skeleton_getlistskeleton",
+      "type": "file",
+      "file": "getListSkeleton().md",
+      "x": 220,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_skeleton_getpageskeleton",
+      "type": "file",
+      "file": "getPageSkeleton().md",
+      "x": 420,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_inflight",
+      "type": "file",
+      "file": "inFlight.md",
+      "x": 620,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_initrouter",
+      "type": "file",
+      "file": "initRouter().md",
+      "x": 820,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_invalidatecache",
+      "type": "file",
+      "file": "invalidateCache().md",
+      "x": 1020,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_modal",
+      "type": "file",
+      "file": "modal.js.md",
+      "x": 1220,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_navbar_navitems",
+      "type": "file",
+      "file": "navItems.md",
+      "x": 1420,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_navbar",
+      "type": "file",
+      "file": "navbar.js.md",
+      "x": 1620,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_navigateto",
+      "type": "file",
+      "file": "navigateTo().md",
+      "x": 20,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_normalizetransaction",
+      "type": "file",
+      "file": "normalizeTransaction().md",
+      "x": 220,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_taskform_opentaskform",
+      "type": "file",
+      "file": "openTaskForm().md",
+      "x": 420,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_transactionform_opentransactionform",
+      "type": "file",
+      "file": "openTransactionForm().md",
+      "x": 620,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_pagecache",
+      "type": "file",
+      "file": "pageCache.md",
+      "x": 820,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_parselocaldate",
+      "type": "file",
+      "file": "parseLocalDate().md",
+      "x": 1020,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_transactions_populatecategoryfilter",
+      "type": "file",
+      "file": "populateCategoryFilter().md",
+      "x": 1220,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_analytics_refresh",
+      "type": "file",
+      "file": "refresh().md",
+      "x": 1420,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_dashboard_refresh",
+      "type": "file",
+      "file": "refresh()_1.md",
+      "x": 1620,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_settings_refresh",
+      "type": "file",
+      "file": "refresh()_2.md",
+      "x": 20,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_tasks_refresh",
+      "type": "file",
+      "file": "refresh()_3.md",
+      "x": 220,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_transactions_refresh",
+      "type": "file",
+      "file": "refresh()_4.md",
+      "x": 420,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_analytics_render",
+      "type": "file",
+      "file": "render().md",
+      "x": 620,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_dashboard_render",
+      "type": "file",
+      "file": "render()_1.md",
+      "x": 820,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_settings_render",
+      "type": "file",
+      "file": "render()_2.md",
+      "x": 1020,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_tasks_render",
+      "type": "file",
+      "file": "render()_3.md",
+      "x": 1220,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_transactions_render",
+      "type": "file",
+      "file": "render()_4.md",
+      "x": 1420,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_fab_renderfab",
+      "type": "file",
+      "file": "renderFAB().md",
+      "x": 1620,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_tasks_renderkanban",
+      "type": "file",
+      "file": "renderKanban().md",
+      "x": 20,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_transactions_renderlist",
+      "type": "file",
+      "file": "renderList().md",
+      "x": 220,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_navbar_rendernavbar",
+      "type": "file",
+      "file": "renderNavbar().md",
+      "x": 420,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_renderroute",
+      "type": "file",
+      "file": "renderRoute().md",
+      "x": 620,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_dashboard_rendertxitemhtml",
+      "type": "file",
+      "file": "renderTxItemHtml().md",
+      "x": 820,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router",
+      "type": "file",
+      "file": "router.js.md",
+      "x": 1020,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_routes",
+      "type": "file",
+      "file": "routes.md",
+      "x": 1220,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_settings",
+      "type": "file",
+      "file": "settings.js.md",
+      "x": 1420,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_modal_showbottomsheet",
+      "type": "file",
+      "file": "showBottomSheet().md",
+      "x": 1620,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_toast_showtoast",
+      "type": "file",
+      "file": "showToast().md",
+      "x": 20,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_skeleton",
+      "type": "file",
+      "file": "skeleton.js.md",
+      "x": 220,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_store_store",
+      "type": "file",
+      "file": "store.md",
+      "x": 420,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_store",
+      "type": "file",
+      "file": "store.js.md",
+      "x": 620,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_taskform",
+      "type": "file",
+      "file": "taskForm.js.md",
+      "x": 820,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_tasks",
+      "type": "file",
+      "file": "tasks.js.md",
+      "x": 1020,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_toast",
+      "type": "file",
+      "file": "toast.js.md",
+      "x": 1220,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_components_transactionform",
+      "type": "file",
+      "file": "transactionForm.js.md",
+      "x": 1420,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_transactions",
+      "type": "file",
+      "file": "transactions.js.md",
+      "x": 1620,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_pages_dashboard_updatedashboarddata",
+      "type": "file",
+      "file": "updateDashboardData().md",
+      "x": 20,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_router_updatenavactivestate",
+      "type": "file",
+      "file": "updateNavActiveState().md",
+      "x": 220,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils",
+      "type": "file",
+      "file": "utils.js.md",
+      "x": 420,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g1",
+      "type": "group",
+      "label": "Graphify Cache & Extraction",
+      "x": 2060,
+      "y": 0,
+      "width": 1760,
+      "height": 820,
+      "color": "2"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_11",
+      "type": "file",
+      "file": "Build a stable node ID from one or more name parts..md",
+      "x": 2080,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_69",
+      "type": "file",
+      "file": "Check semantic extraction cache for a list of absolute file paths. Returns\u2026.md",
+      "x": 2280,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_59",
+      "type": "file",
+      "file": "Delete all graphify-outcache.json files..md",
+      "x": 2480,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1",
+      "type": "file",
+      "file": "Deterministic structural extraction from Python code using tree-sitter. Outputs\u2026.md",
+      "x": 2680,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_2257",
+      "type": "file",
+      "file": "Extract AST nodes and edges from a list of code files. Two-pass process 1.\u2026.md",
+      "x": 2880,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_18",
+      "type": "file",
+      "file": "Extract classes, functions, and imports from a .py file via tree-sitter AST..md",
+      "x": 3080,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_216",
+      "type": "file",
+      "file": "Extract classes, functions, arrow functions, and imports from a .js.ts.tsx\u2026.md",
+      "x": 3280,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1943",
+      "type": "file",
+      "file": "Extract classes, functions, methods, namespace uses, and calls from a .php file..md",
+      "x": 3480,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_756",
+      "type": "file",
+      "file": "Extract classes, interfaces, methods, constructors, and imports from a .java\u2026.md",
+      "x": 2080,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1412",
+      "type": "file",
+      "file": "Extract classes, interfaces, methods, namespaces, and usings from a .cs file..md",
+      "x": 2280,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1250",
+      "type": "file",
+      "file": "Extract classes, methods, singleton methods, and calls from a .rb file..md",
+      "x": 2480,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1589",
+      "type": "file",
+      "file": "Extract classes, objects, functions, and imports from a .kt.kts file..md",
+      "x": 2680,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1766",
+      "type": "file",
+      "file": "Extract classes, objects, functions, and imports from a .scala file..md",
+      "x": 2880,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_926",
+      "type": "file",
+      "file": "Extract functions and includes from a .c.h file..md",
+      "x": 3080,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_1077",
+      "type": "file",
+      "file": "Extract functions, classes, and includes from a .cpp.cc.cxx.hpp file..md",
+      "x": 3280,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_403",
+      "type": "file",
+      "file": "Extract functions, methods, type declarations, and imports from a .go file..md",
+      "x": 3480,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_589",
+      "type": "file",
+      "file": "Extract functions, structs, enums, traits, impl methods, and use declarations\u2026.md",
+      "x": 2080,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_py_path",
+      "type": "file",
+      "file": "Path_1.md",
+      "x": 2280,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_py_path",
+      "type": "file",
+      "file": "Path_3.md",
+      "x": 2480,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_22",
+      "type": "file",
+      "file": "Return cached extraction for this file if hash matches, else None. Cache key\u2026.md",
+      "x": 2680,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_53",
+      "type": "file",
+      "file": "Return set of file paths that have a valid cache entry (hash still matches)..md",
+      "x": 2880,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_15",
+      "type": "file",
+      "file": "Returns graphify-outcache - creates it if needed..md",
+      "x": 3080,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_10",
+      "type": "file",
+      "file": "SHA256 of file contents, hex digest..md",
+      "x": 3280,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_42",
+      "type": "file",
+      "file": "Save extraction result for this file. Stores as graphify-outcache{hash}.json\u2026.md",
+      "x": 3480,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_rationale_94",
+      "type": "file",
+      "file": "Save semantic extraction results to cache, keyed by source_file. Groups nodes\u2026.md",
+      "x": 2080,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_rationale_2127",
+      "type": "file",
+      "file": "Two-pass import resolution turn file-level imports into class-level edges.\u2026.md",
+      "x": 2280,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_make_id",
+      "type": "file",
+      "file": "_make_id().md",
+      "x": 2480,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_resolve_cross_file_imports",
+      "type": "file",
+      "file": "_resolve_cross_file_imports().md",
+      "x": 2680,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache",
+      "type": "file",
+      "file": "cache.py.md",
+      "x": 2880,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_cache_dir",
+      "type": "file",
+      "file": "cache_dir().md",
+      "x": 3080,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_cached_files",
+      "type": "file",
+      "file": "cached_files().md",
+      "x": 3280,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_check_semantic_cache",
+      "type": "file",
+      "file": "check_semantic_cache().md",
+      "x": 3480,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_clear_cache",
+      "type": "file",
+      "file": "clear_cache().md",
+      "x": 2080,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_collect_files",
+      "type": "file",
+      "file": "collect_files().md",
+      "x": 2280,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract",
+      "type": "file",
+      "file": "extract().md",
+      "x": 2480,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract",
+      "type": "file",
+      "file": "extract.py.md",
+      "x": 2680,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_c",
+      "type": "file",
+      "file": "extract_c().md",
+      "x": 2880,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_cpp",
+      "type": "file",
+      "file": "extract_cpp().md",
+      "x": 3080,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_csharp",
+      "type": "file",
+      "file": "extract_csharp().md",
+      "x": 3280,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_go",
+      "type": "file",
+      "file": "extract_go().md",
+      "x": 3480,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_java",
+      "type": "file",
+      "file": "extract_java().md",
+      "x": 2080,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_js",
+      "type": "file",
+      "file": "extract_js().md",
+      "x": 2280,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_kotlin",
+      "type": "file",
+      "file": "extract_kotlin().md",
+      "x": 2480,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_php",
+      "type": "file",
+      "file": "extract_php().md",
+      "x": 2680,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_python",
+      "type": "file",
+      "file": "extract_python().md",
+      "x": 2880,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_ruby",
+      "type": "file",
+      "file": "extract_ruby().md",
+      "x": 3080,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_rust",
+      "type": "file",
+      "file": "extract_rust().md",
+      "x": 3280,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_extract_extract_scala",
+      "type": "file",
+      "file": "extract_scala().md",
+      "x": 3480,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_file_hash",
+      "type": "file",
+      "file": "file_hash().md",
+      "x": 2080,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_graphify_step3a",
+      "type": "file",
+      "file": "graphify_step3a.py.md",
+      "x": 2280,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_load_cached",
+      "type": "file",
+      "file": "load_cached().md",
+      "x": 2480,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_save_cached",
+      "type": "file",
+      "file": "save_cached().md",
+      "x": 2680,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cache_save_semantic_cache",
+      "type": "file",
+      "file": "save_semantic_cache().md",
+      "x": 2880,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g2",
+      "type": "group",
+      "label": "Graphify Analysis Engine",
+      "x": 3900,
+      "y": 0,
+      "width": 1760,
+      "height": 820,
+      "color": "3"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_rationale_7",
+      "type": "file",
+      "file": "Build a NetworkX graph from graphify nodeedge dicts. Preserves original edge\u2026.md",
+      "x": 3920,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_444",
+      "type": "file",
+      "file": "Compare two graph snapshots and return what changed. Returns { new_nodes\u2026.md",
+      "x": 4120,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_187",
+      "type": "file",
+      "file": "Cross-file edges between real codedoc entities, ranked by a composite surprise\u2026.md",
+      "x": 4320,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_62",
+      "type": "file",
+      "file": "Find connections that are genuinely surprising - not obvious from file\u2026.md",
+      "x": 4520,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_249",
+      "type": "file",
+      "file": "For single-source corpora find edges that bridge different communities. These\u2026.md",
+      "x": 4720,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_332",
+      "type": "file",
+      "file": "Generate questions the graph is uniquely positioned to answer. Based on\u2026.md",
+      "x": 4920,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_py_graph",
+      "type": "file",
+      "file": "Graph.md",
+      "x": 5120,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_py_graph",
+      "type": "file",
+      "file": "Graph_3.md",
+      "x": 5320,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_report_py_graph",
+      "type": "file",
+      "file": "Graph_5.md",
+      "x": 3920,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_1",
+      "type": "file",
+      "file": "Graph analysis god nodes (most connected), surprising connections (cross-\u2026.md",
+      "x": 4120,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_7",
+      "type": "file",
+      "file": "Invert communities dict node_id - community_id..md",
+      "x": 4320,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_rationale_1",
+      "type": "file",
+      "file": "Leiden community detection on NetworkX graphs. Splits oversized communities.\u2026.md",
+      "x": 4520,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_py_path",
+      "type": "file",
+      "file": "Path_7.md",
+      "x": 4720,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_rationale_93",
+      "type": "file",
+      "file": "Ratio of actual intra-community edges to maximum possible..md",
+      "x": 4920,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_rationale_22",
+      "type": "file",
+      "file": "Re-run AST extraction + build + cluster + report for code files. No LLM needed.\u2026.md",
+      "x": 5120,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_12",
+      "type": "file",
+      "file": "Return True if this node is a file-level hub node (e.g. 'client', 'models') or\u2026.md",
+      "x": 5320,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_90",
+      "type": "file",
+      "file": "Return True if this node is a manually-injected semantic concept node rather\u2026.md",
+      "x": 3920,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_126",
+      "type": "file",
+      "file": "Return the first path component - used to detect cross-repo edges..md",
+      "x": 4120,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_36",
+      "type": "file",
+      "file": "Return the top_n most-connected real entities - the core abstractions. File-\u2026.md",
+      "x": 4320,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_rationale_28",
+      "type": "file",
+      "file": "Run Leiden community detection. Returns {community_id node_ids}. Community\u2026.md",
+      "x": 4520,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_rationale_73",
+      "type": "file",
+      "file": "Run a second Leiden pass on a community subgraph to split it further..md",
+      "x": 4720,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_rationale_139",
+      "type": "file",
+      "file": "Score how surprising a cross-file edge is. Returns (score, reasons)..md",
+      "x": 4920,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_rationale_103",
+      "type": "file",
+      "file": "Watch watch_path for new or modified files and auto-update the graph. For code-\u2026.md",
+      "x": 5120,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_rationale_88",
+      "type": "file",
+      "file": "Write a flag file and print a notification (fallback for non-code-only corpora)..md",
+      "x": 5320,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "type": "file",
+      "file": "_cross_community_surprises().md",
+      "x": 3920,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "type": "file",
+      "file": "_cross_file_surprises().md",
+      "x": 4120,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_file_category",
+      "type": "file",
+      "file": "_file_category().md",
+      "x": 4320,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_has_non_code",
+      "type": "file",
+      "file": "_has_non_code().md",
+      "x": 4520,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "type": "file",
+      "file": "_is_concept_node().md",
+      "x": 4720,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "type": "file",
+      "file": "_is_file_node().md",
+      "x": 4920,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_node_community_map",
+      "type": "file",
+      "file": "_node_community_map().md",
+      "x": 5120,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_notify_only",
+      "type": "file",
+      "file": "_notify_only().md",
+      "x": 5320,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "type": "file",
+      "file": "_rebuild_code().md",
+      "x": 3920,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_split_community",
+      "type": "file",
+      "file": "_split_community().md",
+      "x": 4120,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "type": "file",
+      "file": "_surprise_score().md",
+      "x": 4320,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_top_level_dir",
+      "type": "file",
+      "file": "_top_level_dir().md",
+      "x": 4520,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze",
+      "type": "file",
+      "file": "analyze.py.md",
+      "x": 4720,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_build_graph",
+      "type": "file",
+      "file": "build_graph().md",
+      "x": 4920,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_cluster",
+      "type": "file",
+      "file": "cluster().md",
+      "x": 5120,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster",
+      "type": "file",
+      "file": "cluster.py.md",
+      "x": 5320,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "type": "file",
+      "file": "cohesion_score().md",
+      "x": 3920,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_report_generate",
+      "type": "file",
+      "file": "generate().md",
+      "x": 4120,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "type": "file",
+      "file": "god_nodes().md",
+      "x": 4320,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_graph_diff",
+      "type": "file",
+      "file": "graph_diff().md",
+      "x": 4520,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_report",
+      "type": "file",
+      "file": "report.py.md",
+      "x": 4720,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_cluster_score_all",
+      "type": "file",
+      "file": "score_all().md",
+      "x": 4920,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "type": "file",
+      "file": "suggest_questions().md",
+      "x": 5120,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "type": "file",
+      "file": "surprising_connections().md",
+      "x": 5320,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch_watch",
+      "type": "file",
+      "file": "watch().md",
+      "x": 3920,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_watch",
+      "type": "file",
+      "file": "watch.py.md",
+      "x": 4120,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g3",
+      "type": "group",
+      "label": "Project Specification & Design",
+      "x": 5740,
+      "y": 0,
+      "width": 1320,
+      "height": 720,
+      "color": "4"
+    },
+    {
+      "id": "n_PRD_Analytics_module",
+      "type": "file",
+      "file": "Analytics Module.md",
+      "x": 5760,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_API_client",
+      "type": "file",
+      "file": "Apps Script API Client.md",
+      "x": 5960,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_CSS_tokens",
+      "type": "file",
+      "file": "CSS Design Tokens.md",
+      "x": 6160,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Glassmorphism",
+      "type": "file",
+      "file": "Dark Glassmorphism Design System.md",
+      "x": 6360,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Dashboard_module",
+      "type": "file",
+      "file": "Dashboard Module.md",
+      "x": 6560,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_FinanceKu",
+      "type": "file",
+      "file": "FinanceKu App.md",
+      "x": 6760,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Google_Apps_Script",
+      "type": "file",
+      "file": "Google Apps Script (REST API).md",
+      "x": 5760,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Google_Calendar",
+      "type": "file",
+      "file": "Google Calendar Integration.md",
+      "x": 5960,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Google_Sheets",
+      "type": "file",
+      "file": "Google Sheets (Database).md",
+      "x": 6160,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_SPA_router",
+      "type": "file",
+      "file": "Hash-based SPA Router.md",
+      "x": 6360,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Kanban_board",
+      "type": "file",
+      "file": "Kanban Board.md",
+      "x": 6560,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_file_PRD_md",
+      "type": "file",
+      "file": "PRD FinanceKu.md",
+      "x": 6760,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_PWA",
+      "type": "file",
+      "file": "PWA Setup.md",
+      "x": 5760,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_TASK_Phase1",
+      "type": "file",
+      "file": "Phase 1 Foundation.md",
+      "x": 5960,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_TASK_Phase2",
+      "type": "file",
+      "file": "Phase 2 Core Finance.md",
+      "x": 6160,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_TASK_Phase3",
+      "type": "file",
+      "file": "Phase 3 Analytics.md",
+      "x": 6360,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_TASK_Phase4",
+      "type": "file",
+      "file": "Phase 4 Tasks + Calendar.md",
+      "x": 6560,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_TASK_Phase5",
+      "type": "file",
+      "file": "Phase 5 Polish & Deploy.md",
+      "x": 6760,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_file_README_md",
+      "type": "file",
+      "file": "README FinanceKu.md",
+      "x": 5760,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_App_Shell",
+      "type": "file",
+      "file": "SPA App Shell (index.html).md",
+      "x": 5960,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_ServiceWorker",
+      "type": "file",
+      "file": "Service Worker (sw.js).md",
+      "x": 6160,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Settings_module",
+      "type": "file",
+      "file": "Settings Module.md",
+      "x": 6360,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Store",
+      "type": "file",
+      "file": "State Management (Store).md",
+      "x": 6560,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_file_TASK_md",
+      "type": "file",
+      "file": "Task Checklist FinanceKu.md",
+      "x": 6760,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Tasks_module",
+      "type": "file",
+      "file": "Tasks Module.md",
+      "x": 5760,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Transaksi_module",
+      "type": "file",
+      "file": "Transaksi (Transaction) Module.md",
+      "x": 5960,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_taste_taste_userprefs",
+      "type": "file",
+      "file": "User Preferences (Indonesian, Lean Solutions).md",
+      "x": 6160,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_PRD_Vercel",
+      "type": "file",
+      "file": "Vercel Deployment.md",
+      "x": 6360,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_CSS_animations",
+      "type": "file",
+      "file": "cssanimations.css.md",
+      "x": 6560,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_CSS_components",
+      "type": "file",
+      "file": "csscomponents.css.md",
+      "x": 6760,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_CSS_index",
+      "type": "file",
+      "file": "cssindex.css (Design System).md",
+      "x": 5760,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_CSS_pages",
+      "type": "file",
+      "file": "csspages.css.md",
+      "x": 5960,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_file_index_html",
+      "type": "file",
+      "file": "index.html \u2014 SPA Shell.md",
+      "x": 6160,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_HTML_app_js",
+      "type": "file",
+      "file": "jsapp.js (Main App Entry).md",
+      "x": 6360,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g4",
+      "type": "group",
+      "label": "Graphify Ingest & Security",
+      "x": 7140,
+      "y": 0,
+      "width": 1320,
+      "height": 720,
+      "color": "5"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_nofileredirecthandler_redirect_request",
+      "type": "file",
+      "file": "dot-redirect_request().md",
+      "x": 7160,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_23",
+      "type": "file",
+      "file": "Classify the URL for targeted extraction..md",
+      "x": 7360,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_47",
+      "type": "file",
+      "file": "Convert HTML to clean markdown. Uses html2text if available, else basic strip..md",
+      "x": 7560,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_174",
+      "type": "file",
+      "file": "Download a binary file (PDF, image) directly..md",
+      "x": 7760,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_rationale_100",
+      "type": "file",
+      "file": "Fetch url and return decoded text (UTF-8, replacing bad bytes). Wraps\u2026.md",
+      "x": 7960,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_rationale_56",
+      "type": "file",
+      "file": "Fetch url and return raw bytes. Protections applied - URL scheme validated\u2026.md",
+      "x": 8160,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_182",
+      "type": "file",
+      "file": "Fetch a URL and save it into target_dir as a graphify-ready file. Returns the\u2026.md",
+      "x": 7160,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_100",
+      "type": "file",
+      "file": "Fetch a generic webpage and convert to markdown..md",
+      "x": 7360,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_65",
+      "type": "file",
+      "file": "Fetch a tweet URL. Returns (content, filename)..md",
+      "x": 7560,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_129",
+      "type": "file",
+      "file": "Fetch arXiv abstract page..md",
+      "x": 7760,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_openerdirector",
+      "type": "file",
+      "file": "OpenerDirector.md",
+      "x": 7960,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_py_path",
+      "type": "file",
+      "file": "Path_5.md",
+      "x": 8160,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_rationale_21",
+      "type": "file",
+      "file": "Raise ValueError if url is not http or https. Blocks file, ftp, data,\u2026.md",
+      "x": 7160,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_rationale_36",
+      "type": "file",
+      "file": "Redirect handler that re-validates every redirect target. Prevents open-\u2026.md",
+      "x": 7360,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_236",
+      "type": "file",
+      "file": "Save a Q&A result as markdown so it gets extracted into the graph on next\u2026.md",
+      "x": 7560,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_rationale_14",
+      "type": "file",
+      "file": "Turn a URL into a safe filename..md",
+      "x": 7760,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_nofileredirecthandler",
+      "type": "file",
+      "file": "_NoFileRedirectHandler.md",
+      "x": 7960,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_build_opener",
+      "type": "file",
+      "file": "_build_opener().md",
+      "x": 8160,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_detect_url_type",
+      "type": "file",
+      "file": "_detect_url_type().md",
+      "x": 7160,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_download_binary",
+      "type": "file",
+      "file": "_download_binary().md",
+      "x": 7360,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_fetch_arxiv",
+      "type": "file",
+      "file": "_fetch_arxiv().md",
+      "x": 7560,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_fetch_html",
+      "type": "file",
+      "file": "_fetch_html().md",
+      "x": 7760,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_fetch_tweet",
+      "type": "file",
+      "file": "_fetch_tweet().md",
+      "x": 7960,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_fetch_webpage",
+      "type": "file",
+      "file": "_fetch_webpage().md",
+      "x": 8160,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_html_to_markdown",
+      "type": "file",
+      "file": "_html_to_markdown().md",
+      "x": 7160,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_safe_filename",
+      "type": "file",
+      "file": "_safe_filename().md",
+      "x": 7360,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_ingest",
+      "type": "file",
+      "file": "ingest().md",
+      "x": 7560,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest",
+      "type": "file",
+      "file": "ingest.py.md",
+      "x": 7760,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_safe_fetch",
+      "type": "file",
+      "file": "safe_fetch().md",
+      "x": 7960,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_safe_fetch_text",
+      "type": "file",
+      "file": "safe_fetch_text().md",
+      "x": 8160,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_ingest_save_query_result",
+      "type": "file",
+      "file": "save_query_result().md",
+      "x": 7160,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security",
+      "type": "file",
+      "file": "security.py.md",
+      "x": 7360,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_validate_url",
+      "type": "file",
+      "file": "validate_url().md",
+      "x": 7560,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g5",
+      "type": "group",
+      "label": "Graphify CLI & Hooks",
+      "x": 0,
+      "y": 1000,
+      "width": 1320,
+      "height": 720,
+      "color": "6"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_rationale_109",
+      "type": "file",
+      "file": "Check if graphify hook is installed..md",
+      "x": 20,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_py_graph",
+      "type": "file",
+      "file": "Graph_1.md",
+      "x": 220,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_rationale_57",
+      "type": "file",
+      "file": "Install graphify post-commit hook in the nearest git repo. Returns a message\u2026.md",
+      "x": 420,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_rationale_69",
+      "type": "file",
+      "file": "Measure token reduction corpus tokens vs graphify query tokens. Args\u2026.md",
+      "x": 620,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_py_path",
+      "type": "file",
+      "file": "Path_4.md",
+      "x": 820,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_py_path",
+      "type": "file",
+      "file": "Path.md",
+      "x": 1020,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_rationale_19",
+      "type": "file",
+      "file": "Path to the skill.md bundled with this package..md",
+      "x": 20,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_rationale_112",
+      "type": "file",
+      "file": "Print a human-readable benchmark report..md",
+      "x": 220,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_rationale_83",
+      "type": "file",
+      "file": "Remove graphify post-commit hook..md",
+      "x": 420,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_rationale_91",
+      "type": "file",
+      "file": "Remove the graphify section from the local CLAUDE.md..md",
+      "x": 620,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_rationale_17",
+      "type": "file",
+      "file": "Run BFS from best-matching nodes and return estimated tokens in the subgraph\u2026.md",
+      "x": 820,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_rationale_1",
+      "type": "file",
+      "file": "Token-reduction benchmark - measures how much context graphify saves vs naive\u2026.md",
+      "x": 1020,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_rationale_48",
+      "type": "file",
+      "file": "Walk up to find .git directory..md",
+      "x": 20,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_rationale_71",
+      "type": "file",
+      "file": "Write the graphify section to the local CLAUDE.md..md",
+      "x": 220,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main",
+      "type": "file",
+      "file": "__main__.py.md",
+      "x": 420,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_bundled_skill",
+      "type": "file",
+      "file": "_bundled_skill().md",
+      "x": 620,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_estimate_tokens",
+      "type": "file",
+      "file": "_estimate_tokens().md",
+      "x": 820,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_git_root",
+      "type": "file",
+      "file": "_git_root().md",
+      "x": 1020,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "type": "file",
+      "file": "_query_subgraph_tokens().md",
+      "x": 20,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark",
+      "type": "file",
+      "file": "benchmark.py.md",
+      "x": 220,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_claude_install",
+      "type": "file",
+      "file": "claude_install().md",
+      "x": 420,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_claude_uninstall",
+      "type": "file",
+      "file": "claude_uninstall().md",
+      "x": 620,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_rationale_1",
+      "type": "file",
+      "file": "graphify CLI - `graphify install` sets up the Claude Code skill..md",
+      "x": 820,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks",
+      "type": "file",
+      "file": "hooks.py.md",
+      "x": 1020,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_install",
+      "type": "file",
+      "file": "install()_1.md",
+      "x": 20,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_install",
+      "type": "file",
+      "file": "install().md",
+      "x": 220,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_main_main",
+      "type": "file",
+      "file": "main().md",
+      "x": 420,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_print_benchmark",
+      "type": "file",
+      "file": "print_benchmark().md",
+      "x": 620,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_benchmark_run_benchmark",
+      "type": "file",
+      "file": "run_benchmark().md",
+      "x": 820,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_status",
+      "type": "file",
+      "file": "status().md",
+      "x": 1020,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_hooks_uninstall",
+      "type": "file",
+      "file": "uninstall().md",
+      "x": 20,
+      "y": 1480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g6",
+      "type": "group",
+      "label": "Graphify File Detection",
+      "x": 2060,
+      "y": 1000,
+      "width": 1100,
+      "height": 620,
+      "color": "1"
+    },
+    {
+      "id": "n_enum",
+      "type": "file",
+      "file": "Enum.md",
+      "x": 2080,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_92",
+      "type": "file",
+      "file": "Extract plain text from a PDF file using pypdf..md",
+      "x": 2280,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_filetype",
+      "type": "file",
+      "file": "FileType.md",
+      "x": 2480,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_65",
+      "type": "file",
+      "file": "Heuristic does this text file read like an academic paper.md",
+      "x": 2680,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_238",
+      "type": "file",
+      "file": "Like detect(), but returns only new or modified files since the last run.\u2026.md",
+      "x": 2880,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_217",
+      "type": "file",
+      "file": "Load the file modification time manifest from a previous run..md",
+      "x": 2080,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_py_path",
+      "type": "file",
+      "file": "Path_2.md",
+      "x": 2280,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_126",
+      "type": "file",
+      "file": "Return True if this directory name looks like a venv, cache, or dep dir..md",
+      "x": 2480,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_58",
+      "type": "file",
+      "file": "Return True if this file likely contains secrets and should be skipped..md",
+      "x": 2680,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_rationale_225",
+      "type": "file",
+      "file": "Save current file mtimes so the next --update run can diff against them..md",
+      "x": 2880,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_is_noise_dir",
+      "type": "file",
+      "file": "_is_noise_dir().md",
+      "x": 2080,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_is_sensitive",
+      "type": "file",
+      "file": "_is_sensitive().md",
+      "x": 2280,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_looks_like_paper",
+      "type": "file",
+      "file": "_looks_like_paper().md",
+      "x": 2480,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_classify_file",
+      "type": "file",
+      "file": "classify_file().md",
+      "x": 2680,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_count_words",
+      "type": "file",
+      "file": "count_words().md",
+      "x": 2880,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_detect",
+      "type": "file",
+      "file": "detect().md",
+      "x": 2080,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect",
+      "type": "file",
+      "file": "detect.py.md",
+      "x": 2280,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_detect_incremental",
+      "type": "file",
+      "file": "detect_incremental().md",
+      "x": 2480,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_extract_pdf_text",
+      "type": "file",
+      "file": "extract_pdf_text().md",
+      "x": 2680,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_load_manifest",
+      "type": "file",
+      "file": "load_manifest().md",
+      "x": 2880,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_manifest",
+      "type": "file",
+      "file": "manifest.py.md",
+      "x": 2080,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_detect_save_manifest",
+      "type": "file",
+      "file": "save_manifest().md",
+      "x": 2280,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_str",
+      "type": "file",
+      "file": "str.md",
+      "x": 2480,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g7",
+      "type": "group",
+      "label": "Graphify Export Formats",
+      "x": 3900,
+      "y": 1000,
+      "width": 1100,
+      "height": 620,
+      "color": "2"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_875",
+      "type": "file",
+      "file": "Export graph as GraphML - opens in Gephi, yEd, and any GraphML-compatible tool.\u2026.md",
+      "x": 3920,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_659",
+      "type": "file",
+      "file": "Export graph as an Obsidian Canvas file - communities as groups, nodes as\u2026.md",
+      "x": 4120,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_417",
+      "type": "file",
+      "file": "Export graph as an Obsidian vault - one .md file per node with wikilinks,\u2026.md",
+      "x": 4320,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_894",
+      "type": "file",
+      "file": "Export graph as an SVG file using matplotlib + spring layout. Lightweight and\u2026.md",
+      "x": 4520,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_302",
+      "type": "file",
+      "file": "Generate an interactive vis.js HTML visualization of the graph. Features node\u2026.md",
+      "x": 4720,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_py_graph",
+      "type": "file",
+      "file": "Graph_4.md",
+      "x": 3920,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_21",
+      "type": "file",
+      "file": "Invert communities dict node_id - community_id._1.md",
+      "x": 4120,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_816",
+      "type": "file",
+      "file": "Push graph directly to a running Neo4j instance via the Python driver.\u2026.md",
+      "x": 4320,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_rationale_254",
+      "type": "file",
+      "file": "Store hyperedges in the graph's metadata dict..md",
+      "x": 4520,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_html_script",
+      "type": "file",
+      "file": "_html_script().md",
+      "x": 4720,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_html_styles",
+      "type": "file",
+      "file": "_html_styles().md",
+      "x": 3920,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_hyperedge_script",
+      "type": "file",
+      "file": "_hyperedge_script().md",
+      "x": 4120,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_node_community_map",
+      "type": "file",
+      "file": "_node_community_map()_1.md",
+      "x": 4320,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_attach_hyperedges",
+      "type": "file",
+      "file": "attach_hyperedges().md",
+      "x": 4520,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export",
+      "type": "file",
+      "file": "export.py.md",
+      "x": 4720,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_push_to_neo4j",
+      "type": "file",
+      "file": "push_to_neo4j().md",
+      "x": 3920,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_canvas",
+      "type": "file",
+      "file": "to_canvas().md",
+      "x": 4120,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_cypher",
+      "type": "file",
+      "file": "to_cypher().md",
+      "x": 4320,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_graphml",
+      "type": "file",
+      "file": "to_graphml().md",
+      "x": 4520,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_html",
+      "type": "file",
+      "file": "to_html().md",
+      "x": 4720,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_json",
+      "type": "file",
+      "file": "to_json().md",
+      "x": 3920,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_obsidian",
+      "type": "file",
+      "file": "to_obsidian().md",
+      "x": 4120,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_export_to_svg",
+      "type": "file",
+      "file": "to_svg().md",
+      "x": 4320,
+      "y": 1400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g8",
+      "type": "group",
+      "label": "Graphify MCP Server",
+      "x": 5740,
+      "y": 1000,
+      "width": 1100,
+      "height": 520,
+      "color": "3"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_py_graph",
+      "type": "file",
+      "file": "Graph_6.md",
+      "x": 5760,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_py_path",
+      "type": "file",
+      "file": "Path_6.md",
+      "x": 5960,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_rationale_25",
+      "type": "file",
+      "file": "Reconstruct community dict from community property stored on nodes..md",
+      "x": 6160,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_rationale_78",
+      "type": "file",
+      "file": "Render subgraph as text, cutting at token_budget (approx 4 charstoken)..md",
+      "x": 6360,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_rationale_113",
+      "type": "file",
+      "file": "Resolve path and verify it stays inside base. base defaults to the\u2026.md",
+      "x": 6560,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_rationale_97",
+      "type": "file",
+      "file": "Return node IDs whose label or ID matches the search term (case-insensitive)..md",
+      "x": 5760,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_rationale_104",
+      "type": "file",
+      "file": "Start the MCP server. Requires pip install mcp..md",
+      "x": 5960,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_rationale_157",
+      "type": "file",
+      "file": "Strip control characters, cap length, then HTML-escape. Applied to all node\u2026.md",
+      "x": 6160,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_bfs",
+      "type": "file",
+      "file": "_bfs().md",
+      "x": 6360,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_communities_from_graph",
+      "type": "file",
+      "file": "_communities_from_graph().md",
+      "x": 6560,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_dfs",
+      "type": "file",
+      "file": "_dfs().md",
+      "x": 5760,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_find_node",
+      "type": "file",
+      "file": "_find_node().md",
+      "x": 5960,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_load_graph",
+      "type": "file",
+      "file": "_load_graph().md",
+      "x": 6160,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_score_nodes",
+      "type": "file",
+      "file": "_score_nodes().md",
+      "x": 6360,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_subgraph_to_text",
+      "type": "file",
+      "file": "_subgraph_to_text().md",
+      "x": 6560,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_sanitize_label",
+      "type": "file",
+      "file": "sanitize_label().md",
+      "x": 5760,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve_serve",
+      "type": "file",
+      "file": "serve().md",
+      "x": 5960,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_serve",
+      "type": "file",
+      "file": "serve.py.md",
+      "x": 6160,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_security_validate_graph_path",
+      "type": "file",
+      "file": "validate_graph_path().md",
+      "x": 6360,
+      "y": 1320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g9",
+      "type": "group",
+      "label": "Google Apps Script Config",
+      "x": 7140,
+      "y": 1000,
+      "width": 880,
+      "height": 420,
+      "color": "4"
+    },
+    {
+      "id": "n_appscript_appsscript_webapp_access",
+      "type": "file",
+      "file": "access.md",
+      "x": 7160,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript",
+      "type": "file",
+      "file": "appsscript.json.md",
+      "x": 7360,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_dependencies",
+      "type": "file",
+      "file": "dependencies.md",
+      "x": 7560,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_exceptionlogging",
+      "type": "file",
+      "file": "exceptionLogging.md",
+      "x": 7760,
+      "y": 1080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_webapp_executeas",
+      "type": "file",
+      "file": "executeAs.md",
+      "x": 7160,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ref_https_www_googleapis_com_auth_calendar_events",
+      "type": "file",
+      "file": "httpswww.googleapis.comauthcalendar.events.md",
+      "x": 7360,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ref_https_www_googleapis_com_auth_script_external_request",
+      "type": "file",
+      "file": "httpswww.googleapis.comauthscript.external_request.md",
+      "x": 7560,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ref_https_www_googleapis_com_auth_spreadsheets",
+      "type": "file",
+      "file": "httpswww.googleapis.comauthspreadsheets.md",
+      "x": 7760,
+      "y": 1160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_oauthscopes",
+      "type": "file",
+      "file": "oauthScopes.md",
+      "x": 7160,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_runtimeversion",
+      "type": "file",
+      "file": "runtimeVersion.md",
+      "x": 7360,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_timezone",
+      "type": "file",
+      "file": "timeZone.md",
+      "x": 7560,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appscript_appsscript_webapp",
+      "type": "file",
+      "file": "webapp.md",
+      "x": 7760,
+      "y": 1240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g10",
+      "type": "group",
+      "label": "Graphify Wiki Generator",
+      "x": 0,
+      "y": 1800,
+      "width": 880,
+      "height": 420,
+      "color": "5"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_rationale_176",
+      "type": "file",
+      "file": "Generate a Wikipedia-style wiki from the graph. Writes - index.md \u2014 agent\u2026.md",
+      "x": 20,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_py_graph",
+      "type": "file",
+      "file": "Graph_7.md",
+      "x": 220,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_py_path",
+      "type": "file",
+      "file": "Path_8.md",
+      "x": 420,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_rationale_14",
+      "type": "file",
+      "file": "Return (community_label, edge_count) pairs for cross-community connections,\u2026.md",
+      "x": 620,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_community_article",
+      "type": "file",
+      "file": "_community_article().md",
+      "x": 20,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_cross_community_links",
+      "type": "file",
+      "file": "_cross_community_links().md",
+      "x": 220,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_god_node_article",
+      "type": "file",
+      "file": "_god_node_article().md",
+      "x": 420,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_index_md",
+      "type": "file",
+      "file": "_index_md().md",
+      "x": 620,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_safe_filename",
+      "type": "file",
+      "file": "_safe_filename()_1.md",
+      "x": 20,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki_to_wiki",
+      "type": "file",
+      "file": "to_wiki().md",
+      "x": 220,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_wiki",
+      "type": "file",
+      "file": "wiki.py.md",
+      "x": 420,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g11",
+      "type": "group",
+      "label": "PWA Manifest",
+      "x": 2060,
+      "y": 1800,
+      "width": 880,
+      "height": 420,
+      "color": "6"
+    },
+    {
+      "id": "n_manifest_background_color",
+      "type": "file",
+      "file": "background_color.md",
+      "x": 2080,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_description",
+      "type": "file",
+      "file": "description.md",
+      "x": 2280,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_display",
+      "type": "file",
+      "file": "display.md",
+      "x": 2480,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_icons",
+      "type": "file",
+      "file": "icons.md",
+      "x": 2680,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest",
+      "type": "file",
+      "file": "manifest.json.md",
+      "x": 2080,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_name",
+      "type": "file",
+      "file": "name.md",
+      "x": 2280,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_short_name",
+      "type": "file",
+      "file": "short_name.md",
+      "x": 2480,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_shortcuts",
+      "type": "file",
+      "file": "shortcuts.md",
+      "x": 2680,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_start_url",
+      "type": "file",
+      "file": "start_url.md",
+      "x": 2080,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_theme_color",
+      "type": "file",
+      "file": "theme_color.md",
+      "x": 2280,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_manifest_widgets",
+      "type": "file",
+      "file": "widgets.md",
+      "x": 2480,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g12",
+      "type": "group",
+      "label": "Graphify Build & Validate",
+      "x": 3900,
+      "y": 1800,
+      "width": 880,
+      "height": 420,
+      "color": "1"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_build_py_graph",
+      "type": "file",
+      "file": "Graph_2.md",
+      "x": 3920,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_build_rationale_35",
+      "type": "file",
+      "file": "Merge multiple extraction results into one graph..md",
+      "x": 4120,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_validate_rationale_67",
+      "type": "file",
+      "file": "Raise ValueError with all errors if extraction is invalid..md",
+      "x": 4320,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_validate_rationale_11",
+      "type": "file",
+      "file": "Validate an extraction JSON dict against the graphify schema. Returns a list of\u2026.md",
+      "x": 4520,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_validate_assert_valid",
+      "type": "file",
+      "file": "assert_valid().md",
+      "x": 3920,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_build_build",
+      "type": "file",
+      "file": "build().md",
+      "x": 4120,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_build",
+      "type": "file",
+      "file": "build.py.md",
+      "x": 4320,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_build_build_from_json",
+      "type": "file",
+      "file": "build_from_json().md",
+      "x": 4520,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_validate",
+      "type": "file",
+      "file": "validate.py.md",
+      "x": 3920,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_validate_validate_extraction",
+      "type": "file",
+      "file": "validate_extraction().md",
+      "x": 4120,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g13",
+      "type": "group",
+      "label": "Service Worker",
+      "x": 5740,
+      "y": 1800,
+      "width": 660,
+      "height": 420,
+      "color": "2"
+    },
+    {
+      "id": "n_sw_assets_to_cache",
+      "type": "file",
+      "file": "ASSETS_TO_CACHE.md",
+      "x": 5760,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sw_cachefirst",
+      "type": "file",
+      "file": "cacheFirst().md",
+      "x": 5960,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sw_isapirequest",
+      "type": "file",
+      "file": "isApiRequest().md",
+      "x": 6160,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sw_iscacheable",
+      "type": "file",
+      "file": "isCacheable().md",
+      "x": 5760,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sw_networkfirst",
+      "type": "file",
+      "file": "networkFirst().md",
+      "x": 5960,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sw_stalewhilerevalidate",
+      "type": "file",
+      "file": "staleWhileRevalidate().md",
+      "x": 6160,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sw",
+      "type": "file",
+      "file": "sw.js.md",
+      "x": 5760,
+      "y": 2040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g14",
+      "type": "group",
+      "label": "Graphify Init",
+      "x": 7140,
+      "y": 1800,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_commandcode_skills_graphify_init_getattr",
+      "type": "file",
+      "file": "__getattr__().md",
+      "x": 7160,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_init",
+      "type": "file",
+      "file": "__init__.py.md",
+      "x": 7360,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_commandcode_skills_graphify_init_rationale_1",
+      "type": "file",
+      "file": "graphify - extract \u00b7 build \u00b7 cluster \u00b7 analyze \u00b7 report..md",
+      "x": 7160,
+      "y": 1960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g15",
+      "type": "group",
+      "label": "Vercel Config",
+      "x": 0,
+      "y": 2300,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_vercel_rewrites",
+      "type": "file",
+      "file": "rewrites.md",
+      "x": 20,
+      "y": 2380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_vercel",
+      "type": "file",
+      "file": "vercel.json.md",
+      "x": 220,
+      "y": 2380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g16",
+      "type": "group",
+      "label": "User Preferences",
+      "x": 2060,
+      "y": 2300,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_file_taste_md",
+      "type": "file",
+      "file": "User Preferences (taste.md).md",
+      "x": 2080,
+      "y": 2380,
+      "width": 180,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_commandcode_skills_graphify_init_commandcode_skills_graphify_init_getattr",
+      "fromNode": "n_commandcode_skills_graphify_init",
+      "toNode": "n_commandcode_skills_graphify_init_getattr",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_init_commandcode_skills_graphify_init_rationale_1",
+      "fromNode": "n_commandcode_skills_graphify_init",
+      "toNode": "n_commandcode_skills_graphify_init_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_benchmark_print_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_benchmark_print_benchmark",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_benchmark_run_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_benchmark_run_benchmark",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_hooks_install",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_hooks_install",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_hooks_status",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_hooks_status",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_hooks_uninstall",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_hooks_uninstall",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_main_bundled_skill",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_main_bundled_skill",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_main_claude_install",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_main_claude_install",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_main_claude_uninstall",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_main_claude_uninstall",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_main_install",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_main_install",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_main_main",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_main_main",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_commandcode_skills_graphify_main_rationale_1",
+      "fromNode": "n_commandcode_skills_graphify_main",
+      "toNode": "n_commandcode_skills_graphify_main_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_bundled_skill_commandcode_skills_graphify_main_py_path",
+      "fromNode": "n_commandcode_skills_graphify_main_bundled_skill",
+      "toNode": "n_commandcode_skills_graphify_main_py_path",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_bundled_skill_commandcode_skills_graphify_main_install",
+      "fromNode": "n_commandcode_skills_graphify_main_bundled_skill",
+      "toNode": "n_commandcode_skills_graphify_main_install",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_bundled_skill_commandcode_skills_graphify_main_rationale_19",
+      "fromNode": "n_commandcode_skills_graphify_main_bundled_skill",
+      "toNode": "n_commandcode_skills_graphify_main_rationale_19",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_py_path_commandcode_skills_graphify_main_claude_install",
+      "fromNode": "n_commandcode_skills_graphify_main_py_path",
+      "toNode": "n_commandcode_skills_graphify_main_claude_install",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_py_path_commandcode_skills_graphify_main_claude_uninstall",
+      "fromNode": "n_commandcode_skills_graphify_main_py_path",
+      "toNode": "n_commandcode_skills_graphify_main_claude_uninstall",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_py_path_commandcode_skills_graphify_main_main",
+      "fromNode": "n_commandcode_skills_graphify_main_py_path",
+      "toNode": "n_commandcode_skills_graphify_main_main",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_install_commandcode_skills_graphify_main_main",
+      "fromNode": "n_commandcode_skills_graphify_main_install",
+      "toNode": "n_commandcode_skills_graphify_main_main",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_claude_install_commandcode_skills_graphify_main_main",
+      "fromNode": "n_commandcode_skills_graphify_main_claude_install",
+      "toNode": "n_commandcode_skills_graphify_main_main",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_claude_install_commandcode_skills_graphify_main_rationale_71",
+      "fromNode": "n_commandcode_skills_graphify_main_claude_install",
+      "toNode": "n_commandcode_skills_graphify_main_rationale_71",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_claude_uninstall_commandcode_skills_graphify_main_main",
+      "fromNode": "n_commandcode_skills_graphify_main_claude_uninstall",
+      "toNode": "n_commandcode_skills_graphify_main_main",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_claude_uninstall_commandcode_skills_graphify_main_rationale_91",
+      "fromNode": "n_commandcode_skills_graphify_main_claude_uninstall",
+      "toNode": "n_commandcode_skills_graphify_main_rationale_91",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_main_commandcode_skills_graphify_benchmark_print_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_main_main",
+      "toNode": "n_commandcode_skills_graphify_benchmark_print_benchmark",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_main_commandcode_skills_graphify_benchmark_run_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_main_main",
+      "toNode": "n_commandcode_skills_graphify_benchmark_run_benchmark",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_main_commandcode_skills_graphify_hooks_install",
+      "fromNode": "n_commandcode_skills_graphify_main_main",
+      "toNode": "n_commandcode_skills_graphify_hooks_install",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_main_commandcode_skills_graphify_hooks_status",
+      "fromNode": "n_commandcode_skills_graphify_main_main",
+      "toNode": "n_commandcode_skills_graphify_hooks_status",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_main_commandcode_skills_graphify_hooks_uninstall",
+      "fromNode": "n_commandcode_skills_graphify_main_main",
+      "toNode": "n_commandcode_skills_graphify_hooks_uninstall",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_main_main_commandcode_skills_graphify_serve_serve",
+      "fromNode": "n_commandcode_skills_graphify_main_main",
+      "toNode": "n_commandcode_skills_graphify_serve_serve",
+      "label": "calls [INFERRED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_file_category",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_file_category",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_god_nodes",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_graph_diff",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_graph_diff",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_is_concept_node",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_is_file_node",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_node_community_map",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_node_community_map",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_suggest_questions",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_surprise_score",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_surprising_connections",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_top_level_dir",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_top_level_dir",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_cluster_cohesion_score",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_commandcode_skills_graphify_analyze_rationale_1",
+      "fromNode": "n_commandcode_skills_graphify_analyze",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_node_community_map_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_node_community_map",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_node_community_map_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_node_community_map",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_node_community_map_commandcode_skills_graphify_analyze_rationale_7",
+      "fromNode": "n_commandcode_skills_graphify_analyze_node_community_map",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_7",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_node_community_map_commandcode_skills_graphify_analyze_suggest_questions",
+      "fromNode": "n_commandcode_skills_graphify_analyze_node_community_map",
+      "toNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_analyze_god_nodes",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_analyze_py_graph",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_analyze_rationale_12",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_12",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_analyze_suggest_questions",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_report",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_report",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_file_node_commandcode_skills_graphify_report_generate",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_file_node",
+      "toNode": "n_commandcode_skills_graphify_report_generate",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_god_nodes",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_graph_diff",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_graph_diff",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_is_concept_node",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_suggest_questions",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_surprise_score",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_py_graph_commandcode_skills_graphify_analyze_surprising_connections",
+      "fromNode": "n_commandcode_skills_graphify_analyze_py_graph",
+      "toNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_god_nodes_commandcode_skills_graphify_analyze_is_concept_node",
+      "fromNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "toNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_god_nodes_commandcode_skills_graphify_analyze_rationale_36",
+      "fromNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_36",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_god_nodes_commandcode_skills_graphify_serve",
+      "fromNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "toNode": "n_commandcode_skills_graphify_serve",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_god_nodes_commandcode_skills_graphify_serve_serve",
+      "fromNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "toNode": "n_commandcode_skills_graphify_serve_serve",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_god_nodes_commandcode_skills_graphify_watch",
+      "fromNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "toNode": "n_commandcode_skills_graphify_watch",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_god_nodes_commandcode_skills_graphify_watch_rebuild_code",
+      "fromNode": "n_commandcode_skills_graphify_analyze_god_nodes",
+      "toNode": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprising_connections_commandcode_skills_graphify_analyze_rationale_62",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_62",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprising_connections_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprising_connections_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprising_connections_commandcode_skills_graphify_watch",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "toNode": "n_commandcode_skills_graphify_watch",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprising_connections_commandcode_skills_graphify_watch_rebuild_code",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprising_connections",
+      "toNode": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_concept_node_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_concept_node_commandcode_skills_graphify_analyze_rationale_90",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_90",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_concept_node_commandcode_skills_graphify_analyze_suggest_questions",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "toNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_concept_node_commandcode_skills_graphify_report",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "toNode": "n_commandcode_skills_graphify_report",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_is_concept_node_commandcode_skills_graphify_report_generate",
+      "fromNode": "n_commandcode_skills_graphify_analyze_is_concept_node",
+      "toNode": "n_commandcode_skills_graphify_report_generate",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_file_category_commandcode_skills_graphify_analyze_surprise_score",
+      "fromNode": "n_commandcode_skills_graphify_analyze_file_category",
+      "toNode": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_top_level_dir_commandcode_skills_graphify_analyze_rationale_126",
+      "fromNode": "n_commandcode_skills_graphify_analyze_top_level_dir",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_126",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_top_level_dir_commandcode_skills_graphify_analyze_surprise_score",
+      "fromNode": "n_commandcode_skills_graphify_analyze_top_level_dir",
+      "toNode": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprise_score_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_surprise_score_commandcode_skills_graphify_analyze_rationale_139",
+      "fromNode": "n_commandcode_skills_graphify_analyze_surprise_score",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_139",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_cross_file_surprises_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "fromNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "toNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_cross_file_surprises_commandcode_skills_graphify_analyze_rationale_187",
+      "fromNode": "n_commandcode_skills_graphify_analyze_cross_file_surprises",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_187",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_cross_community_surprises_commandcode_skills_graphify_analyze_rationale_249",
+      "fromNode": "n_commandcode_skills_graphify_analyze_cross_community_surprises",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_249",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_suggest_questions_commandcode_skills_graphify_analyze_rationale_332",
+      "fromNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_332",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_suggest_questions_commandcode_skills_graphify_cluster_cohesion_score",
+      "fromNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "toNode": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_suggest_questions_commandcode_skills_graphify_watch",
+      "fromNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "toNode": "n_commandcode_skills_graphify_watch",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_suggest_questions_commandcode_skills_graphify_watch_rebuild_code",
+      "fromNode": "n_commandcode_skills_graphify_analyze_suggest_questions",
+      "toNode": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_analyze_graph_diff_commandcode_skills_graphify_analyze_rationale_444",
+      "fromNode": "n_commandcode_skills_graphify_analyze_graph_diff",
+      "toNode": "n_commandcode_skills_graphify_analyze_rationale_444",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_commandcode_skills_graphify_benchmark_estimate_tokens",
+      "fromNode": "n_commandcode_skills_graphify_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_estimate_tokens",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_commandcode_skills_graphify_benchmark_print_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_print_benchmark",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "fromNode": "n_commandcode_skills_graphify_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_commandcode_skills_graphify_benchmark_run_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_run_benchmark",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_commandcode_skills_graphify_benchmark_rationale_1",
+      "fromNode": "n_commandcode_skills_graphify_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_estimate_tokens_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "fromNode": "n_commandcode_skills_graphify_benchmark_estimate_tokens",
+      "toNode": "n_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_query_subgraph_tokens_commandcode_skills_graphify_benchmark_py_graph",
+      "fromNode": "n_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "toNode": "n_commandcode_skills_graphify_benchmark_py_graph",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_query_subgraph_tokens_commandcode_skills_graphify_benchmark_rationale_17",
+      "fromNode": "n_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "toNode": "n_commandcode_skills_graphify_benchmark_rationale_17",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_query_subgraph_tokens_commandcode_skills_graphify_benchmark_run_benchmark",
+      "fromNode": "n_commandcode_skills_graphify_benchmark_query_subgraph_tokens",
+      "toNode": "n_commandcode_skills_graphify_benchmark_run_benchmark",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_run_benchmark_commandcode_skills_graphify_benchmark_rationale_69",
+      "fromNode": "n_commandcode_skills_graphify_benchmark_run_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_rationale_69",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_benchmark_print_benchmark_commandcode_skills_graphify_benchmark_rationale_112",
+      "fromNode": "n_commandcode_skills_graphify_benchmark_print_benchmark",
+      "toNode": "n_commandcode_skills_graphify_benchmark_rationale_112",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_commandcode_skills_graphify_build_build",
+      "fromNode": "n_commandcode_skills_graphify_build",
+      "toNode": "n_commandcode_skills_graphify_build_build",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_commandcode_skills_graphify_build_build_from_json",
+      "fromNode": "n_commandcode_skills_graphify_build",
+      "toNode": "n_commandcode_skills_graphify_build_build_from_json",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_commandcode_skills_graphify_validate",
+      "fromNode": "n_commandcode_skills_graphify_build",
+      "toNode": "n_commandcode_skills_graphify_validate",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_commandcode_skills_graphify_validate_validate_extraction",
+      "fromNode": "n_commandcode_skills_graphify_build",
+      "toNode": "n_commandcode_skills_graphify_validate_validate_extraction",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_build_from_json_commandcode_skills_graphify_build_build",
+      "fromNode": "n_commandcode_skills_graphify_build_build_from_json",
+      "toNode": "n_commandcode_skills_graphify_build_build",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_build_from_json_commandcode_skills_graphify_build_py_graph",
+      "fromNode": "n_commandcode_skills_graphify_build_build_from_json",
+      "toNode": "n_commandcode_skills_graphify_build_py_graph",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_build_from_json_commandcode_skills_graphify_validate_validate_extraction",
+      "fromNode": "n_commandcode_skills_graphify_build_build_from_json",
+      "toNode": "n_commandcode_skills_graphify_validate_validate_extraction",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_build_from_json_commandcode_skills_graphify_watch",
+      "fromNode": "n_commandcode_skills_graphify_build_build_from_json",
+      "toNode": "n_commandcode_skills_graphify_watch",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_build_from_json_commandcode_skills_graphify_watch_rebuild_code",
+      "fromNode": "n_commandcode_skills_graphify_build_build_from_json",
+      "toNode": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_py_graph_commandcode_skills_graphify_build_build",
+      "fromNode": "n_commandcode_skills_graphify_build_py_graph",
+      "toNode": "n_commandcode_skills_graphify_build_build",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_build_build_commandcode_skills_graphify_build_rationale_35",
+      "fromNode": "n_commandcode_skills_graphify_build_build",
+      "toNode": "n_commandcode_skills_graphify_build_rationale_35",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_cache_dir",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_cached_files",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_cached_files",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_check_semantic_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_check_semantic_cache",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_clear_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_clear_cache",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_file_hash",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_file_hash",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_load_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_save_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_cache_save_semantic_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_save_semantic_cache",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_commandcode_skills_graphify_extract",
+      "fromNode": "n_commandcode_skills_graphify_cache",
+      "toNode": "n_commandcode_skills_graphify_extract",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_file_hash_commandcode_skills_graphify_cache_py_path",
+      "fromNode": "n_commandcode_skills_graphify_cache_file_hash",
+      "toNode": "n_commandcode_skills_graphify_cache_py_path",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_file_hash_commandcode_skills_graphify_cache_load_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache_file_hash",
+      "toNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_file_hash_commandcode_skills_graphify_cache_rationale_10",
+      "fromNode": "n_commandcode_skills_graphify_cache_file_hash",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_10",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_file_hash_commandcode_skills_graphify_cache_save_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache_file_hash",
+      "toNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_cache_dir",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_cached_files",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_cached_files",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_check_semantic_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_check_semantic_cache",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_clear_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_clear_cache",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_load_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_save_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_py_path_commandcode_skills_graphify_cache_save_semantic_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache_py_path",
+      "toNode": "n_commandcode_skills_graphify_cache_save_semantic_cache",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_cache_dir_commandcode_skills_graphify_cache_cached_files",
+      "fromNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "toNode": "n_commandcode_skills_graphify_cache_cached_files",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_cache_dir_commandcode_skills_graphify_cache_clear_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "toNode": "n_commandcode_skills_graphify_cache_clear_cache",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_cache_dir_commandcode_skills_graphify_cache_load_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "toNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_cache_dir_commandcode_skills_graphify_cache_rationale_15",
+      "fromNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_15",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_cache_dir_commandcode_skills_graphify_cache_save_cached",
+      "fromNode": "n_commandcode_skills_graphify_cache_cache_dir",
+      "toNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_load_cached_commandcode_skills_graphify_cache_check_semantic_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "toNode": "n_commandcode_skills_graphify_cache_check_semantic_cache",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_load_cached_commandcode_skills_graphify_cache_rationale_22",
+      "fromNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_22",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_load_cached_commandcode_skills_graphify_extract",
+      "fromNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "toNode": "n_commandcode_skills_graphify_extract",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_load_cached_commandcode_skills_graphify_extract_extract",
+      "fromNode": "n_commandcode_skills_graphify_cache_load_cached",
+      "toNode": "n_commandcode_skills_graphify_extract_extract",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_save_cached_commandcode_skills_graphify_cache_rationale_42",
+      "fromNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_42",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_save_cached_commandcode_skills_graphify_cache_save_semantic_cache",
+      "fromNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "toNode": "n_commandcode_skills_graphify_cache_save_semantic_cache",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_save_cached_commandcode_skills_graphify_extract",
+      "fromNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "toNode": "n_commandcode_skills_graphify_extract",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_save_cached_commandcode_skills_graphify_extract_extract",
+      "fromNode": "n_commandcode_skills_graphify_cache_save_cached",
+      "toNode": "n_commandcode_skills_graphify_extract_extract",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_cached_files_commandcode_skills_graphify_cache_rationale_53",
+      "fromNode": "n_commandcode_skills_graphify_cache_cached_files",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_53",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_clear_cache_commandcode_skills_graphify_cache_rationale_59",
+      "fromNode": "n_commandcode_skills_graphify_cache_clear_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_59",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_check_semantic_cache_commandcode_skills_graphify_cache_rationale_69",
+      "fromNode": "n_commandcode_skills_graphify_cache_check_semantic_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_69",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cache_save_semantic_cache_commandcode_skills_graphify_cache_rationale_94",
+      "fromNode": "n_commandcode_skills_graphify_cache_save_semantic_cache",
+      "toNode": "n_commandcode_skills_graphify_cache_rationale_94",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_commandcode_skills_graphify_cluster_build_graph",
+      "fromNode": "n_commandcode_skills_graphify_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_build_graph",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_commandcode_skills_graphify_cluster_cluster",
+      "fromNode": "n_commandcode_skills_graphify_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_cluster",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_commandcode_skills_graphify_cluster_cohesion_score",
+      "fromNode": "n_commandcode_skills_graphify_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_commandcode_skills_graphify_cluster_score_all",
+      "fromNode": "n_commandcode_skills_graphify_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_score_all",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_commandcode_skills_graphify_cluster_split_community",
+      "fromNode": "n_commandcode_skills_graphify_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_split_community",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_commandcode_skills_graphify_cluster_rationale_1",
+      "fromNode": "n_commandcode_skills_graphify_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_build_graph_commandcode_skills_graphify_cluster_py_graph",
+      "fromNode": "n_commandcode_skills_graphify_cluster_build_graph",
+      "toNode": "n_commandcode_skills_graphify_cluster_py_graph",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_build_graph_commandcode_skills_graphify_cluster_rationale_7",
+      "fromNode": "n_commandcode_skills_graphify_cluster_build_graph",
+      "toNode": "n_commandcode_skills_graphify_cluster_rationale_7",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_py_graph_commandcode_skills_graphify_cluster_cluster",
+      "fromNode": "n_commandcode_skills_graphify_cluster_py_graph",
+      "toNode": "n_commandcode_skills_graphify_cluster_cluster",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_py_graph_commandcode_skills_graphify_cluster_cohesion_score",
+      "fromNode": "n_commandcode_skills_graphify_cluster_py_graph",
+      "toNode": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_py_graph_commandcode_skills_graphify_cluster_score_all",
+      "fromNode": "n_commandcode_skills_graphify_cluster_py_graph",
+      "toNode": "n_commandcode_skills_graphify_cluster_score_all",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_py_graph_commandcode_skills_graphify_cluster_split_community",
+      "fromNode": "n_commandcode_skills_graphify_cluster_py_graph",
+      "toNode": "n_commandcode_skills_graphify_cluster_split_community",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_cluster_commandcode_skills_graphify_cluster_split_community",
+      "fromNode": "n_commandcode_skills_graphify_cluster_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_split_community",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_cluster_commandcode_skills_graphify_cluster_rationale_28",
+      "fromNode": "n_commandcode_skills_graphify_cluster_cluster",
+      "toNode": "n_commandcode_skills_graphify_cluster_rationale_28",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_cluster_commandcode_skills_graphify_watch",
+      "fromNode": "n_commandcode_skills_graphify_cluster_cluster",
+      "toNode": "n_commandcode_skills_graphify_watch",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_cluster_commandcode_skills_graphify_watch_rebuild_code",
+      "fromNode": "n_commandcode_skills_graphify_cluster_cluster",
+      "toNode": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_split_community_commandcode_skills_graphify_cluster_rationale_73",
+      "fromNode": "n_commandcode_skills_graphify_cluster_split_community",
+      "toNode": "n_commandcode_skills_graphify_cluster_rationale_73",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_cohesion_score_commandcode_skills_graphify_cluster_rationale_93",
+      "fromNode": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "toNode": "n_commandcode_skills_graphify_cluster_rationale_93",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_cohesion_score_commandcode_skills_graphify_cluster_score_all",
+      "fromNode": "n_commandcode_skills_graphify_cluster_cohesion_score",
+      "toNode": "n_commandcode_skills_graphify_cluster_score_all",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_score_all_commandcode_skills_graphify_watch",
+      "fromNode": "n_commandcode_skills_graphify_cluster_score_all",
+      "toNode": "n_commandcode_skills_graphify_watch",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_cluster_score_all_commandcode_skills_graphify_watch_rebuild_code",
+      "fromNode": "n_commandcode_skills_graphify_cluster_score_all",
+      "toNode": "n_commandcode_skills_graphify_watch_rebuild_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_classify_file",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_classify_file",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_count_words",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_count_words",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_detect",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_detect",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_detect_incremental",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_detect_incremental",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_extract_pdf_text",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_extract_pdf_text",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_filetype",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_filetype",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_is_noise_dir",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_is_noise_dir",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_is_sensitive",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_is_sensitive",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_load_manifest",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_load_manifest",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_looks_like_paper",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_looks_like_paper",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_detect_save_manifest",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_detect_save_manifest",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_enum",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_enum",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_commandcode_skills_graphify_manifest",
+      "fromNode": "n_commandcode_skills_graphify_detect",
+      "toNode": "n_commandcode_skills_graphify_manifest",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_filetype_commandcode_skills_graphify_detect_classify_file",
+      "fromNode": "n_commandcode_skills_graphify_detect_filetype",
+      "toNode": "n_commandcode_skills_graphify_detect_classify_file",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_filetype_enum",
+      "fromNode": "n_commandcode_skills_graphify_detect_filetype",
+      "toNode": "n_enum",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_filetype_str",
+      "fromNode": "n_commandcode_skills_graphify_detect_filetype",
+      "toNode": "n_str",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_is_sensitive_commandcode_skills_graphify_detect_detect",
+      "fromNode": "n_commandcode_skills_graphify_detect_is_sensitive",
+      "toNode": "n_commandcode_skills_graphify_detect_detect",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_is_sensitive_commandcode_skills_graphify_detect_py_path",
+      "fromNode": "n_commandcode_skills_graphify_detect_is_sensitive",
+      "toNode": "n_commandcode_skills_graphify_detect_py_path",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_is_sensitive_commandcode_skills_graphify_detect_rationale_58",
+      "fromNode": "n_commandcode_skills_graphify_detect_is_sensitive",
+      "toNode": "n_commandcode_skills_graphify_detect_rationale_58",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_classify_file",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_classify_file",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_count_words",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_count_words",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_detect",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_detect",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_detect_incremental",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_detect_incremental",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_extract_pdf_text",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_extract_pdf_text",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_load_manifest",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_load_manifest",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_looks_like_paper",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_looks_like_paper",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_commandcode_skills_graphify_detect_py_path_commandcode_skills_graphify_detect_save_manifest",
+      "fromNode": "n_commandcode_skills_graphify_detect_py_path",
+      "toNode": "n_commandcode_skills_graphify_detect_save_manifest",
+      "label": "calls [EXTRACTED]"
+    }
+  ]
+}

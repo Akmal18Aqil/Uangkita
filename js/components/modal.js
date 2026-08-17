@@ -1,5 +1,34 @@
 // js/components/modal.js
 
+// Pengganti window.confirm(): dialog bawaan browser memblokir thread, tampil di
+// luar tema aplikasi, dan di beberapa browser mobile bisa diblokir diam-diam.
+export function showConfirm(message, { title = 'Konfirmasi', confirmLabel = 'Hapus', danger = true } = {}) {
+    return new Promise(resolve => {
+        const { close } = showBottomSheet(`
+            <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 14px;">${message}</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" data-confirm="no">Batal</button>
+                <button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" data-confirm="yes">${confirmLabel}</button>
+            </div>
+        `, title);
+
+        const sheet = document.getElementById('bottom-sheet');
+        let answered = false;
+        const answer = (value) => {
+            if (answered) return;
+            answered = true;
+            resolve(value);
+            close();
+        };
+
+        sheet.querySelectorAll('[data-confirm]').forEach(btn => {
+            btn.addEventListener('click', () => answer(btn.dataset.confirm === 'yes'));
+        });
+        // Menutup lewat overlay / geser ke bawah sama artinya dengan membatalkan.
+        document.getElementById('sheet-overlay').addEventListener('click', () => answer(false));
+    });
+}
+
 export function showBottomSheet(contentHtml, title = '') {
     const container = document.getElementById('modal-container');
     if (!container) return;

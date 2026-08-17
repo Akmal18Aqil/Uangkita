@@ -26,18 +26,37 @@ const routes = {
 
 const pageCache = new Map();
 
+// Navigasi yang sedang berjalan, dikunci per path.
+const inFlight = new Map();
+
 export async function navigateTo(path) {
     if (!routes[path]) path = '/'; // fallback to dashboard
-    
-    // Update URL hash
-    window.location.hash = path;
-    
+
+    // Menulis hash yang nilainya sama hanya memicu 'hashchange' percuma.
+    const targetHash = '#' + path;
+    if (window.location.hash !== targetHash) {
+        window.location.hash = path;
+    }
+
     // Update Page Title in header
     const pageTitle = document.getElementById('page-title');
     if (pageTitle) pageTitle.textContent = routes[path].title;
-    
+
+    // Saat load pertama, penulisan hash di atas memicu 'hashchange' sehingga
+    // navigateTo() berjalan dua kali untuk path yang sama. Tanpa kunci ini
+    // keduanya melewati pageCache yang masih kosong, lalu masing-masing
+    // me-render dan meng-append halaman: hasilnya container ganda, container
+    // pertama jadi yatim (tidak pernah disembunyikan) dan datanya dimuat 2x.
+    if (inFlight.has(path)) return inFlight.get(path);
+
+    const task = renderRoute(path).finally(() => inFlight.delete(path));
+    inFlight.set(path, task);
+    return task;
+}
+
+async function renderRoute(path) {
     const appRoot = document.getElementById('app-root');
-    
+
     // Hide all currently cached pages
     pageCache.forEach((page) => {
         if (page.container) {

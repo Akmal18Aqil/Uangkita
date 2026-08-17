@@ -288,7 +288,7 @@ a {
 }
 
 .page-container {
-  padding: 14px var(--spacing-lg);
+  padding: 14px var(--spacing-lg) 32px;
   width: 100%;
   margin: 0 auto;
 }

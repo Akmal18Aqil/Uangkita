@@ -1,78 +1,46 @@
+// Kolom: ID, Judul, Deskripsi, Prioritas, Status, Deadline, Kategori, CalendarEventId, Dibuat Pada
+var TCOL = { ID: 1, JUDUL: 2, DESKRIPSI: 3, PRIORITAS: 4, STATUS: 5, DEADLINE: 6, KATEGORI: 7, EVENT: 8, DIBUAT: 9 };
+
+// Pengingat: H-2 hari, H-24 jam, H-12 jam, H-5 jam.
+var REMINDER_MINUTES = [2880, 1440, 720, 300];
+
 function getTasks() {
-    const sheet = getSheet('Tasks');
-    const data = sheet.getDataRange().getValues();
-    
+    var sheet = getSheet('Tasks');
+    var data = sheet.getDataRange().getValues();
+
     if (data.length <= 1) return [];
-    
-    const headers = data[0];
-    const result = [];
-    const now = new Date();
-    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const rowsToDelete = [];
-    
-    for (let i = 1; i < data.length; i++) {
-        let row = data[i];
-        if (!row[0]) continue;
-        
-        let obj = {};
-        for (let j = 0; j < headers.length; j++) {
-            obj[headers[j]] = row[j];
+
+    var headers = data[0];
+    var result = [];
+
+    // Membaca data tidak boleh mengubah data. Versi sebelumnya menghapus tugas
+    // "Done" yang lewat 2 hari di sini, jadi satu GET biasa bisa menghilangkan
+    // riwayat tugas secara permanen tanpa konfirmasi.
+    for (var i = 1; i < data.length; i++) {
+        if (!data[i][0]) continue;
+
+        var obj = {};
+        for (var j = 0; j < headers.length; j++) {
+            obj[headers[j]] = serializeCell(headers[j], data[i][j]);
         }
-        
-        // Hapus otomatis tugas yang berstatus 'Done' dan sudah lewat tenggat waktunya > 2 hari (Hanya di level app/spreadsheet)
-        if (obj.Status === 'Done' && obj.Deadline) {
-            const d = new Date(obj.Deadline);
-            if (!isNaN(d.getTime())) {
-                const deadlineStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-                const diffTime = todayStart - deadlineStart;
-                const diffDays = diffTime / (1000 * 60 * 60 * 24);
-                if (diffDays > 2) {
-                    rowsToDelete.push(i + 1);
-                    continue;
-                }
-            }
-        }
-        
         result.push(obj);
     }
-    
-    // Hapus baris dari bawah ke atas agar indeks baris tidak bergeser
-    if (rowsToDelete.length > 0) {
-        for (let k = rowsToDelete.length - 1; k >= 0; k--) {
-            sheet.deleteRow(rowsToDelete[k]);
-        }
-    }
-    
+
     return result;
 }
 
 function addTask(payload) {
-    const sheet = getSheet('Tasks');
-    const newId = generateUUID();
-    const timestamp = new Date().toISOString();
-    
-    let eventId = '';
-    
+    var sheet = getSheet('Tasks');
+    var newId = String(payload.id || generateUUID());
+
+    if (findRowById(sheet, newId) > 0) return { id: newId, duplicate: true };
+
+    var eventId = '';
     if (payload.syncCalendar && payload.deadline) {
-        try {
-            const calendar = CalendarApp.getDefaultCalendar();
-            const date = new Date(payload.deadline);
-            const event = calendar.createEvent(payload.judul, date, new Date(date.getTime() + 60*60*1000));
-            event.setDescription(payload.deskripsi || '');
-            
-            // Pengingat sesuai request: H-2 hari, H-24 jam, H-12 jam, H-5 jam
-            event.addPopupReminder(2880); // 48 jam (2 hari)
-            event.addPopupReminder(1440); // 24 jam
-            event.addPopupReminder(720);  // 12 jam
-            event.addPopupReminder(300);  // 5 jam
-            
-            eventId = event.getId();
-        } catch (e) {
-            console.error('Failed to create calendar event', e);
-        }
+        eventId = upsertCalendarEvent('', payload.judul, payload.deskripsi, payload.deadline);
     }
-    
-    const newRow = [
+
+    sheet.appendRow([
         newId,
         payload.judul || '',
         payload.deskripsi || '',
@@ -81,137 +49,120 @@ function addTask(payload) {
         payload.deadline || '',
         payload.kategori || 'Personal',
         eventId,
-        timestamp
-    ];
-    
-    sheet.appendRow(newRow);
-    
-    return { id: newId, eventId: eventId, timestamp: timestamp };
+        new Date().toISOString()
+    ]);
+
+    return { id: newId, eventId: eventId, timestamp: new Date().toISOString() };
 }
 
 function updateTask(payload) {
-    const sheet = getSheet('Tasks');
-    const data = sheet.getDataRange().getValues();
-    
-    for (let i = 1; i < data.length; i++) {
-        if (data[i][0] === payload.id) {
-            const rowIdx = i + 1;
-            let eventId = data[i][7];
-            
-            const existingTitle = data[i][1];
-            const existingDesc = data[i][2];
-            
-            const taskTitle = payload.judul !== undefined ? payload.judul : existingTitle;
-            const taskDesc = payload.deskripsi !== undefined ? payload.deskripsi : existingDesc;
-            
-            if (payload.syncCalendar && payload.deadline) {
-                try {
-                    const calendar = CalendarApp.getDefaultCalendar();
-                    const date = new Date(payload.deadline);
-                    if (eventId) {
-                        const event = calendar.getEventById(eventId);
-                        if (event) {
-                            event.setTitle(taskTitle);
-                            event.setDescription(taskDesc || '');
-                            event.setTime(date, new Date(date.getTime() + 60*60*1000));
-                        } else {
-                            const newEvent = calendar.createEvent(taskTitle, date, new Date(date.getTime() + 60*60*1000));
-                            newEvent.addPopupReminder(2880);
-                            newEvent.addPopupReminder(1440);
-                            newEvent.addPopupReminder(720);
-                            newEvent.addPopupReminder(300);
-                            eventId = newEvent.getId();
-                        }
-                    } else {
-                        const newEvent = calendar.createEvent(taskTitle, date, new Date(date.getTime() + 60*60*1000));
-                        newEvent.addPopupReminder(2880);
-                        newEvent.addPopupReminder(1440);
-                        newEvent.addPopupReminder(720);
-                        newEvent.addPopupReminder(300);
-                        eventId = newEvent.getId();
-                    }
-                } catch(e) {}
-            } else if (eventId && payload.status === 'Done') {
-                try {
-                    const calendar = CalendarApp.getDefaultCalendar();
-                    const event = calendar.getEventById(eventId);
-                    if (event) {
-                        const cleanTitle = taskTitle.startsWith('✅ ') ? taskTitle.slice(2) : taskTitle;
-                        event.setTitle('✅ ' + cleanTitle);
-                    }
-                } catch(e) {}
-            } else if (eventId && payload.status && payload.status !== 'Done') {
-                try {
-                    const calendar = CalendarApp.getDefaultCalendar();
-                    const event = calendar.getEventById(eventId);
-                    if (event) {
-                        const cleanTitle = taskTitle.startsWith('✅ ') ? taskTitle.slice(2) : taskTitle;
-                        event.setTitle(cleanTitle);
-                    }
-                } catch(e) {}
-            }
-            
-            if (payload.judul !== undefined) sheet.getRange(rowIdx, 2).setValue(payload.judul);
-            if (payload.deskripsi !== undefined) sheet.getRange(rowIdx, 3).setValue(payload.deskripsi);
-            if (payload.prioritas !== undefined) sheet.getRange(rowIdx, 4).setValue(payload.prioritas);
-            if (payload.status !== undefined) sheet.getRange(rowIdx, 5).setValue(payload.status);
-            if (payload.deadline !== undefined) sheet.getRange(rowIdx, 6).setValue(payload.deadline);
-            if (payload.kategori !== undefined) sheet.getRange(rowIdx, 7).setValue(payload.kategori);
-            sheet.getRange(rowIdx, 8).setValue(eventId);
-            
-            return { id: payload.id, updated: true, eventId: eventId };
-        }
+    var sheet = getSheet('Tasks');
+    var rowIdx = findRowById(sheet, payload.id);
+    if (rowIdx < 1) throw new Error('Task not found');
+
+    var row = sheet.getRange(rowIdx, 1, 1, TCOL.DIBUAT).getValues()[0];
+    var eventId = row[TCOL.EVENT - 1];
+
+    var title = payload.judul !== undefined ? payload.judul : row[TCOL.JUDUL - 1];
+    var desc = payload.deskripsi !== undefined ? payload.deskripsi : row[TCOL.DESKRIPSI - 1];
+    var deadline = payload.deadline !== undefined ? payload.deadline : row[TCOL.DEADLINE - 1];
+    var status = payload.status !== undefined ? payload.status : row[TCOL.STATUS - 1];
+
+    if (payload.syncCalendar && deadline) {
+        eventId = upsertCalendarEvent(eventId, title, desc, deadline);
     }
-    throw new Error('Task not found');
+    if (eventId) markCalendarDone(eventId, title, status === 'Done');
+
+    if (payload.judul !== undefined) sheet.getRange(rowIdx, TCOL.JUDUL).setValue(payload.judul);
+    if (payload.deskripsi !== undefined) sheet.getRange(rowIdx, TCOL.DESKRIPSI).setValue(payload.deskripsi);
+    if (payload.prioritas !== undefined) sheet.getRange(rowIdx, TCOL.PRIORITAS).setValue(payload.prioritas);
+    if (payload.status !== undefined) sheet.getRange(rowIdx, TCOL.STATUS).setValue(payload.status);
+    if (payload.deadline !== undefined) sheet.getRange(rowIdx, TCOL.DEADLINE).setValue(payload.deadline);
+    if (payload.kategori !== undefined) sheet.getRange(rowIdx, TCOL.KATEGORI).setValue(payload.kategori);
+    sheet.getRange(rowIdx, TCOL.EVENT).setValue(eventId);
+
+    return { id: payload.id, updated: true, eventId: eventId };
 }
 
-function deleteTask(id, keepCalendar = false) {
-    const sheet = getSheet('Tasks');
-    const data = sheet.getDataRange().getValues();
-    
-    for (let i = 1; i < data.length; i++) {
-        if (data[i][0] === id) {
-            const eventId = data[i][7];
-            if (eventId && !keepCalendar) {
-                try {
-                    const calendar = CalendarApp.getDefaultCalendar();
-                    const event = calendar.getEventById(eventId);
-                    if (event) event.deleteEvent();
-                } catch (e) {}
-            }
-            sheet.deleteRow(i + 1);
-            return { id: id, deleted: true };
+function deleteTask(id, keepCalendar) {
+    var sheet = getSheet('Tasks');
+    var rowIdx = findRowById(sheet, id);
+    if (rowIdx < 1) return { id: id, deleted: false, missing: true };
+
+    var eventId = sheet.getRange(rowIdx, TCOL.EVENT).getValue();
+    if (eventId && !keepCalendar) {
+        try {
+            var event = CalendarApp.getDefaultCalendar().getEventById(eventId);
+            if (event) event.deleteEvent();
+        } catch (e) {
+            console.error('Gagal menghapus event kalender', e);
         }
     }
-    throw new Error('Task not found');
+
+    sheet.deleteRow(rowIdx);
+    return { id: id, deleted: true };
 }
 
 function getCalendarEvents() {
     try {
-        const cal = CalendarApp.getDefaultCalendar();
-        const now = new Date();
-        const nextMonth = new Date();
-        nextMonth.setMonth(now.getMonth() + 1);
-        
-        const events = cal.getEvents(now, nextMonth);
-        const result = [];
-        
-        for (let i = 0; i < events.length; i++) {
-            result.push({
-                id: events[i].getId(),
-                title: events[i].getTitle(),
-                start: events[i].getStartTime().toISOString(),
-                end: events[i].getEndTime().toISOString(),
-                desc: events[i].getDescription()
-            });
-        }
-        return result;
+        var cal = CalendarApp.getDefaultCalendar();
+        var now = new Date();
+        var nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+
+        return cal.getEvents(now, nextMonth).map(function (event) {
+            return {
+                id: event.getId(),
+                title: event.getTitle(),
+                start: event.getStartTime().toISOString(),
+                end: event.getEndTime().toISOString(),
+                desc: event.getDescription()
+            };
+        });
     } catch (e) {
+        console.error('Gagal membaca kalender', e);
         return [];
     }
 }
 
+// Satu jalur untuk membuat/memperbarui event, dipakai addTask dan updateTask.
+function upsertCalendarEvent(eventId, title, desc, deadline) {
+    try {
+        var calendar = CalendarApp.getDefaultCalendar();
+        var start = new Date(deadline);
+        if (isNaN(start.getTime())) return eventId || '';
+        var end = new Date(start.getTime() + 60 * 60 * 1000);
+
+        if (eventId) {
+            var existing = calendar.getEventById(eventId);
+            if (existing) {
+                existing.setTitle(title);
+                existing.setDescription(desc || '');
+                existing.setTime(start, end);
+                return eventId;
+            }
+        }
+
+        var event = calendar.createEvent(title, start, end);
+        event.setDescription(desc || '');
+        REMINDER_MINUTES.forEach(function (minutes) { event.addPopupReminder(minutes); });
+        return event.getId();
+    } catch (e) {
+        console.error('Gagal menyinkronkan kalender', e);
+        return eventId || '';
+    }
+}
+
+function markCalendarDone(eventId, title, isDone) {
+    try {
+        var event = CalendarApp.getDefaultCalendar().getEventById(eventId);
+        if (!event) return;
+        var cleanTitle = String(title).indexOf('✅ ') === 0 ? String(title).slice(2) : String(title);
+        event.setTitle(isDone ? '✅ ' + cleanTitle : cleanTitle);
+    } catch (e) {
+        console.error('Gagal menandai event kalender', e);
+    }
+}
+
 function testCalendar() {
-    const cal = CalendarApp.getDefaultCalendar();
-    Logger.log("Berhasil menghubungkan ke kalender: " + cal.getName());
+    Logger.log('Berhasil menghubungkan ke kalender: ' + CalendarApp.getDefaultCalendar().getName());
 }

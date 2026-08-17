@@ -3,12 +3,13 @@ import { store } from '../store.js';
 import { api } from '../api.js';
 import { showBottomSheet } from './modal.js';
 import { showToast } from './toast.js';
-import { formatRupiah } from '../utils.js';
+import { formatRupiah, todayISO, generateUUID, esc } from '../utils.js';
+import { invalidateCache } from '../router.js';
 
 export function openTransactionForm(editData = null) {
     const isEdit = !!editData && !!editData.ID;
-    const defaultDate = new Date().toISOString().split('T')[0];
-    
+    const defaultDate = todayISO();
+
     const formData = {
         Tipe: editData?.Tipe || 'Pengeluaran',
         Tanggal: editData?.Tanggal ? editData.Tanggal.split('T')[0] : defaultDate,
@@ -19,7 +20,8 @@ export function openTransactionForm(editData = null) {
     };
     
     const categories = store.get('categories') || [];
-    
+    const wallets = store.get('wallets') || [];
+
     const formHtml = `
         <form id="tx-form" class="animate-fade-in flex-col gap-md">
             <!-- Segmented Control Type Switcher -->
@@ -63,16 +65,13 @@ export function openTransactionForm(editData = null) {
             <div class="form-group">
                 <label class="form-label">Sumber Dana / Dompet</label>
                 <select id="tx-dompet" class="form-control">
-                    <option value="Tunai" ${formData.Dompet === 'Tunai' ? 'selected' : ''}>💵 Tunai</option>
-                    <option value="Dana" ${formData.Dompet === 'Dana' ? 'selected' : ''}>🔵 Dana</option>
-                    <option value="Wondr" ${formData.Dompet === 'Wondr' ? 'selected' : ''}>🟢 Wondr</option>
-                    <option value="ShopeePay" ${formData.Dompet === 'ShopeePay' ? 'selected' : ''}>🟠 ShopeePay</option>
+                    ${wallets.map(w => `<option value="${esc(w.name)}" ${formData.Dompet === w.name ? 'selected' : ''}>${esc(w.icon)} ${esc(w.name)}</option>`).join('')}
                 </select>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Catatan / Keterangan</label>
-                <input type="text" id="tx-catatan" class="form-control" placeholder="Makan siang, bensin, iPhone purchase, dll..." value="${formData.Catatan}">
+                <input type="text" id="tx-catatan" class="form-control" placeholder="Makan siang, bensin, iPhone purchase, dll..." value="${esc(formData.Catatan)}">
             </div>
             
             <button type="submit" class="btn btn-primary mt-sm" id="tx-submit-btn">
@@ -93,9 +92,9 @@ export function openTransactionForm(editData = null) {
         const renderCategories = (type) => {
             const filteredCats = categories.filter(c => c.type === type);
             catGrid.innerHTML = filteredCats.map(c => `
-                <div class="category-item ${c.name === catInput.value ? 'selected' : ''}" data-name="${c.name}">
-                    <div class="category-icon-wrapper">${c.icon}</div>
-                    <div class="category-name">${c.name}</div>
+                <div class="category-item ${c.name === catInput.value ? 'selected' : ''}" data-name="${esc(c.name)}">
+                    <div class="category-icon-wrapper">${esc(c.icon)}</div>
+                    <div class="category-name">${esc(c.name)}</div>
                 </div>
             `).join('');
             
@@ -161,54 +160,21 @@ export function openTransactionForm(editData = null) {
             const dompetVal = (dompetSelect && dompetSelect.value) ? dompetSelect.value.trim() : 'Tunai';
             const nowIso = new Date().toISOString();
             
+            // ID dibuat di klien supaya kiriman ulang dari antrean offline tidak
+            // membuat baris ganda: Apps Script menolak ID yang sudah ada.
+            const txId = isEdit ? (editData.ID || editData.id) : generateUUID();
+
             const payload = {
-                id: isEdit ? (editData.ID || editData.id) : undefined,
-                ID: isEdit ? (editData.ID || editData.id) : undefined,
+                id: txId,
                 tanggal: document.getElementById('tx-tanggal').value,
-                Tanggal: document.getElementById('tx-tanggal').value,
                 tipe: typeInput.value,
-                Tipe: typeInput.value,
                 kategori: catInput.value,
-                Kategori: catInput.value,
                 jumlah: parseInt(amountInput.value, 10) || 0,
-                Jumlah: parseInt(amountInput.value, 10) || 0,
                 catatan: catatanVal,
-                Catatan: catatanVal,
-                
-                // All possible Wallet / Sumber Dana Aliases for both Pengeluaran and Pemasukan
                 dompet: dompetVal,
-                Dompet: dompetVal,
-                DOMPET: dompetVal,
-                sumberDana: dompetVal,
-                sumber_dana: dompetVal,
-                SumberDana: dompetVal,
-                Sumber_Dana: dompetVal,
-                sumber: dompetVal,
-                Sumber: dompetVal,
-                wallet: dompetVal,
-                Wallet: dompetVal,
-                from_wallet: dompetVal,
-                to_wallet: dompetVal,
-                akun: dompetVal,
-                Akun: dompetVal,
-                account: dompetVal,
-                Account: dompetVal,
-                debit: dompetVal,
-                kredit: dompetVal,
-                pos: dompetVal,
-                tujuan: dompetVal,
-                penerima: dompetVal,
-                pengeluaran_dari: dompetVal,
-                
-                // All possible Timestamp Aliases
-                dibuatPada: nowIso,
-                'Dibuat Pada': nowIso,
-                dibuat_pada: nowIso,
-                createdAt: nowIso,
-                created_at: nowIso,
-                timestamp: nowIso
+                dibuatPada: nowIso
             };
-            
+
             if (!payload.jumlah || payload.jumlah <= 0) {
                 showToast('Jumlah transaksi harus lebih dari 0', 'error');
                 return;
@@ -236,9 +202,9 @@ export function openTransactionForm(editData = null) {
                     });
                     showToast('Transaksi berhasil diperbarui');
                 } else {
-                    const result = await api.fetch('addTransaction', payload);
+                    await api.fetch('addTransaction', payload);
                     store.addTransaction({
-                        ID: result?.id || result?.ID || ('local-' + Date.now()),
+                        ID: txId,
                         Tanggal: payload.tanggal,
                         Tipe: payload.tipe,
                         Kategori: payload.kategori,
@@ -249,9 +215,10 @@ export function openTransactionForm(editData = null) {
                     });
                     showToast('Transaksi berhasil ditambahkan');
                 }
-                
-                const evt = new HashChangeEvent("hashchange");
-                window.dispatchEvent(evt);
+
+                // Segarkan semua halaman yang sudah pernah dibuka, bukan hanya
+                // yang aktif, supaya dashboard tidak menampilkan angka basi.
+                invalidateCache();
                 close();
             } catch (error) {
                 console.error(error);

@@ -1,76 +1,79 @@
 // js/pages/dashboard.js
 import { store } from '../store.js';
 import { api } from '../api.js';
-import { formatRupiah, formatDate, parseLocalDate } from '../utils.js';
+import { formatRupiah, formatDate, parseLocalDate, todayISO, esc } from '../utils.js';
 import { getListSkeleton } from '../components/skeleton.js';
 import { createReferenceBarChart, createProgressBar } from '../components/chart.js';
 import { openTransactionForm } from '../components/transactionForm.js';
+import { showToast } from '../components/toast.js';
+
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
 
 export async function render() {
     const container = document.createElement('div');
     container.className = 'dashboard-grid animate-fade-in stagger-1';
-    
-    // Initial Shell matching Design Reference
+
     container.innerHTML = `
         <!-- Hero Cards Row (Income & Expense) -->
         <div class="hero-cards-row">
             <div class="hero-blue-card">
                 <div class="hero-card-header">
-                    <span class="hero-title" id="hero-income-label">Income (Bulan Ini)</span>
-                    <div class="hero-icon-btn" style="cursor: pointer;" id="btn-hero-add-income" title="Tambah Pemasukan">↗</div>
+                    <span class="hero-title" id="hero-income-label">Pemasukan</span>
+                    <button class="hero-icon-btn" id="btn-hero-add-income" aria-label="Tambah pemasukan" title="Tambah Pemasukan">↗</button>
                 </div>
                 <div class="hero-amount" id="hero-income-amount">Rp 0</div>
-                <div class="hero-badge" id="hero-income-badge">▲ 0% vs bln lalu</div>
+                <div class="hero-badge" id="hero-income-badge">—</div>
             </div>
-            
-            <div class="clean-card" style="flex: 1; min-width: 150px; display: flex; flex-direction: column; justify-content: space-between; padding: var(--spacing-lg);">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 13px; color: var(--text-secondary); font-weight: 500;" id="hero-expense-label">Expenses</span>
-                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--pill-bg); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--danger); cursor: pointer;" id="btn-hero-add-expense" title="Tambah Pengeluaran">↘</div>
+
+            <div class="clean-card hero-expense-card">
+                <div class="flex justify-between items-center">
+                    <span class="hero-expense-label" id="hero-expense-label">Pengeluaran</span>
+                    <button class="hero-icon-btn-outline" id="btn-hero-add-expense" aria-label="Tambah pengeluaran" title="Tambah Pengeluaran">↘</button>
                 </div>
-                <div id="hero-expense-amount" style="font-size: 24px; font-weight: 700; color: var(--text-primary); margin: 12px 0; font-family: var(--font-heading);">Rp 0</div>
-                <div style="font-size: 11px; color: var(--text-muted); font-weight: 600;" id="hero-expense-count">0 transaksi</div>
+                <div id="hero-expense-amount" class="hero-expense-amount">Rp 0</div>
+                <div class="hero-expense-meta" id="hero-expense-count">0 transaksi</div>
             </div>
         </div>
-        
+
         <!-- Total Balance & Bar Chart Card -->
         <div class="balance-chart-card">
             <div class="balance-header-row">
                 <div>
-                    <div class="total-balance-label">Total Balance (Semua Waktu)</div>
+                    <div class="total-balance-label">Saldo Total (Semua Dompet)</div>
                     <div class="total-balance-value">
                         <span id="total-balance">Rp 0</span>
-                        <span class="badge-pill-positive" id="total-balance-badge">▲ 0%</span>
+                        <span class="badge-pill-positive" id="total-balance-badge">—</span>
                     </div>
                 </div>
             </div>
-            
-            <!-- Segmented Control Filter Bar -->
-            <div class="segmented-control mt-md mb-md">
-                <div class="segmented-item active" data-period="monthly">Bulan Ini</div>
-                <div class="segmented-item" data-period="weekly">Minggu Ini</div>
-                <div class="segmented-item" data-period="custom">Pilih Tanggal</div>
+
+            <div class="segmented-control mt-md mb-md" role="tablist" aria-label="Periode">
+                <button type="button" class="segmented-item active" role="tab" aria-selected="true" data-period="monthly">Bulan Ini</button>
+                <button type="button" class="segmented-item" role="tab" aria-selected="false" data-period="weekly">Minggu Ini</button>
+                <button type="button" class="segmented-item" role="tab" aria-selected="false" data-period="custom">Pilih Tanggal</button>
             </div>
-            
-            <div id="custom-date-range" style="display: none; gap: 8px; margin-bottom: 12px; align-items: center;">
-                <input type="date" id="date-start" class="form-control" style="padding: 6px; font-size: 12px;">
-                <span style="color: var(--text-muted);">-</span>
-                <input type="date" id="date-end" class="form-control" style="padding: 6px; font-size: 12px;">
-                <button id="btn-apply-filter" class="btn btn-primary" style="padding: 6px 14px; font-size: 12px; width: auto;">Cari</button>
+
+            <div id="custom-date-range" class="custom-date-range" hidden>
+                <input type="date" id="date-start" class="form-control" aria-label="Tanggal mulai">
+                <span style="color: var(--text-muted);">–</span>
+                <input type="date" id="date-end" class="form-control" aria-label="Tanggal akhir">
+                <button id="btn-apply-filter" class="btn btn-primary btn-inline">Cari</button>
             </div>
-            
-            <!-- Reference Vertical Bar Chart Container -->
+
+            <div class="chart-caption">Pemasukan vs pengeluaran 6 bulan terakhir</div>
             <div id="reference-chart-container"></div>
         </div>
-        
-        <!-- My Cards (Saldo Dompet & E-Wallet) Section -->
+
+        <!-- Budget Bulanan -->
+        <div id="budget-card"></div>
+
+        <!-- Saldo per Dompet -->
         <div class="my-cards-section">
             <div class="section-header">
-                <h3 class="section-title">My Cards</h3>
-                <button class="action-pill-btn" id="btn-add-tx-card" style="padding: 6px 12px; font-size: 12px;">+ Add Card</button>
+                <h3 class="section-title">Dompet Saya</h3>
+                <a href="#/settings" class="view-all">Atur</a>
             </div>
-            
-            <!-- Bi-Color Graphic Card Widget -->
+
             <div class="credit-card-graphic">
                 <div class="card-graphic-top">
                     <span style="font-weight: 700; font-family: var(--font-heading); letter-spacing: 1px;">FINANCEKU</span>
@@ -81,146 +84,97 @@ export async function render() {
                 <div class="card-chip"></div>
                 <div class="flex items-center justify-between" style="margin-top: 10px;">
                     <div>
-                        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">E-WALLET MAIN</div>
-                        <div class="card-number-masked">•••• •••• •••• 4329</div>
+                        <div class="card-caption">SALDO GABUNGAN</div>
+                        <div class="card-number-masked" id="card-total-balance">Rp 0</div>
                     </div>
-                    <div class="card-expiry">09/28</div>
+                    <div class="card-expiry" id="card-owner">—</div>
                 </div>
             </div>
-            
-            <!-- Quick Action Buttons -->
-            <div class="quick-actions-row">
-                <button class="action-pill-btn" id="btn-receive-funds">
-                    <span>↓</span> Receive Funds
-                </button>
-                <button class="action-pill-btn" id="btn-send-money">
-                    <span>↑</span> Send Money
-                </button>
-            </div>
-            
-            <!-- Monthly Income & Expense Summary under Cards -->
-            <div style="margin-top: 16px; border-top: 1px solid var(--border-color); padding-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-                <div class="flex justify-between items-center" style="font-size: 13px;">
-                    <span style="color: var(--text-secondary); display: flex; align-items: center; gap: 6px;">
-                        <span style="color: var(--success); font-weight: bold;">↑</span> Income this month
-                    </span>
+
+            <div class="wallet-summary-rows">
+                <div class="flex justify-between items-center wallet-summary-row">
+                    <span><span class="text-success" style="font-weight:bold;">↑</span> Pemasukan periode ini</span>
                     <span class="amount text-primary" id="summary-income-month">Rp 0</span>
                 </div>
-                <div class="flex justify-between items-center" style="font-size: 13px;">
-                    <span style="color: var(--text-secondary); display: flex; align-items: center; gap: 6px;">
-                        <span style="color: var(--danger); font-weight: bold;">↓</span> Expenses this month
-                    </span>
+                <div class="flex justify-between items-center wallet-summary-row">
+                    <span><span class="text-danger" style="font-weight:bold;">↓</span> Pengeluaran periode ini</span>
                     <span class="amount text-primary" id="summary-expense-month">Rp 0</span>
                 </div>
             </div>
-            
-            <!-- Breakdown Saldo per Dompet -->
-            <div class="ewallet-grid-list">
-                <div class="ewallet-item-box">
-                    <div class="ewallet-item-name">💵 Tunai</div>
-                    <div class="ewallet-item-amount" id="balance-tunai">Rp 0</div>
-                </div>
-                <div class="ewallet-item-box">
-                    <div class="ewallet-item-name">🔵 Dana</div>
-                    <div class="ewallet-item-amount" id="balance-dana">Rp 0</div>
-                </div>
-                <div class="ewallet-item-box">
-                    <div class="ewallet-item-name">🟢 Wondr</div>
-                    <div class="ewallet-item-amount" id="balance-wondr">Rp 0</div>
-                </div>
-                <div class="ewallet-item-box">
-                    <div class="ewallet-item-name">🟠 ShopeePay</div>
-                    <div class="ewallet-item-amount" id="balance-shopeepay">Rp 0</div>
-                </div>
-            </div>
+
+            <div class="ewallet-grid-list" id="wallet-balances"></div>
         </div>
-        
+
         <!-- Recent Transactions Section -->
         <div>
             <div class="section-header">
-                <h3 class="section-title">Recent Transaction</h3>
+                <h3 class="section-title">Transaksi Terbaru</h3>
                 <a href="#/transactions" class="view-all">Lihat Semua</a>
             </div>
             <div id="recent-transactions">
                 ${getListSkeleton(3)}
             </div>
         </div>
-        
-        <!-- Savings / Target Tabungan Widget -->
+
+        <!-- Target Tabungan -->
         <div>
             <div class="section-header">
-                <h3 class="section-title">Savings / Target Tabungan</h3>
-                <a href="#/tasks" class="view-all">Lihat Semua</a>
+                <h3 class="section-title">Target Tabungan &amp; Investasi</h3>
+                <a href="#/settings" class="view-all">Atur Target</a>
             </div>
-            <div id="savings-widget">
-                <!-- Dynamically injected -->
-            </div>
+            <div id="savings-widget"></div>
         </div>
     `;
-    
-    // Segmented Filter Control Setup
+
     const segmentedItems = container.querySelectorAll('.segmented-control .segmented-item');
     const customRange = container.querySelector('#custom-date-range');
-    const btnApply = container.querySelector('#btn-apply-filter');
-    
+
     segmentedItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            segmentedItems.forEach(i => i.classList.remove('active'));
+            segmentedItems.forEach(i => {
+                i.classList.remove('active');
+                i.setAttribute('aria-selected', 'false');
+            });
             e.currentTarget.classList.add('active');
+            e.currentTarget.setAttribute('aria-selected', 'true');
+
             const period = e.currentTarget.dataset.period;
-            if (period === 'custom') {
-                customRange.style.display = 'flex';
-            } else {
-                customRange.style.display = 'none';
-                updateDashboardData(container, period);
-            }
+            customRange.hidden = period !== 'custom';
+            if (period !== 'custom') updateDashboardData(container, period);
         });
     });
-    
-    btnApply.addEventListener('click', () => {
+
+    container.querySelector('#btn-apply-filter').addEventListener('click', () => {
         const start = container.querySelector('#date-start').value;
         const end = container.querySelector('#date-end').value;
-        if (start && end) {
-            updateDashboardData(container, 'custom', { start, end });
-        } else {
-            alert('Harap pilih tanggal mulai dan akhir!');
-        }
-    });
-    
-    // Quick Action Pill Buttons (Receive / Send Money)
-    container.querySelector('#btn-receive-funds').addEventListener('click', () => {
-        openTransactionForm({ Tipe: 'Pemasukan' });
-    });
-    container.querySelector('#btn-send-money').addEventListener('click', () => {
-        openTransactionForm({ Tipe: 'Pengeluaran' });
-    });
-    container.querySelector('#btn-add-tx-card').addEventListener('click', () => {
-        openTransactionForm();
-    });
-    container.querySelector('#btn-hero-add-income').addEventListener('click', () => {
-        openTransactionForm({ Tipe: 'Pemasukan' });
-    });
-    container.querySelector('#btn-hero-add-expense').addEventListener('click', () => {
-        openTransactionForm({ Tipe: 'Pengeluaran' });
+        if (!start || !end) return showToast('Harap pilih tanggal mulai dan akhir', 'error');
+        if (start > end) return showToast('Tanggal mulai melewati tanggal akhir', 'error');
+        updateDashboardData(container, 'custom', { start, end });
     });
 
-    // Initial Dashboard Data Update (from cache first)
+    container.querySelector('#btn-hero-add-income').addEventListener('click', () => openTransactionForm({ Tipe: 'Pemasukan' }));
+    container.querySelector('#btn-hero-add-expense').addEventListener('click', () => openTransactionForm({ Tipe: 'Pengeluaran' }));
+
+    // Ketuk transaksi untuk mengedit. Delegasi dipakai supaya ID tidak perlu
+    // ditempel ke atribut onclick (kutip di dalam ID akan mematahkan HTML-nya).
+    container.querySelector('#recent-transactions').addEventListener('click', (e) => {
+        const row = e.target.closest('[data-tx-id]');
+        if (!row) return;
+        const tx = (store.get('transactions') || []).find(t => t.ID === row.dataset.txId);
+        if (tx) openTransactionForm(tx);
+    });
+
     updateDashboardData(container, 'monthly');
 
-    // Async Fetch Fresh Data from Apps Script
     try {
         const [transactions, tasks] = await Promise.all([
             api.fetch('getTransactions').catch(() => null),
             api.fetch('getTasks').catch(() => null)
         ]);
-        
-        if (transactions !== null && Array.isArray(transactions)) {
-            store.mergeApiTransactions(transactions);
-        }
-        if (tasks !== null && (tasks.length > 0 || cachedTasks.length === 0)) {
-            store.set('tasks', tasks);
-        }
-        updateDashboardData(container, 'monthly');
+
+        if (Array.isArray(transactions)) store.mergeApiTransactions(transactions);
+        if (Array.isArray(tasks)) store.set('tasks', tasks);
+        refresh(container);
     } catch (error) {
         console.error('Failed to update fresh dashboard data:', error);
     }
@@ -229,288 +183,304 @@ export async function render() {
 }
 
 export function refresh(container) {
-    let activePeriod = 'monthly';
     const activeItem = container.querySelector('.segmented-control .segmented-item.active');
-    if (activeItem) {
-        activePeriod = activeItem.dataset.period;
-    }
-    
+    const activePeriod = activeItem ? activeItem.dataset.period : 'monthly';
+
     let customDates = null;
     if (activePeriod === 'custom') {
         const start = container.querySelector('#date-start').value;
         const end = container.querySelector('#date-end').value;
         if (start && end) customDates = { start, end };
     }
-    
-    // updateDashboardData is hoisted or we need to ensure it's accessible.
-    // wait, updateDashboardData is defined in the same module.
+
     updateDashboardData(container, activePeriod, customDates);
+}
+
+function periodRange(period, customDates) {
+    const now = new Date();
+    if (period === 'weekly') {
+        const day = now.getDay() || 7; // Senin sebagai awal minggu
+        const start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day + 1);
+        const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 6, 23, 59, 59, 999);
+        return { start, end, label: 'Minggu Ini' };
+    }
+    if (period === 'custom' && customDates) {
+        const start = parseLocalDate(customDates.start);
+        start.setHours(0, 0, 0, 0);
+        const end = parseLocalDate(customDates.end);
+        end.setHours(23, 59, 59, 999);
+        return { start, end, label: 'Periode Dipilih' };
+    }
+    return {
+        start: new Date(now.getFullYear(), now.getMonth(), 1),
+        end: new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999),
+        label: 'Bulan Ini'
+    };
+}
+
+// Periode pembanding: bulan kalender sebelumnya untuk mode bulanan (bukan
+// "mundur N hari", yang untuk Maret akan menyeret sisa Januari ke dalamnya).
+function previousRange(period, start, end) {
+    if (period === 'monthly') {
+        const prevStart = new Date(start.getFullYear(), start.getMonth() - 1, 1);
+        const prevEnd = new Date(start.getFullYear(), start.getMonth(), 0, 23, 59, 59, 999);
+        return { start: prevStart, end: prevEnd };
+    }
+    const span = end.getTime() - start.getTime();
+    return { start: new Date(start.getTime() - span - 1), end: new Date(start.getTime() - 1) };
+}
+
+function growthLabel(current, previous) {
+    if (previous === 0) return current > 0 ? 'Baru periode ini' : 'Belum ada data';
+    const pct = Math.round(((current - previous) / Math.abs(previous)) * 100);
+    return `${pct >= 0 ? '▲' : '▼'} ${Math.abs(pct)}% vs periode lalu`;
 }
 
 function updateDashboardData(container, period = 'monthly', customDates = null) {
     const transactions = store.get('transactions') || [];
-    
+    const wallets = store.get('wallets') || [];
+    const settings = store.get('settings') || {};
+
+    const { start: startDate, end: endDate, label: periodLabel } = periodRange(period, customDates);
+    const { start: prevStartDate, end: prevEndDate } = previousRange(period, startDate, endDate);
+
     const now = new Date();
-    let startDate, endDate;
-    let periodLabel = 'Bulan ini';
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
-    if (period === 'monthly') {
-        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-        endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
-        periodLabel = 'Bulan Ini';
-    } else if (period === 'weekly') {
-        const day = now.getDay() || 7;
-        startDate = new Date(now);
-        startDate.setDate(now.getDate() - day + 1);
-        startDate.setHours(0,0,0,0);
-        endDate = new Date(startDate.getTime() + 6 * 24 * 60 * 60 * 1000 + 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 59 * 1000 + 999);
-        periodLabel = 'Minggu Ini';
-    } else if (period === 'custom' && customDates) {
-        startDate = parseLocalDate(customDates.start);
-        startDate.setHours(0,0,0,0);
-        endDate = parseLocalDate(customDates.end);
-        endDate.setHours(23,59,59,999);
-        periodLabel = 'Custom';
-    }
-    
-    // Calculate Previous Equal Period for Real Percentage Growth Comparison
-    const periodDuration = endDate.getTime() - startDate.getTime();
-    const prevStartDate = new Date(startDate.getTime() - periodDuration);
-    const prevEndDate = new Date(startDate.getTime() - 1);
-    
-    let totalIncomeFilter = 0;
-    let totalExpenseFilter = 0;
-    let expenseTxCount = 0;
-    
-    let prevIncomeFilter = 0;
-    let prevExpenseFilter = 0;
-    
-    let absoluteIncome = 0;
-    let absoluteExpense = 0;
-    
-    let walletBalances = {
-        Tunai: 0,
-        Dana: 0,
-        Wondr: 0,
-        ShopeePay: 0
-    };
+    // Saldo dompet berangkat dari saldo awal yang diisi user di Pengaturan.
+    const walletBalances = new Map(wallets.map(w => [w.name, Number(w.opening) || 0]));
+    const walletLookup = new Map(wallets.map(w => [w.name.toLowerCase(), w.name]));
+    const fallbackWallet = wallets[0] ? wallets[0].name : 'Tunai';
 
-    const walletKeyMap = {
-        'tunai': 'Tunai',
-        'dana': 'Dana',
-        'wondr': 'Wondr',
-        'shopeepay': 'ShopeePay',
-        'shopee pay': 'ShopeePay',
-        'shopee': 'ShopeePay'
-    };
-
+    let periodIncome = 0, periodExpense = 0, expenseTxCount = 0;
+    let prevIncome = 0, prevExpense = 0;
+    let balanceNow = 0, balancePrev = 0;
+    let monthExpense = 0;
+    let totalSaved = 0;
     const filteredTx = [];
-    
-    // Total Investment/Savings accumulated
-    let totalInvested = 0;
+
+    // Grafik 6 bulan: kunci "YYYY-M" supaya tidak tertukar antar tahun.
+    const monthly = new Map();
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        monthly.set(`${d.getFullYear()}-${d.getMonth()}`, { label: MONTHS_SHORT[d.getMonth()], income: 0, expense: 0, isActive: i === 0 });
+    }
 
     transactions.forEach(trx => {
         const date = parseLocalDate(trx.Tanggal);
         const amount = parseFloat(trx.Jumlah) || 0;
-        
-        const walletKey = trx.Dompet 
-            ? (walletKeyMap[trx.Dompet.toLowerCase()] || 'Tunai') 
-            : 'Tunai';
+        const isIncome = trx.Tipe === 'Pemasukan';
+        const signed = isIncome ? amount : -amount;
 
-        if (trx.Tipe === 'Pemasukan') {
-            absoluteIncome += amount;
-            if (walletKey && walletBalances[walletKey] !== undefined) {
-                walletBalances[walletKey] += amount;
-            }
-        } else {
-            absoluteExpense += amount;
-            if (walletKey && walletBalances[walletKey] !== undefined) {
-                walletBalances[walletKey] -= amount;
-            }
-            if (trx.Kategori === 'Investasi' || trx.Kategori === 'Tabungan') {
-                totalInvested += amount;
-            }
-        }
-        
-        // Filtered current period
+        const walletName = walletLookup.get(String(trx.Dompet || '').toLowerCase()) || fallbackWallet;
+        walletBalances.set(walletName, (walletBalances.get(walletName) || 0) + signed);
+
+        if (date <= endDate) balanceNow += signed;
+        if (date <= prevEndDate) balancePrev += signed;
+
+        if (!isIncome && (trx.Kategori === 'Investasi' || trx.Kategori === 'Tabungan')) totalSaved += amount;
+
+        if (date >= monthStart && date <= monthEnd && !isIncome) monthExpense += amount;
+
         if (date >= startDate && date <= endDate) {
             filteredTx.push(trx);
-            if (trx.Tipe === 'Pemasukan') totalIncomeFilter += amount;
-            else {
-                totalExpenseFilter += amount;
-                expenseTxCount++;
-            }
+            if (isIncome) periodIncome += amount;
+            else { periodExpense += amount; expenseTxCount++; }
         }
 
-        // Filtered previous period for comparison
         if (date >= prevStartDate && date <= prevEndDate) {
-            if (trx.Tipe === 'Pemasukan') prevIncomeFilter += amount;
-            else prevExpenseFilter += amount;
+            if (isIncome) prevIncome += amount;
+            else prevExpense += amount;
+        }
+
+        const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
+        const bucket = monthly.get(monthKey);
+        if (bucket) {
+            if (isIncome) bucket.income += amount;
+            else bucket.expense += amount;
         }
     });
-    
-    const totalBalance = absoluteIncome - absoluteExpense;
-    
-    // Dynamic Growth Calculation
-    const incomeGrowthPct = prevIncomeFilter > 0 
-        ? Math.round(((totalIncomeFilter - prevIncomeFilter) / prevIncomeFilter) * 100)
-        : (totalIncomeFilter > 0 ? 100 : 0);
 
-    const balanceGrowthPct = (absoluteIncome - absoluteExpense) > 0 ? 1.77 : 0;
-    
-    // Update Hero Cards & Balance DOM
-    container.querySelector('#hero-income-label').textContent = `Income (${periodLabel})`;
-    container.querySelector('#hero-expense-label').textContent = `Expenses (${periodLabel})`;
-    container.querySelector('#hero-income-amount').textContent = formatRupiah(totalIncomeFilter);
-    container.querySelector('#hero-expense-amount').textContent = formatRupiah(totalExpenseFilter);
-    container.querySelector('#hero-income-badge').textContent = `${incomeGrowthPct >= 0 ? '▲' : '▼'} ${Math.abs(incomeGrowthPct)}% vs bln lalu`;
-    container.querySelector('#hero-expense-count').textContent = `${expenseTxCount} transaksi`;
-    
+    const openingTotal = wallets.reduce((sum, w) => sum + (Number(w.opening) || 0), 0);
+    const totalBalance = openingTotal + balanceNow;
+    const prevTotalBalance = openingTotal + balancePrev;
+
+    container.querySelector('#hero-income-label').textContent = `Pemasukan · ${periodLabel}`;
+    container.querySelector('#hero-expense-label').textContent = `Pengeluaran · ${periodLabel}`;
+    container.querySelector('#hero-income-amount').textContent = formatRupiah(periodIncome);
+    container.querySelector('#hero-expense-amount').textContent = formatRupiah(periodExpense);
+    container.querySelector('#hero-income-badge').textContent = growthLabel(periodIncome, prevIncome);
+    container.querySelector('#hero-expense-count').textContent =
+        `${expenseTxCount} transaksi · ${growthLabel(periodExpense, prevExpense).replace(' vs periode lalu', '')}`;
+
     container.querySelector('#total-balance').textContent = formatRupiah(totalBalance);
-    container.querySelector('#total-balance-badge').textContent = `${totalBalance >= 0 ? '▲' : '▼'} ${balanceGrowthPct}%`;
-    container.querySelector('#summary-income-month').textContent = formatRupiah(totalIncomeFilter);
-    container.querySelector('#summary-expense-month').textContent = formatRupiah(totalExpenseFilter);
-    
-    // Update E-Wallet Balances
-    container.querySelector('#balance-tunai').textContent = formatRupiah(walletBalances.Tunai);
-    container.querySelector('#balance-dana').textContent = formatRupiah(walletBalances.Dana);
-    container.querySelector('#balance-wondr').textContent = formatRupiah(walletBalances.Wondr);
-    container.querySelector('#balance-shopeepay').textContent = formatRupiah(walletBalances.ShopeePay);
-    
-    // Dynamic Monthly Bar Chart (Real monthly income for last 6 months from Apps Script data)
-    const monthNamesShort = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
-    const currentMonthIdx = now.getMonth();
-    
-    // Generate last 6 months labels & sums
-    const chartData = [];
-    for (let i = 5; i >= 0; i--) {
-        const targetDate = new Date(now.getFullYear(), currentMonthIdx - i, 1);
-        const mIdx = targetDate.getMonth();
-        const yVal = targetDate.getFullYear();
-        const mLabel = monthNamesShort[mIdx];
-        
-        // Calculate total income for this specific month
-        let monthIncome = 0;
-        transactions.forEach(t => {
-            if (t.Tipe === 'Pemasukan') {
-                const d = parseLocalDate(t.Tanggal);
-                if (d.getMonth() === mIdx && d.getFullYear() === yVal) {
-                    monthIncome += parseFloat(t.Jumlah) || 0;
-                }
-            }
-        });
 
-        // Calculate percentage indicator
-        const isCurrent = i === 0;
-        chartData.push({
-            label: mLabel,
-            income: monthIncome,
-            pct: isCurrent ? `${incomeGrowthPct >= 0 ? '+' : ''}${incomeGrowthPct}%` : `+${10 + i * 2}%`,
-            isActive: isCurrent
-        });
+    const balanceBadge = container.querySelector('#total-balance-badge');
+    balanceBadge.textContent = growthLabel(totalBalance, prevTotalBalance);
+    balanceBadge.classList.toggle('negative', totalBalance < prevTotalBalance);
+
+    container.querySelector('#summary-income-month').textContent = formatRupiah(periodIncome);
+    container.querySelector('#summary-expense-month').textContent = formatRupiah(periodExpense);
+    container.querySelector('#card-total-balance').textContent = formatRupiah(totalBalance);
+    container.querySelector('#card-owner').textContent = settings.userName || 'FinanceKu';
+
+    container.querySelector('#wallet-balances').innerHTML = wallets.map(w => {
+        const balance = walletBalances.get(w.name) || 0;
+        return `
+            <div class="ewallet-item-box">
+                <div class="ewallet-item-name">${esc(w.icon)} ${esc(w.name)}</div>
+                <div class="ewallet-item-amount ${balance < 0 ? 'text-danger' : ''}">${formatRupiah(balance)}</div>
+            </div>
+        `;
+    }).join('') || '<div class="empty-state" style="grid-column: 1/-1;"><p>Belum ada dompet. Tambahkan di Pengaturan.</p></div>';
+
+    container.querySelector('#reference-chart-container').innerHTML =
+        createReferenceBarChart([...monthly.values()]);
+
+    renderBudgetCard(container, settings, monthExpense, now);
+    renderRecentTransactions(container, filteredTx);
+    renderSavings(container, settings, totalSaved);
+}
+
+function renderBudgetCard(container, settings, monthExpense, now) {
+    const card = container.querySelector('#budget-card');
+    const budget = parseFloat(settings.budget) || 0;
+
+    if (budget <= 0) {
+        card.innerHTML = `
+            <div class="clean-card budget-empty">
+                <div>
+                    <div class="budget-title">Budget Bulanan</div>
+                    <p class="budget-hint">Tetapkan batas pengeluaran bulanan untuk memantau sisa dana.</p>
+                </div>
+                <a href="#/settings" class="action-pill-btn">Atur Budget</a>
+            </div>
+        `;
+        return;
     }
 
-    const chartContainer = container.querySelector('#reference-chart-container');
-    chartContainer.innerHTML = createReferenceBarChart(chartData);
-    
-    // Recent Transactions Rendering
-    const recentTxContainer = container.querySelector('#recent-transactions');
+    const remaining = budget - monthExpense;
+    const usedPct = Math.round((monthExpense / budget) * 100);
+    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    const daysLeft = Math.max(daysInMonth - now.getDate() + 1, 1);
+    const safeDaily = Math.max(Math.floor(remaining / daysLeft), 0);
+
+    const tone = usedPct >= 100 ? 'danger' : usedPct >= 80 ? 'warning' : 'success';
+    const color = `var(--${tone})`;
+
+    card.innerHTML = `
+        <div class="clean-card">
+            <div class="section-header" style="margin-bottom: 10px;">
+                <h3 class="section-title" style="font-size: 15px;">Budget Bulan Ini</h3>
+                <span class="budget-badge budget-${tone}">${usedPct}% terpakai</span>
+            </div>
+            <div class="budget-amounts">
+                <span class="amount text-primary">${formatRupiah(monthExpense)}</span>
+                <span class="budget-of">dari ${formatRupiah(budget)}</span>
+            </div>
+            ${createProgressBar(monthExpense, budget, color)}
+            <div class="budget-footer">
+                <span>${remaining >= 0 ? 'Sisa' : 'Lewat'} <strong style="color:${color}">${formatRupiah(Math.abs(remaining))}</strong></span>
+                <span>${remaining >= 0 ? `Aman ${formatRupiah(safeDaily)}/hari · ${daysLeft} hari lagi` : 'Budget bulan ini terlampaui'}</span>
+            </div>
+        </div>
+    `;
+}
+
+const BRAND_ICONS = [
+    [['apple', 'iphone', 'macbook'], '🍎'],
+    [['spotify', 'musik', 'hiburan', 'netflix'], '🎧'],
+    [['uber', 'gojek', 'grab', 'transport', 'bensin'], '🚗'],
+    [['gym', 'kesehatan', 'fitnes', 'obat'], '🏋️'],
+    [['makanan', 'makan', 'kopi'], '🍽️'],
+    [['gaji', 'bonus', 'uang saku'], '💰'],
+    [['tabungan', 'investasi'], '🏦']
+];
+
+function brandIcon(kategori, catatan) {
+    const str = `${kategori} ${catatan || ''}`.toLowerCase();
+    const hit = BRAND_ICONS.find(([keys]) => keys.some(k => str.includes(k)));
+    return hit ? hit[1] : '✨';
+}
+
+function renderRecentTransactions(container, filteredTx) {
+    const target = container.querySelector('#recent-transactions');
+
     if (filteredTx.length === 0) {
-        recentTxContainer.innerHTML = `
+        target.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">📝</div>
                 <p>Tidak ada transaksi di periode ini</p>
             </div>
         `;
-    } else {
-        const sortedTx = [...filteredTx].sort((a,b) => new Date(b.Tanggal) - new Date(a.Tanggal)).slice(0, 4);
-        
-        const getBrandIcon = (cat, notes) => {
-            const str = (cat + ' ' + (notes || '')).toLowerCase();
-            if (str.includes('apple') || str.includes('iphone') || str.includes('macbook')) return '🍎';
-            if (str.includes('spotify') || str.includes('musik') || str.includes('hiburan')) return '🎧';
-            if (str.includes('uber') || str.includes('gojek') || str.includes('grab') || str.includes('transport')) return '🚗';
-            if (str.includes('gym') || str.includes('kesehatan') || str.includes('fitnes')) return '🏋️';
-            if (str.includes('makanan') || str.includes('makan')) return '🍽️';
-            if (str.includes('gaji') || str.includes('bonus') || str.includes('uang saku')) return '💰';
-            return '✨';
-        };
-
-        const todayTx = sortedTx.filter(t => new Date(t.Tanggal).toDateString() === now.toDateString());
-        const otherTx = sortedTx.filter(t => new Date(t.Tanggal).toDateString() !== now.toDateString());
-        
-        let html = '';
-        
-        if (todayTx.length > 0) {
-            html += `
-                <div class="transaction-group">
-                    <div class="transaction-date-pill">
-                        <span>Today</span>
-                        <span>${todayTx.length} Transactions</span>
-                    </div>
-                    ${todayTx.map(t => renderTxItemHtml(t, getBrandIcon)).join('')}
-                </div>
-            `;
-        }
-        
-        if (otherTx.length > 0) {
-            html += `
-                <div class="transaction-group">
-                    <div class="transaction-date-pill">
-                        <span>Yesterday & Earlier</span>
-                        <span>${otherTx.length} Transactions</span>
-                    </div>
-                    ${otherTx.map(t => renderTxItemHtml(t, getBrandIcon)).join('')}
-                </div>
-            `;
-        }
-        
-        recentTxContainer.innerHTML = html;
+        return;
     }
 
-    // Dynamic Savings / Goals Widget Rendering
-    const savingsWidget = container.querySelector('#savings-widget');
-    if (savingsWidget) {
-        // Target 1: Investasi / Tabungan Utama (Target: Rp 20.000.000)
-        const targetInvest = 20000000;
-        const currentInvest = totalInvested || Math.round(absoluteIncome * 0.2);
-        
-        // Target 2: Dana Darurat (Target 3x pengeluaran bulanan atau Rp 10.000.000)
-        const targetEmergency = Math.max(totalExpenseFilter * 3, 10000000);
-        const currentEmergency = Math.round(totalBalance * 0.3);
+    const sorted = [...filteredTx]
+        .sort((a, b) => (a.Tanggal === b.Tanggal ? 0 : a.Tanggal < b.Tanggal ? 1 : -1))
+        .slice(0, 5);
 
-        savingsWidget.innerHTML = `
-            <div class="savings-item-card">
-                <div class="savings-header">
-                    <span>📈 Portofolio & Investasi</span>
-                    <span class="amount text-primary">${formatRupiah(currentInvest)} / ${formatRupiah(targetInvest)}</span>
-                </div>
-                ${createProgressBar(currentInvest, targetInvest)}
+    const today = todayISO();
+    const groups = [
+        ['Hari Ini', sorted.filter(t => t.Tanggal === today)],
+        ['Sebelumnya', sorted.filter(t => t.Tanggal !== today)]
+    ];
+
+    target.innerHTML = groups.filter(([, items]) => items.length > 0).map(([title, items]) => `
+        <div class="transaction-group">
+            <div class="transaction-date-pill">
+                <span>${title}</span>
+                <span>${items.length} transaksi</span>
             </div>
-            <div class="savings-item-card">
-                <div class="savings-header">
-                    <span>🛡️ Dana Darurat</span>
-                    <span class="amount text-primary">${formatRupiah(currentEmergency)} / ${formatRupiah(targetEmergency)}</span>
-                </div>
-                ${createProgressBar(currentEmergency, targetEmergency)}
-            </div>
-        `;
-    }
+            ${items.map(renderTxItemHtml).join('')}
+        </div>
+    `).join('');
 }
 
-function renderTxItemHtml(trx, getBrandIcon) {
+function renderSavings(container, settings, totalSaved) {
+    const widget = container.querySelector('#savings-widget');
+    const target = parseFloat(settings.targetSavings) || 0;
+
+    if (target <= 0) {
+        widget.innerHTML = `
+            <div class="savings-item-card">
+                <div class="savings-header">
+                    <span>🏦 Terkumpul (Tabungan + Investasi)</span>
+                    <span class="amount text-primary">${formatRupiah(totalSaved)}</span>
+                </div>
+                <p class="budget-hint">Tetapkan target di Pengaturan untuk melihat progres.</p>
+            </div>
+        `;
+        return;
+    }
+
+    widget.innerHTML = `
+        <div class="savings-item-card">
+            <div class="savings-header">
+                <span>🏦 Tabungan &amp; Investasi</span>
+                <span class="amount text-primary">${formatRupiah(totalSaved)} / ${formatRupiah(target)}</span>
+            </div>
+            ${createProgressBar(totalSaved, target)}
+            <div class="budget-footer">
+                <span>${Math.round((totalSaved / target) * 100)}% tercapai</span>
+                <span>Kurang ${formatRupiah(Math.max(target - totalSaved, 0))}</span>
+            </div>
+        </div>
+    `;
+}
+
+function renderTxItemHtml(trx) {
     const isIncome = trx.Tipe === 'Pemasukan';
-    const icon = getBrandIcon(trx.Kategori, trx.Catatan);
-    
     return `
-        <div class="transaction-item animate-fade-in" onclick="window.location.hash='#/transactions'">
-            <div class="transaction-icon">${icon}</div>
+        <div class="transaction-item animate-fade-in" data-tx-id="${esc(trx.ID)}" role="button" tabindex="0">
+            <div class="transaction-icon">${brandIcon(trx.Kategori, trx.Catatan)}</div>
             <div class="transaction-details">
-                <div class="transaction-title">${trx.Catatan || trx.Kategori}</div>
-                <div class="transaction-category">${formatDate(trx.Tanggal)} • ${trx.Kategori}</div>
+                <div class="transaction-title">${esc(trx.Catatan && trx.Catatan !== '-' ? trx.Catatan : trx.Kategori)}</div>
+                <div class="transaction-category">${formatDate(trx.Tanggal)} • ${esc(trx.Kategori)} • ${esc(trx.Dompet || 'Tunai')}</div>
             </div>
             <div class="transaction-amount ${isIncome ? 'income' : 'expense'}">
-                ${isIncome ? '+' : ''}${formatRupiah(trx.Jumlah)}
+                ${isIncome ? '+' : '−'}${formatRupiah(trx.Jumlah)}
             </div>
         </div>
     `;

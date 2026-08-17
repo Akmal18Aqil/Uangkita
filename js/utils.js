@@ -1,6 +1,25 @@
 // js/utils.js
 
+// Semua render halaman memakai innerHTML dan sebagian datanya berasal dari luar
+// (judul & deskripsi undangan Google Calendar orang lain, catatan di Sheet yang
+// bisa diedit siapa pun yang punya akses). Itu batas kepercayaan, jadi teksnya
+// harus di-escape sebelum ditempel ke HTML.
+const ESCAPE_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+
+export function esc(value) {
+    return String(value === null || value === undefined ? '' : value)
+        .replace(/[&<>"']/g, ch => ESCAPE_MAP[ch]);
+}
+
+// Tanggal lokal YYYY-MM-DD. new Date().toISOString() memakai UTC, jadi di WIB
+// (UTC+7) transaksi sebelum jam 07:00 akan tercatat mundur satu hari.
+export function todayISO(date = new Date()) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
 export function generateUUID() {
+    // Tersedia di semua browser target pada konteks aman (https / localhost).
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0,
             v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -41,6 +60,23 @@ export function formatDate(dateString) {
     return parseLocalDate(dateString).toLocaleDateString('id-ID', options);
 }
 
+// Ekspor CSV — backup dan bahan lapor pajak/rekonsiliasi manual.
+// BOM di depan supaya Excel membaca UTF-8 dan tidak merusak karakter non-ASCII.
+export function exportTransactionsCsv(transactions, filename = 'financeku.csv') {
+    const header = ['Tanggal', 'Tipe', 'Kategori', 'Jumlah', 'Catatan', 'Dompet'];
+    const rows = transactions.map(t => [t.Tanggal, t.Tipe, t.Kategori, t.Jumlah, t.Catatan, t.Dompet]);
+    const csv = [header, ...rows]
+        .map(row => row.map(cell => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
+        .join('\r\n');
+
+    const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
 export function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -74,29 +110,16 @@ export function normalizeTransaction(trx) {
         const strDate = String(rawDate).trim();
         if (strDate.includes('T')) {
             const dObj = new Date(strDate);
-            if (!isNaN(dObj.getTime())) {
-                const y = dObj.getFullYear();
-                const m = String(dObj.getMonth() + 1).padStart(2, '0');
-                const d = String(dObj.getDate()).padStart(2, '0');
-                cleanDate = `${y}-${m}-${d}`;
-            }
+            if (!isNaN(dObj.getTime())) cleanDate = todayISO(dObj);
         } else if (/^\d{4}-\d{2}-\d{2}/.test(strDate)) {
             cleanDate = strDate.substring(0, 10);
         } else {
             const dObj = new Date(strDate);
-            if (!isNaN(dObj.getTime())) {
-                const y = dObj.getFullYear();
-                const m = String(dObj.getMonth() + 1).padStart(2, '0');
-                const d = String(dObj.getDate()).padStart(2, '0');
-                cleanDate = `${y}-${m}-${d}`;
-            }
+            if (!isNaN(dObj.getTime())) cleanDate = todayISO(dObj);
         }
     }
-    
-    if (!cleanDate) {
-        const now = new Date();
-        cleanDate = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    }
+
+    if (!cleanDate) cleanDate = todayISO();
 
     const createdAtVal = String(trx['Dibuat Pada'] || trx.dibuatPada || trx.created_at || trx.timestamp || new Date().toISOString());
 

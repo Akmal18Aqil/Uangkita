@@ -1,5 +1,5 @@
 // js/components/chart.js
-import { formatRupiah } from '../utils.js';
+import { formatRupiah, esc } from '../utils.js';
 
 export function createDonutChart(data, options = {}) {
     // data = [{ label, value, color }]
@@ -29,7 +29,7 @@ export function createDonutChart(data, options = {}) {
                 stroke-dashoffset="${offset}"
                 transform="rotate(-90 ${center} ${center})"
                 class="chart-segment"
-                data-label="${item.label}"
+                data-label="${esc(item.label)}"
                 data-value="${item.value}"
                 style="transition: all 0.3s ease; cursor: pointer;"
             />
@@ -53,7 +53,7 @@ export function createDonutChart(data, options = {}) {
             ${data.map(item => `
                 <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); font-weight: 500; background: var(--pill-bg); padding: 4px 10px; border-radius: var(--radius-full); border: 1px solid var(--border-color);">
                     <span style="width: 8px; height: 8px; border-radius: 50%; background: ${item.color}; flex-shrink: 0;"></span>
-                    <span>${item.label}</span>
+                    <span>${esc(item.label)}</span>
                     <span style="font-weight: 700; color: var(--text-primary); margin-left: 2px;">${Math.round((item.value/total)*100)}%</span>
                 </div>
             `).join('')}
@@ -61,35 +61,62 @@ export function createDonutChart(data, options = {}) {
     `;
 }
 
+// data = [{ label, income, expense?, isActive? }]
+// Persentase di atas batang dihitung dari data nyata (perubahan terhadap periode
+// sebelumnya). Versi lama menampilkan angka karangan/Math.random di sini.
 export function createReferenceBarChart(data, options = {}) {
+    const { showExpense = true } = options;
+    const hasExpense = showExpense && data.some(d => typeof d.expense === 'number');
+
     let max = 0;
     data.forEach(d => {
-        const val = d.income || d.value || 0;
-        if (val > max) max = val;
+        max = Math.max(max, d.income || d.value || 0, hasExpense ? (d.expense || 0) : 0);
     });
-    if (max === 0) max = 1000000;
+
+    const barHeight = (val) => (max > 0 ? Math.max((val / max) * 100, val > 0 ? 6 : 2) : 2);
 
     const colsHtml = data.map((item, idx) => {
-        const val = item.income || item.value || 0;
-        const heightPct = Math.max(Math.min((val / max) * 100, 100), 12);
-        const isActive = item.isActive !== undefined ? item.isActive : (idx === Math.floor(data.length / 2));
-        const pctText = item.pct || (isActive ? '+14%' : `+${Math.floor(Math.random()*15 + 5)}%`);
-        const labelText = item.label || `M${idx+1}`;
-        
+        const income = item.income || item.value || 0;
+        const expense = item.expense || 0;
+        const isActive = !!item.isActive;
+
+        // Tanpa periode pembanding tidak ada persentase yang jujur untuk ditampilkan.
+        // Periode kosong (termasuk minggu yang belum terjadi) juga dilewati, supaya
+        // tidak muncul "-100%" untuk waktu yang memang belum berjalan.
+        const isEmpty = income === 0 && expense === 0;
+        const prev = idx > 0 && !isEmpty ? (data[idx - 1].income || data[idx - 1].value || 0) : null;
+        let pctText = '';
+        if (prev !== null && prev > 0) {
+            const pct = Math.round(((income - prev) / prev) * 100);
+            pctText = `${pct >= 0 ? '+' : ''}${pct}%`;
+        } else if (prev === 0 && income > 0) {
+            pctText = 'baru';
+        }
+
+        const tooltip = hasExpense
+            ? `Masuk ${formatRupiah(income)} · Keluar ${formatRupiah(expense)}`
+            : formatRupiah(income);
+
         return `
-            <div class="chart-col" data-idx="${idx}" data-val="${formatRupiah(val)} (${pctText})">
-                ${isActive ? `<div class="chart-tooltip-popup animate-fade-in" style="top: -42px;">${formatRupiah(val)}</div>` : ''}
-                <div class="chart-col-pct" style="${isActive ? 'top: -20px; font-weight: 700; color: var(--accent-primary);' : ''}">${pctText}</div>
-                <div class="chart-col-bar ${isActive ? 'active' : 'passive'}" style="height: ${heightPct}%;"></div>
-                <div class="chart-col-label">${labelText}</div>
+            <div class="chart-col" data-idx="${idx}" title="${item.label}: ${tooltip}">
+                ${isActive ? `<div class="chart-tooltip-popup animate-fade-in" style="top: -42px;">${formatRupiah(income)}</div>` : ''}
+                <div class="chart-col-pct" style="${isActive ? 'font-weight: 700; color: var(--accent-primary);' : ''}">${pctText}</div>
+                <div class="chart-col-bars">
+                    <div class="chart-col-bar ${isActive ? 'active' : 'passive'}" style="height: ${barHeight(income)}%;"></div>
+                    ${hasExpense ? `<div class="chart-col-bar expense" style="height: ${barHeight(expense)}%;"></div>` : ''}
+                </div>
+                <div class="chart-col-label">${item.label}</div>
             </div>
         `;
     }).join('');
 
     return `
-        <div class="reference-bar-chart">
-            ${colsHtml}
-        </div>
+        <div class="reference-bar-chart">${colsHtml}</div>
+        ${hasExpense ? `
+            <div class="chart-legend-inline">
+                <span><i class="dot-income"></i> Pemasukan</span>
+                <span><i class="dot-expense"></i> Pengeluaran</span>
+            </div>` : ''}
     `;
 }
 

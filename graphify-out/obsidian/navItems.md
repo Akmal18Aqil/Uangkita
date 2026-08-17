@@ -1,0 +1,17 @@
+---
+source_file: "js/components/navbar.js"
+type: "code"
+community: "Frontend Components & Pages"
+location: "L3"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Frontend_Components__Pages
+---
+
+# navItems
+
+## Connections
+- [[navbar.js]] - `contains` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Frontend_Components__Pages

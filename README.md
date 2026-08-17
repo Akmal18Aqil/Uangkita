@@ -45,12 +45,32 @@ Karena aplikasi ini 100% Vanilla JS SPA, sangat mudah dideploy ke Vercel:
 6. Klik **Deploy**.
 7. Selesai! Web app Anda sudah online.
 
+### 5. Pengaturan Awal (penting)
+Setelah terhubung, buka **Pengaturan** dan isi:
+
+1. **Saldo Awal tiap Dompet** — saldo yang sudah ada di Tunai/Dana/dll sebelum mulai mencatat. Tanpa ini saldo di Dashboard akan terbaca minus.
+2. **Budget Bulanan** — batas pengeluaran; dipakai untuk progres budget & peringatan dini.
+3. **Target Tabungan** — dihitung dari transaksi berkategori `Tabungan` dan `Investasi`.
+
 ## Fitur
-- **Dashboard**: Ringkasan saldo, pengeluaran bulan ini, dan tugas mendesak.
-- **Transaksi**: Catat pemasukan dan pengeluaran. Mendukung filter dan pencarian.
-- **Analitik**: Chart SVG kustom yang menampilkan tren mingguan dan proporsi pengeluaran per kategori.
-- **Tugas (Kanban)**: Papan kanban interaktif terintegrasi langsung dengan Google Calendar untuk pengingat otomatis.
-- **Pengaturan**: Kustomisasi profil dan penambahan kategori transaksi.
+- **Dashboard**: Saldo total lintas dompet (termasuk saldo awal), pemasukan/pengeluaran per periode (bulan/minggu/rentang kustom), grafik pemasukan vs pengeluaran 6 bulan, progres budget dengan angka "aman per hari", dan transaksi terbaru.
+- **Transaksi**: CRUD penuh dengan filter bulan, tipe, kategori, dan pencarian. Ada ringkasan masuk/keluar/selisih serta **ekspor CSV**.
+- **Analitik**: Navigasi antar bulan, perbandingan bulan-ke-bulan, rasio menabung, rata-rata harian, proyeksi akhir bulan, tren mingguan pemasukan vs pengeluaran, dan rincian per kategori.
+- **Tugas (Kanban)**: Papan Todo/In Progress/Done dengan penanda **Terlambat**, terintegrasi Google Calendar (pengingat H-2 hari, H-24, H-12, H-5 jam) dan impor agenda kalender.
+- **Notifikasi**: Lonceng di header menampilkan tugas terlambat/jatuh tempo, peringatan budget, dan perubahan yang belum tersinkron.
+- **Pengaturan**: Profil, budget, target, manajemen dompet & kategori, tes koneksi API, dan pembersihan cache.
+
+## Cara Kerja Offline
+Perubahan yang gagal dikirim (HP offline, Apps Script timeout, kuota habis) **tidak hilang** — disimpan di antrean lokal dan dikirim ulang otomatis saat koneksi kembali. ID transaksi dibuat di sisi klien, jadi pengiriman ulang tidak pernah menghasilkan baris ganda di Sheet. Jumlah antrean yang tertunda terlihat di halaman Pengaturan.
+
+## Pemeriksaan
+```bash
+node test.mjs
+```
+Menguji normalisasi transaksi (tanggal, nominal, dompet), escaping HTML, dan kejujuran persentase pada grafik.
 
 ## Desain
-Sistem desain dirancang menggunakan token CSS kustom di `css/index.css` dengan tema **Dark Glassmorphism**. Aplikasi sepenuhnya responsif (Mobile First).
+Sistem desain memakai token CSS kustom di `css/index.css`, mendukung tema **terang & gelap**. Aplikasi mobile-first dan bisa dipasang sebagai PWA.
+
+## Catatan Skala
+`getTransactions` mengembalikan seluruh baris sheet dalam satu panggilan. Untuk pemakaian pribadi (ribuan baris) ini cukup; kalau sudah puluhan ribu baris, tambahkan parameter filter bulan/tahun di `Transaksi.gs`.
