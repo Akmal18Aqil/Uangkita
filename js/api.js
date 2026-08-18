@@ -41,6 +41,24 @@ export const api = {
         return readQueue().length;
     },
 
+    // ID yang perubahannya masih menunggu dikirim ke Sheet. Dipakai store saat
+    // menggabungkan data server: hanya baris yang benar-benar belum terkirim
+    // yang boleh dipertahankan secara lokal, dan baris yang penghapusannya masih
+    // diantre tidak boleh dihidupkan lagi oleh data server.
+    pendingSync() {
+        const unsent = new Set();
+        const deleted = new Set();
+
+        readQueue().forEach(job => {
+            const id = job.payload && job.payload.id;
+            if (!id) return;
+            if (job.action === 'deleteTransaction' || job.action === 'deleteTask') deleted.add(String(id));
+            else unsent.add(String(id));
+        });
+
+        return { unsent, deleted };
+    },
+
     async send(action, payload) {
         const APPSCRIPT_URL = this.getAppScriptUrl();
         const options = {

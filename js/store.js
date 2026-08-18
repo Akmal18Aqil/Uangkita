@@ -1,5 +1,6 @@
 // js/store.js
 import { normalizeTransaction } from './utils.js';
+import { api } from './api.js';
 
 export const DEFAULT_CATEGORIES = [
     { id: 'cat-1', name: 'Makanan', icon: '🍽️', type: 'Pengeluaran' },
@@ -90,8 +91,8 @@ export const store = {
         const currentSettings = this.get('settings') || {};
         const newTheme = currentSettings.theme === 'dark' ? 'light' : 'dark';
         this.set('settings', { ...currentSettings, theme: newTheme });
-        // Penerapan ke DOM ditangani applyThemeUI() di app.js (yang juga menonaktifkan
-        // transisi sesaat); menyetel atribut di sini akan melewati langkah itu.
+        // Penerapan ke DOM ditangani applyThemeUI() di app.js (yang juga menukar
+        // ikon matahari/bulan); menyetel atribut di sini hanya duplikasi.
         return newTheme;
     },
     
@@ -177,38 +178,40 @@ export const store = {
         this.set('transactions', transactions, { normalized: true });
     },
 
-    // Merge fresh API list with local cache safely so local additions are never wiped
+    // Google Sheet adalah acuan. Baris lokal yang tidak ada di server HANYA
+    // dipertahankan kalau perubahannya memang masih mengantre untuk dikirim.
+    //
+    // Versi sebelumnya menyimpan SEMUA baris lokal yang tidak cocok selamanya.
+    // Kalau backend membuat ID sendiri (Apps Script versi lama mengabaikan
+    // payload.id), ID lokal dan ID di Sheet berbeda untuk transaksi yang sama,
+    // sehingga satu baris di Sheet muncul dua kali di aplikasi — dan menetap.
     mergeApiTransactions(apiList) {
         if (!Array.isArray(apiList)) return;
-        
-        const localList = this.state.transactions || [];
-        const mergedMap = new Map();
-        
-        // Normalize API Items
+
+        const { unsent, deleted } = api.pendingSync();
+        const merged = new Map();
+
         apiList.forEach(item => {
             const norm = normalizeTransaction(item);
-            if (norm && norm.ID) {
-                mergedMap.set(String(norm.ID), norm);
-            }
+            if (!norm || !norm.ID) return;
+            const id = String(norm.ID);
+            if (deleted.has(id)) return; // sudah dihapus lokal, penghapusan masih diantre
+            merged.set(id, norm);
         });
-        
-        // Preserve any local items not present in API array yet
-        localList.forEach(item => {
+
+        (this.state.transactions || []).forEach(item => {
             const norm = normalizeTransaction(item);
-            if (norm && norm.ID) {
-                const idStr = String(norm.ID);
-                if (!mergedMap.has(idStr)) {
-                    mergedMap.set(idStr, norm);
-                }
-            }
+            if (!norm || !norm.ID) return;
+            const id = String(norm.ID);
+            if (unsent.has(id) && !merged.has(id)) merged.set(id, norm);
         });
-        
-        const mergedList = Array.from(mergedMap.values());
+
+        const mergedList = Array.from(merged.values());
         mergedList.sort(byDateDesc);
 
         this.set('transactions', mergedList, { normalized: true });
     },
-    
+
     loadFromCache() {
         ['transactions', 'tasks', 'settings', 'categories', 'wallets'].forEach(key => {
             const cached = localStorage.getItem(`financeku_${key}`);

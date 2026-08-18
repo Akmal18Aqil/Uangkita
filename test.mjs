@@ -55,4 +55,43 @@ assert.equal(chart.includes('Infinity'), false);
 const empty = createReferenceBarChart([{ label: 'Jan', income: 0, expense: 0 }]);
 assert.equal(empty.includes('NaN'), false, 'chart tanpa data sama sekali tetap aman');
 
+// --- merge server vs lokal (regresi "transaksi dobel") ------------------
+// store.js butuh localStorage; disiapkan stub minimal supaya bisa diuji di Node.
+const mem = new Map();
+globalThis.localStorage = {
+    getItem: k => (mem.has(k) ? mem.get(k) : null),
+    setItem: (k, v) => mem.set(k, String(v)),
+    removeItem: k => mem.delete(k),
+    clear: () => mem.clear()
+};
+
+const { store } = await import('./js/store.js');
+
+const baris = (id, catatan) => ({
+    ID: id, Tanggal: '2026-08-19', Tipe: 'Pengeluaran', Kategori: 'Makanan',
+    Jumlah: 50000, Catatan: catatan, Dompet: 'Tunai'
+});
+
+// Backend lama membuat ID sendiri: ID lokal != ID di Sheet untuk transaksi yang
+// SAMA. Sheet adalah acuan, jadi hasilnya harus tetap satu baris — bukan dua.
+mem.clear();
+store.state.transactions = [normalizeTransaction(baris('id-klien', 'Kopi pagi'))];
+store.mergeApiTransactions([baris('id-server', 'Kopi pagi')]);
+assert.equal(store.state.transactions.length, 1, 'ID lokal yatim harus dibuang, bukan jadi duplikat');
+assert.equal(store.state.transactions[0].ID, 'id-server', 'yang disimpan adalah ID milik Sheet');
+
+// Transaksi yang masih mengantre (belum sampai ke Sheet) TIDAK boleh hilang.
+mem.clear();
+mem.set('financeku_queue', JSON.stringify([{ action: 'addTransaction', payload: { id: 'belum-terkirim' } }]));
+store.state.transactions = [normalizeTransaction(baris('belum-terkirim', 'Offline'))];
+store.mergeApiTransactions([baris('id-server', 'Kopi pagi')]);
+assert.equal(store.state.transactions.length, 2, 'baris yang masih diantre wajib dipertahankan');
+
+// Penghapusan yang masih mengantre tidak boleh dihidupkan lagi oleh data server.
+mem.clear();
+mem.set('financeku_queue', JSON.stringify([{ action: 'deleteTransaction', payload: { id: 'id-server' } }]));
+store.state.transactions = [];
+store.mergeApiTransactions([baris('id-server', 'Kopi pagi')]);
+assert.equal(store.state.transactions.length, 0, 'baris yang sudah dihapus lokal tidak boleh muncul lagi');
+
 console.log('OK — semua pemeriksaan lolos');

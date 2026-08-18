@@ -202,9 +202,14 @@ export function openTransactionForm(editData = null) {
                     });
                     showToast('Transaksi berhasil diperbarui');
                 } else {
-                    await api.fetch('addTransaction', payload);
+                    const result = await api.fetch('addTransaction', payload);
+                    // Apps Script versi lama membuat ID sendiri dan mengabaikan
+                    // payload.id. Kalau server mengembalikan ID lain, ID itulah yang
+                    // benar-benar ada di Sheet — dipakai supaya sinkronisasi berikutnya
+                    // tidak membaca satu transaksi sebagai dua baris berbeda.
+                    const savedId = result && result.id ? String(result.id) : txId;
                     store.addTransaction({
-                        ID: txId,
+                        ID: savedId,
                         Tanggal: payload.tanggal,
                         Tipe: payload.tipe,
                         Kategori: payload.kategori,
