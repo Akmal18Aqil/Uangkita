@@ -226,7 +226,14 @@ export function openTransactionForm(editData = null) {
                         Dompet: dompetVal,
                         'Dibuat Pada': nowIso
                     });
-                    showToast('Transaksi berhasil ditambahkan');
+                    // Peringatan langsung di saat menambah: kalau backend masih versi
+                    // lama, Sumber Dana TIDAK ikut tersimpan di Sheet. Tanpa ini
+                    // pengguna baru sadar setelah refresh dan datanya sudah terlanjur.
+                    if (api.isBackendOutdated()) {
+                        showToast('Tersimpan, TAPI Sumber Dana tidak ikut tersimpan — Apps Script masih versi lama. Perbarui deployment.', 'error');
+                    } else {
+                        showToast('Transaksi berhasil ditambahkan');
+                    }
                 }
 
                 // Segarkan semua halaman yang sudah pernah dibuka, bukan hanya

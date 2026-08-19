@@ -20,6 +20,8 @@ Aplikasi ini tidak memerlukan server database tradisional, melainkan menggunakan
 7. Simpan semua file.
 
 ### 2. Deploy Apps Script
+> Langkah di bawah untuk deployment **pertama kali**. Untuk memperbarui kode yang sudah ter-deploy, lihat bagian [Memperbarui Apps Script](#memperbarui-apps-script-wajib-dibaca-saat-mengubah-kode-gs).
+
 1. Di editor Apps Script, klik tombol **Terapkan (Deploy) > Deployment Baru**.
 2. Pilih jenis "Aplikasi Web" (Web App).
 3. Isi deskripsi (misal: "Versi 1.0").
@@ -59,6 +61,23 @@ Setelah terhubung, buka **Pengaturan** dan isi:
 - **Tugas (Kanban)**: Papan Todo/In Progress/Done dengan penanda **Terlambat**, terintegrasi Google Calendar (pengingat H-2 hari, H-24, H-12, H-5 jam) dan impor agenda kalender.
 - **Notifikasi**: Lonceng di header menampilkan tugas terlambat/jatuh tempo, peringatan budget, dan perubahan yang belum tersinkron.
 - **Pengaturan**: Profil, budget, target, manajemen dompet & kategori, tes koneksi API, dan pembersihan cache.
+
+### Memperbarui Apps Script (WAJIB dibaca saat mengubah kode `.gs`)
+> [!IMPORTANT]
+> **Menyimpan kode di editor Apps Script TIDAK mengubah web app yang aktif.**
+> Deployment terkunci pada snapshot versi. Selama versinya belum dinaikkan,
+> URL Anda tetap menjalankan kode lama walaupun editornya sudah berisi kode baru.
+
+Cara yang benar untuk **memperbarui** (URL tidak berubah):
+
+1. Tempel kode `.gs` terbaru, lalu **Simpan**.
+2. **Terapkan (Deploy) → Kelola deployment**.
+3. Klik ikon **pensil (Edit)** pada deployment yang aktif.
+4. **Versi → Versi baru** → **Terapkan**.
+
+Jangan pakai "Deployment Baru" untuk update — itu membuat **URL baru**, dan aplikasi Anda masih menunjuk ke URL lama.
+
+**Cara memastikan sudah benar:** buka **Pengaturan → Tes Koneksi**. Kalau masih versi lama, aplikasi akan bilang begitu secara eksplisit (juga muncul di lonceng notifikasi).
 
 ## Memperbaiki Data Lama (sekali jalan)
 Backend versi pertama hanya menulis 7 kolom sehingga kolom **Dompet** tidak pernah terisi dan **Dibuat Pada** mendarat di kolom Dompet. Setelah deploy ulang Apps Script:
