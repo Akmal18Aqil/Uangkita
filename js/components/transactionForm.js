@@ -10,17 +10,20 @@ export function openTransactionForm(editData = null) {
     const isEdit = !!editData && !!editData.ID;
     const defaultDate = todayISO();
 
+    const categories = store.get('categories') || [];
+    const wallets = store.get('wallets') || [];
+
     const formData = {
         Tipe: editData?.Tipe || 'Pengeluaran',
         Tanggal: editData?.Tanggal ? editData.Tanggal.split('T')[0] : defaultDate,
         Kategori: editData?.Kategori || '',
         Jumlah: editData?.Jumlah || '',
         Catatan: editData?.Catatan || '',
-        Dompet: editData?.Dompet || 'Tunai'
+        // Transaksi baru tetap punya default supaya cepat diisi. Tapi saat mengedit
+        // baris yang sumber dananya hilang, sengaja dikosongkan agar pengguna
+        // memilih sendiri — bukan diam-diam dicap Tunai.
+        Dompet: editData?.Dompet || (isEdit ? '' : (wallets[0]?.name || ''))
     };
-    
-    const categories = store.get('categories') || [];
-    const wallets = store.get('wallets') || [];
 
     const formHtml = `
         <form id="tx-form" class="animate-fade-in flex-col gap-md">
@@ -64,7 +67,8 @@ export function openTransactionForm(editData = null) {
             
             <div class="form-group">
                 <label class="form-label">Sumber Dana / Dompet</label>
-                <select id="tx-dompet" class="form-control">
+                <select id="tx-dompet" class="form-control" required>
+                    ${formData.Dompet ? '' : '<option value="" selected disabled>— Pilih sumber dana —</option>'}
                     ${wallets.map(w => `<option value="${esc(w.name)}" ${formData.Dompet === w.name ? 'selected' : ''}>${esc(w.icon)} ${esc(w.name)}</option>`).join('')}
                 </select>
             </div>
@@ -157,7 +161,7 @@ export function openTransactionForm(editData = null) {
             const catatanVal = rawCatatan || '-'; 
             
             const dompetSelect = document.getElementById('tx-dompet');
-            const dompetVal = (dompetSelect && dompetSelect.value) ? dompetSelect.value.trim() : 'Tunai';
+            const dompetVal = (dompetSelect && dompetSelect.value) ? dompetSelect.value.trim() : '';
             const nowIso = new Date().toISOString();
             
             // ID dibuat di klien supaya kiriman ulang dari antrean offline tidak
@@ -181,6 +185,10 @@ export function openTransactionForm(editData = null) {
             }
             if (!payload.kategori) {
                 showToast('Pilih kategori transaksi', 'error');
+                return;
+            }
+            if (!payload.dompet) {
+                showToast('Pilih sumber dana / dompet', 'error');
                 return;
             }
             

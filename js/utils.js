@@ -17,6 +17,9 @@ export function todayISO(date = new Date()) {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
+// Label tampilan untuk transaksi yang sumber dananya tidak tercatat di Sheet.
+export const WALLET_UNSET_LABEL = 'Belum diisi';
+
 export function generateUUID() {
     // Tersedia di semua browser target pada konteks aman (https / localhost).
     if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
@@ -94,14 +97,16 @@ export function debounce(func, wait) {
 export function normalizeTransaction(trx) {
     if (!trx) return null;
     
-    let rawDompet = trx.Dompet || trx.dompet || trx.DOMPET || trx.wallet || trx.Wallet || '';
-    
-    // If Column G in Google Sheet accidentally stored a timestamp string (e.g. "2026-07-25T02:49:28.964Z")
-    if (typeof rawDompet === 'string' && (rawDompet.includes('T') || /^\d{4}-\d{2}-\d{2}/.test(rawDompet))) {
-        rawDompet = 'Tunai';
-    }
-    
-    const dompetVal = rawDompet && String(rawDompet).trim() ? String(rawDompet).trim() : 'Tunai';
+    let rawDompet = String(trx.Dompet || trx.dompet || trx.DOMPET || trx.wallet || trx.Wallet || '').trim();
+
+    // Baris lama ditulis backend versi pertama yang tidak menulis kolom Dompet,
+    // sehingga "Dibuat Pada" mendarat di kolom Dompet.
+    if (/^\d{4}-\d{2}-\d{2}([T ]|$)/.test(rawDompet)) rawDompet = '';
+
+    // Sumber dana yang tidak diketahui DIBIARKAN kosong, bukan dianggap "Tunai".
+    // Menebak nama dompet berarti memindahkan uang ke akun yang salah tanpa
+    // sepengetahuan pengguna, dan saldo Tunai jadi ikut melenceng.
+    const dompetVal = rawDompet;
 
     let rawDate = trx.Tanggal || trx.tanggal || trx.TANGGAL;
     let cleanDate = '';

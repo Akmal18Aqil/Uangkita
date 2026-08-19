@@ -39,16 +39,17 @@ function addTransaction(payload) {
     // Catatan tidak boleh string kosong agar kolom tidak bergeser saat appendRow.
     var catatan = payload.catatan || payload.Catatan || '-';
 
-    sheet.appendRow([
-        newId,
-        payload.tanggal || payload.Tanggal || Utilities.formatDate(new Date(), sheetTimeZone(), 'yyyy-MM-dd'),
-        payload.tipe || payload.Tipe || 'Pengeluaran',
-        payload.kategori || payload.Kategori || 'Lainnya',
-        Number(payload.jumlah || payload.Jumlah) || 0,
-        catatan,
-        dompet,
-        timestamp
-    ]);
+    // Dipetakan lewat judul kolom supaya nilai tidak pernah bergeser posisi.
+    sheet.appendRow(rowFromObject(sheet, {
+        'ID': newId,
+        'Tanggal': payload.tanggal || payload.Tanggal || Utilities.formatDate(new Date(), sheetTimeZone(), 'yyyy-MM-dd'),
+        'Tipe': payload.tipe || payload.Tipe || 'Pengeluaran',
+        'Kategori': payload.kategori || payload.Kategori || 'Lainnya',
+        'Jumlah': Number(payload.jumlah || payload.Jumlah) || 0,
+        'Catatan': catatan,
+        'Dompet': dompet,
+        'Dibuat Pada': timestamp
+    }));
 
     return { id: newId, timestamp: timestamp };
 }
@@ -88,4 +89,56 @@ function deleteTransaction(id) {
 
     sheet.deleteRow(rowIdx);
     return { id: id, deleted: true };
+}
+
+
+// ---------------------------------------------------------------------------
+// Perbaikan sekali jalan untuk baris lama.
+// Backend versi pertama hanya menulis 7 nilai (tanpa Dompet), sehingga
+// "Dibuat Pada" mendarat di kolom Dompet dan kolom Dibuat Pada kosong.
+// Jalankan manual dari editor Apps Script: pilih fungsi ini lalu Run.
+// Nilai Dompet baris tersebut memang tidak pernah tersimpan, jadi tidak bisa
+// dipulihkan — dikosongkan supaya terbaca "Belum diisi" di aplikasi, bukan
+// diam-diam dihitung sebagai Tunai.
+// ---------------------------------------------------------------------------
+function repairDompetColumn() {
+    var sheet = getSheet('Transaksi');
+    var lastRow = sheet.getLastRow();
+    if (lastRow < 2) return { diperbaiki: 0 };
+
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+        .map(function (h) { return String(h).trim(); });
+    var colDompet = headers.indexOf('Dompet') + 1;
+    var colDibuat = headers.indexOf('Dibuat Pada') + 1;
+    if (colDompet < 1 || colDibuat < 1) throw new Error('Kolom Dompet / Dibuat Pada tidak ditemukan');
+
+    var dompetValues = sheet.getRange(2, colDompet, lastRow - 1, 1).getValues();
+    var dibuatValues = sheet.getRange(2, colDibuat, lastRow - 1, 1).getValues();
+    var fixed = 0;
+
+    for (var i = 0; i < dompetValues.length; i++) {
+        var dompet = dompetValues[i][0];
+        if (!looksLikeTimestamp(dompet)) continue;
+
+        // Pindahkan timestamp ke kolom yang benar, hanya kalau belum terisi.
+        if (dibuatValues[i][0] === '' || dibuatValues[i][0] === null) {
+            dibuatValues[i][0] = dompet;
+        }
+        dompetValues[i][0] = '';
+        fixed++;
+    }
+
+    if (fixed > 0) {
+        sheet.getRange(2, colDompet, dompetValues.length, 1).setValues(dompetValues);
+        sheet.getRange(2, colDibuat, dibuatValues.length, 1).setValues(dibuatValues);
+    }
+
+    Logger.log(fixed + ' baris diperbaiki (timestamp dipindah dari kolom Dompet).');
+    return { diperbaiki: fixed };
+}
+
+function looksLikeTimestamp(value) {
+    if (value instanceof Date) return true;
+    var str = String(value || '').trim();
+    return /^\d{4}-\d{2}-\d{2}([T ]|$)/.test(str);
 }

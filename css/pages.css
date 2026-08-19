@@ -1130,3 +1130,26 @@
   margin-bottom: 12px;
   opacity: 0.6;
 }
+
+/* Transaksi tanpa sumber dana — sengaja dibuat menonjol supaya diperbaiki,
+   bukan disembunyikan dengan menebak dompetnya. */
+.ewallet-unset {
+  border-style: dashed;
+  border-color: var(--warning);
+  text-decoration: none;
+  display: block;
+}
+
+.ewallet-unset .ewallet-item-name { color: var(--warning); }
+
+.ewallet-unset-hint {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.wallet-unset {
+  color: var(--warning);
+  font-weight: 600;
+}

@@ -1,7 +1,7 @@
 // js/pages/dashboard.js
 import { store } from '../store.js';
 import { api } from '../api.js';
-import { formatRupiah, formatDate, parseLocalDate, todayISO, esc } from '../utils.js';
+import { formatRupiah, formatDate, parseLocalDate, todayISO, esc, WALLET_UNSET_LABEL } from '../utils.js';
 import { getListSkeleton } from '../components/skeleton.js';
 import { createReferenceBarChart, createProgressBar } from '../components/chart.js';
 import { openTransactionForm } from '../components/transactionForm.js';
@@ -251,7 +251,12 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     // Saldo dompet berangkat dari saldo awal yang diisi user di Pengaturan.
     const walletBalances = new Map(wallets.map(w => [w.name, Number(w.opening) || 0]));
     const walletLookup = new Map(wallets.map(w => [w.name.toLowerCase(), w.name]));
-    const fallbackWallet = wallets[0] ? wallets[0].name : 'Tunai';
+
+    // Transaksi yang sumber dananya tidak tercatat dikumpulkan terpisah, bukan
+    // dibebankan ke dompet pertama. Kalau ditebak, saldo dompet itu jadi salah
+    // dan penyebabnya tidak kelihatan sama sekali.
+    let unsetWalletBalance = 0;
+    let unsetWalletCount = 0;
 
     let periodIncome = 0, periodExpense = 0, expenseTxCount = 0;
     let prevIncome = 0, prevExpense = 0;
@@ -273,8 +278,13 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
         const isIncome = trx.Tipe === 'Pemasukan';
         const signed = isIncome ? amount : -amount;
 
-        const walletName = walletLookup.get(String(trx.Dompet || '').toLowerCase()) || fallbackWallet;
-        walletBalances.set(walletName, (walletBalances.get(walletName) || 0) + signed);
+        const walletName = walletLookup.get(String(trx.Dompet || '').toLowerCase());
+        if (walletName) {
+            walletBalances.set(walletName, walletBalances.get(walletName) + signed);
+        } else {
+            unsetWalletBalance += signed;
+            unsetWalletCount++;
+        }
 
         if (date <= endDate) balanceNow += signed;
         if (date <= prevEndDate) balancePrev += signed;
@@ -325,7 +335,7 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
     container.querySelector('#card-total-balance').textContent = formatRupiah(totalBalance);
     container.querySelector('#card-owner').textContent = settings.userName || 'FinanceKu';
 
-    container.querySelector('#wallet-balances').innerHTML = wallets.map(w => {
+    const walletBoxes = wallets.map(w => {
         const balance = walletBalances.get(w.name) || 0;
         return `
             <div class="ewallet-item-box">
@@ -333,7 +343,20 @@ function updateDashboardData(container, period = 'monthly', customDates = null) 
                 <div class="ewallet-item-amount ${balance < 0 ? 'text-danger' : ''}">${formatRupiah(balance)}</div>
             </div>
         `;
-    }).join('') || '<div class="empty-state" style="grid-column: 1/-1;"><p>Belum ada dompet. Tambahkan di Pengaturan.</p></div>';
+    });
+
+    if (unsetWalletCount > 0) {
+        walletBoxes.push(`
+            <a class="ewallet-item-box ewallet-unset" href="#/transactions" title="Buka daftar transaksi untuk melengkapi sumber dana">
+                <div class="ewallet-item-name">❓ ${WALLET_UNSET_LABEL}</div>
+                <div class="ewallet-item-amount ${unsetWalletBalance < 0 ? 'text-danger' : ''}">${formatRupiah(unsetWalletBalance)}</div>
+                <div class="ewallet-unset-hint">${unsetWalletCount} transaksi belum bersumber dana</div>
+            </a>
+        `);
+    }
+
+    container.querySelector('#wallet-balances').innerHTML = walletBoxes.join('')
+        || '<div class="empty-state" style="grid-column: 1/-1;"><p>Belum ada dompet. Tambahkan di Pengaturan.</p></div>';
 
     container.querySelector('#reference-chart-container').innerHTML =
         createReferenceBarChart([...monthly.values()]);
@@ -477,7 +500,7 @@ function renderTxItemHtml(trx) {
             <div class="transaction-icon">${brandIcon(trx.Kategori, trx.Catatan)}</div>
             <div class="transaction-details">
                 <div class="transaction-title">${esc(trx.Catatan && trx.Catatan !== '-' ? trx.Catatan : trx.Kategori)}</div>
-                <div class="transaction-category">${formatDate(trx.Tanggal)} • ${esc(trx.Kategori)} • ${esc(trx.Dompet || 'Tunai')}</div>
+                <div class="transaction-category">${formatDate(trx.Tanggal)} • ${esc(trx.Kategori)} • ${esc(trx.Dompet || WALLET_UNSET_LABEL)}</div>
             </div>
             <div class="transaction-amount ${isIncome ? 'income' : 'expense'}">
                 ${isIncome ? '+' : '−'}${formatRupiah(trx.Jumlah)}

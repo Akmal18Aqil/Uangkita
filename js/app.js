@@ -56,6 +56,15 @@ function collectAlerts() {
         }
     }
 
+    if (api.isBackendOutdated()) {
+        alerts.push({
+            icon: '⚠️', tone: 'danger',
+            title: 'Apps Script masih versi lama',
+            detail: 'Sumber dana tidak tersimpan & transaksi bisa terlihat dobel. Deploy ulang backend.',
+            href: '#/settings'
+        });
+    }
+
     const pending = api.pendingCount();
     if (pending > 0) {
         alerts.push({ icon: '☁️', tone: 'warning', title: `${pending} perubahan belum tersimpan ke Sheet`, detail: 'Akan dikirim otomatis saat online kembali', href: '#/settings' });

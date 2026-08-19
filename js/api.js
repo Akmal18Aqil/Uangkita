@@ -41,6 +41,14 @@ export const api = {
         return readQueue().length;
     },
 
+    // Diisi oleh send(); null berarti belum pernah ada respons dari server.
+    backendVersion: null,
+    REQUIRED_BACKEND_VERSION: 2,
+
+    isBackendOutdated() {
+        return this.backendVersion !== null && this.backendVersion < this.REQUIRED_BACKEND_VERSION;
+    },
+
     // ID yang perubahannya masih menunggu dikirim ke Sheet. Dipakai store saat
     // menggabungkan data server: hanya baris yang benar-benar belum terkirim
     // yang boleh dipertahankan secara lokal, dan baris yang penghapusannya masih
@@ -73,6 +81,11 @@ export const api = {
 
         const response = await fetch(`${APPSCRIPT_URL}?action=${action}`, options);
         const data = await response.json();
+
+        // Apps Script versi lama tidak mengirim apiVersion. Versi itu menulis
+        // baris tanpa kolom Dompet dan membuat ID sendiri, jadi sumber dana
+        // hilang dan transaksi tampak dobel. Dicatat supaya bisa diperingatkan.
+        this.backendVersion = Number(data.apiVersion) || 1;
 
         if (data.status === 'error') {
             // Ditolak server (mis. id tidak ditemukan): mengirim ulang tidak akan

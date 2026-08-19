@@ -1,7 +1,7 @@
 // js/pages/transactions.js
 import { store } from '../store.js';
 import { api } from '../api.js';
-import { formatRupiah, formatDate, esc, todayISO, debounce, exportTransactionsCsv } from '../utils.js';
+import { formatRupiah, formatDate, esc, todayISO, debounce, exportTransactionsCsv, WALLET_UNSET_LABEL } from '../utils.js';
 import { getListSkeleton } from '../components/skeleton.js';
 import { openTransactionForm } from '../components/transactionForm.js';
 import { showToast } from '../components/toast.js';
@@ -236,7 +236,7 @@ function renderList(container) {
                     <div class="transaction-icon">${esc(catInfo.icon)}</div>
                     <div class="transaction-details">
                         <div class="transaction-title">${esc(trx.Catatan && trx.Catatan !== '-' ? trx.Catatan : trx.Kategori)}</div>
-                        <div class="transaction-category">${esc(trx.Kategori)} • ${esc(trx.Dompet || 'Tunai')}</div>
+                        <div class="transaction-category">${esc(trx.Kategori)} • ${trx.Dompet ? esc(trx.Dompet) : `<span class="wallet-unset">${WALLET_UNSET_LABEL}</span>`}</div>
                     </div>
                     <div style="text-align: right;">
                         <div class="transaction-amount ${isIncome ? 'income' : 'expense'}">

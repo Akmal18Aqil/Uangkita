@@ -20,10 +20,17 @@ assert.equal(normalizeTransaction({ Jumlah: -50000 }).Jumlah, 50000);
 assert.equal(normalizeTransaction({ Jumlah: '75000' }).Jumlah, 75000);
 assert.equal(normalizeTransaction({ Jumlah: 'abc' }).Jumlah, 0);
 
-// Kolom G di Sheet pernah keisi timestamp, bukan nama dompet.
-assert.equal(normalizeTransaction({ Dompet: '2026-07-25T02:49:28.964Z' }).Dompet, 'Tunai');
+// Backend versi pertama menulis 7 kolom, jadi "Dibuat Pada" mendarat di kolom
+// Dompet. Sumber dana yang tidak diketahui HARUS tetap kosong: menebaknya sebagai
+// "Tunai" berarti membebankan uang ke dompet yang salah tanpa disadari pengguna.
+assert.equal(normalizeTransaction({ Dompet: '2026-07-25T02:49:28.964Z' }).Dompet, '');
+assert.equal(normalizeTransaction({ Dompet: '2026-07-28 22:58:58' }).Dompet, '');
+assert.equal(normalizeTransaction({}).Dompet, '');
+assert.equal(normalizeTransaction({ Dompet: '' }).Dompet, '');
+// Nilai asli tidak boleh ikut terhapus.
 assert.equal(normalizeTransaction({ Dompet: '  Dana  ' }).Dompet, 'Dana');
-assert.equal(normalizeTransaction({}).Dompet, 'Tunai');
+assert.equal(normalizeTransaction({ Dompet: 'ShopeePay' }).Dompet, 'ShopeePay');
+assert.equal(normalizeTransaction({ dompet: 'Wondr' }).Dompet, 'Wondr');
 
 assert.equal(normalizeTransaction(null), null);
 assert.equal(normalizeTransaction({}).Tipe, 'Pengeluaran', 'default aman: dianggap pengeluaran');

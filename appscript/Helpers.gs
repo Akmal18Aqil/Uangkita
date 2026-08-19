@@ -1,3 +1,7 @@
+// Dinaikkan tiap kali kontrak backend berubah. Dikirim di setiap respons supaya
+// frontend bisa tahu kalau Apps Script yang ter-deploy masih versi lama.
+var API_VERSION = 2;
+
 function getSheet(sheetName) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(sheetName);
@@ -49,6 +53,22 @@ function generateUUID() {
 }
 
 function buildResponse(responseObject) {
+    responseObject.apiVersion = API_VERSION;
     return ContentService.createTextOutput(JSON.stringify(responseObject))
         .setMimeType(ContentService.MimeType.JSON);
+}
+
+// Menyusun baris berdasarkan JUDUL kolom, bukan urutan hardcoded.
+// Backend versi pertama menulis 7 nilai ke sheet berkolom 8 sehingga "Dibuat Pada"
+// mendarat di kolom Dompet dan sumber dana hilang. Dengan pemetaan lewat header,
+// pergeseran kolom seperti itu tidak mungkin terjadi lagi — termasuk kalau kolom
+// di spreadsheet ditambah atau diurut ulang.
+function rowFromObject(sheet, values) {
+    var lastCol = sheet.getLastColumn();
+    var headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+
+    return headers.map(function (header) {
+        var key = String(header).trim();
+        return values.hasOwnProperty(key) ? values[key] : '';
+    });
 }

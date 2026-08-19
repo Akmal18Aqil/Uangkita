@@ -283,7 +283,11 @@ function bindEvents(container) {
         btn.textContent = 'Menguji...';
         try {
             const data = await api.send('getTransactions', null);
-            showToast(`Terhubung. ${Array.isArray(data) ? data.length : 0} transaksi di Sheet.`);
+            if (api.isBackendOutdated()) {
+                showToast('Terhubung, TAPI Apps Script masih versi lama — sumber dana tidak akan tersimpan. Deploy ulang backend.', 'error');
+            } else {
+                showToast(`Terhubung. ${Array.isArray(data) ? data.length : 0} transaksi di Sheet.`);
+            }
             const sent = await api.flushQueue();
             if (sent > 0) showToast(`${sent} perubahan tertunda berhasil dikirim`);
         } catch (err) {

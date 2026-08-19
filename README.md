@@ -60,6 +60,15 @@ Setelah terhubung, buka **Pengaturan** dan isi:
 - **Notifikasi**: Lonceng di header menampilkan tugas terlambat/jatuh tempo, peringatan budget, dan perubahan yang belum tersinkron.
 - **Pengaturan**: Profil, budget, target, manajemen dompet & kategori, tes koneksi API, dan pembersihan cache.
 
+## Memperbaiki Data Lama (sekali jalan)
+Backend versi pertama hanya menulis 7 kolom sehingga kolom **Dompet** tidak pernah terisi dan **Dibuat Pada** mendarat di kolom Dompet. Setelah deploy ulang Apps Script:
+
+1. Buka editor Apps Script.
+2. Pilih fungsi **`repairDompetColumn`** pada dropdown, lalu klik **Run**.
+3. Timestamp yang nyasar dipindahkan ke kolom yang benar.
+
+Nilai Dompet baris-baris lama memang tidak pernah tersimpan, jadi tidak bisa dipulihkan. Baris tersebut muncul sebagai **"Belum diisi"** di aplikasi — bukan diam-diam dihitung sebagai Tunai — dan bisa dilengkapi dengan mengetuk transaksinya lalu memilih sumber dana.
+
 ## Cara Kerja Offline
 Perubahan yang gagal dikirim (HP offline, Apps Script timeout, kuota habis) **tidak hilang** — disimpan di antrean lokal dan dikirim ulang otomatis saat koneksi kembali. ID transaksi dibuat di sisi klien, jadi pengiriman ulang tidak pernah menghasilkan baris ganda di Sheet. Jumlah antrean yang tertunda terlihat di halaman Pengaturan.
 
